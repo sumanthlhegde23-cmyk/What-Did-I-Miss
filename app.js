@@ -51,16 +51,25 @@ const urgencyPattern = /\b(urgent|asap|immediately|blocker|blocked|overdue|due t
 const deadlinePattern = /\b(?:by|before|due|deadline)\s+(?:(?:end of day|eod|tomorrow|today|tonight|monday|tuesday|wednesday|thursday|friday|saturday|sunday)|\d{1,2}(?::\d{2})?\s*(?:am|pm)?|(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+\d{1,2})\b/i;
 const decisionPattern = /\b(decision|decided|agreed|approved|confirmed|let's go with|we'll use|moving forward|final choice|we are using)\b/i;
 const actionPattern = /\b(action item|next step|i'll|i will|please|can you|could you|need you to|follow up|follow-up|send|review|share|prepare|update|schedule|own|take a look|add feedback|bring)\b/i;
+const MAX_FILE_COUNT = 10;
+const MAX_FILE_BYTES = 5 * 1024 * 1024;
+const MAX_BATCH_BYTES = 20 * 1024 * 1024;
+const sampleConversation = [
+  "[10/08/26, 9:14 AM] Jamie: Morning all — launch review is Thursday.",
+  "[10/08/26, 9:16 AM] Morgan: @Alex, please review the customer email by 4pm today.",
+  "[10/08/26, 9:18 AM] Priya: Decision: we will ship with the updated onboarding screenshots.",
+  "[10/08/26, 9:20 AM] Jamie: Release notes are ready for review.",
+  "Please add comments directly in the launch document.",
+  "[10/08/26, 9:25 AM] Morgan: Correction: legal approval is still pending. The earlier green-light was for the old copy.",
+  "[10/08/26, 9:27 AM] Sam: This message was edited",
+  "The customer email deadline is now Friday at noon.",
+  "[10/08/26, 9:31 AM] Priya: Thanks, I will update the checklist."
+].join("\n");
 
-function cleanLine(line) {
-  return line.replace(/^\s*(?:\[[^\]]+\]\s*)?/, "").replace(/^[^:\n]{1,40}:\s*/, "").trim();
-}
-
-function analyzeConversation(transcript) {
-  const lines = transcript.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
-  const messages = lines.map((text, index) => {
-    const content = cleanLine(text);
-    const mention = /@(?:alex|you|yourname)\b/i.test(text);
+function analyzeConversation(parsedMessages) {
+  const messages = parsedMessages.map((message, index) => {
+    const content = message.text;
+    const mention = /@(?:alex|you|yourname)\b/i.test(content);
     const urgent = urgencyPattern.test(content);
     const deadline = deadlinePattern.test(content);
     const decision = decisionPattern.test(content);
@@ -68,7 +77,7 @@ function analyzeConversation(transcript) {
     const directedToUser = /\b(?:can|could|would)\s+you\b|\bneed you to\b|\byour (?:action|task|turn)\b|\bplease\b/i.test(content)
       || (mention && action);
     const score = (mention ? 5 : 0) + (urgent ? 4 : 0) + (deadline ? 3 : 0) + (action ? 2 : 0) + (decision ? 2 : 0);
-    return { text: content, source: text, index, mention, urgent, deadline, decision, action, directedToUser, score };
+    return { ...message, text: content, source: content, index, mention, urgent, deadline, decision, action, directedToUser, score };
   });
 
   const priority = [...messages].sort((a, b) => b.score - a.score || a.index - b.index);
@@ -79,13 +88,16 @@ function analyzeConversation(transcript) {
   const decisions = messages.filter((message) => message.decision).slice(0, 3);
   const deadlines = messages.filter((message) => message.deadline || message.urgent).slice(0, 3);
   const mentions = messages.filter((message) => message.mention);
-  const maxScore = Math.max(0, ...messages.map((message) => message.score));
+  const maxScore = messages.reduce((highest, message) => Math.max(highest, message.score), 0);
   const priorityLabel = maxScore >= 8 ? "Needs your attention" : maxScore >= 4 ? "Worth a look" : "For your awareness";
 
-  return { messages, summary, actions, decisions, deadlines, mentions, priorityLabel };
+  return { messages, summary, actions, decisions, deadlines, mentions, priorityLabel, maxScore };
 }
 
-const threads = sampleThreads.map((thread) => ({ ...thread, analysis: analyzeConversation(thread.transcript) }));
+const threads = sampleThreads.map((thread) => {
+  const parsed = MissedMessageParser.parseConversation(thread.transcript, { sourceName: "Sample conversation", groupName: thread.channel });
+  return { ...thread, parsed, analysis: analyzeConversation(parsed.messages) };
+});
 let activeFilter = "all";
 let selectedThreadId = threads[0]?.id ?? null;
 let searchTerm = "";
@@ -95,6 +107,9 @@ let toastTimer;
 const threadList = document.querySelector("#thread-list");
 const detailPanel = document.querySelector("#detail-panel");
 const importDialog = document.querySelector("#import-dialog");
+const fileInput = document.querySelector("#conversation-files");
+const fileQueueElement = document.querySelector("#file-queue");
+let queuedFiles = [];
 
 function escapeHtml(value) {
   return value.replace(/[&<>"']/g, (character) => ({
@@ -115,9 +130,7 @@ function getFilteredThreads() {
     const haystack = `${thread.title} ${thread.channel} ${thread.transcript}`.toLowerCase();
     return matchesFilter && haystack.includes(searchTerm);
   }).sort((a, b) => {
-    const aPriority = Math.max(0, ...a.analysis.messages.map((message) => message.score));
-    const bPriority = Math.max(0, ...b.analysis.messages.map((message) => message.score));
-    return bPriority - aPriority;
+    return b.analysis.maxScore - a.analysis.maxScore;
   });
 }
 
@@ -169,13 +182,14 @@ function renderDetail() {
     return;
   }
   const { analysis } = thread;
-  const topMessage = [...analysis.messages].sort((a, b) => b.score - a.score)[0];
+  const parsedMessages = thread.parsed.messages;
+  const topMessage = analysis.messages.reduce((highest, message) => message.score > (highest?.score ?? 0) ? message : highest, null);
   const priorityMessage = topMessage?.score
     ? `<div class="attention-banner"><span>◉</span><span><strong>${escapeHtml(analysis.priorityLabel)}:</strong> ${escapeHtml(truncate(topMessage.text, 105))}</span></div>`
     : "";
   detailPanel.innerHTML = `
     <div class="detail-head">
-      <div><div class="detail-channel"><i class="space-dot ${thread.dot}"></i>${escapeHtml(thread.channel)}</div><h3 class="detail-title">${escapeHtml(thread.title)}</h3><div class="detail-meta">Updated ${escapeHtml(thread.age)} · ${analysis.messages.length} messages analyzed</div></div>
+      <div><div class="detail-channel"><i class="space-dot ${thread.dot}"></i>${escapeHtml(thread.channel)}</div><h3 class="detail-title">${escapeHtml(thread.title)}</h3><div class="detail-meta">${analysis.messages.length} parsed messages · ${escapeHtml(thread.parsed.format)} format · ${escapeHtml(thread.age)}</div></div>
       <div class="detail-actions"><button class="detail-action" data-action="copy">Copy summary</button><button class="detail-action" data-action="read">${thread.unread ? "Mark read" : "Mark unread"}</button></div>
     </div>
     <section class="detail-summary"><div class="detail-summary-label"><span>✦</span> THE SHORT VERSION</div><p>${escapeHtml(truncate(analysis.summary, 280))}</p></section>
@@ -184,7 +198,19 @@ function renderDetail() {
       <section><h4 class="detail-section-title"><span class="section-count">${analysis.decisions.length}</span> DECISIONS</h4>${renderInsightList(analysis.decisions, "decisions", "No decisions spotted yet.")}</section>
     </div>
     ${analysis.deadlines.length ? `<section style="margin-top:16px"><h4 class="detail-section-title"><span class="section-count">${analysis.deadlines.length}</span> DEADLINES & URGENCY</h4>${renderInsightList(analysis.deadlines, "deadlines", "")}</section>` : ""}
-    ${priorityMessage}`;
+    ${priorityMessage}
+    <details class="parsed-messages">
+      <summary>View parsed messages <span>${parsedMessages.length}</span></summary>
+      <div class="parsed-message-list">
+        ${parsedMessages.slice(0, 200).map((message) => `<div class="parsed-message">
+          <div class="parsed-message-meta"><span>#${message.order}${message.sender ? ` · ${escapeHtml(message.sender)}` : " · Sender not identified"}</span><time>${escapeHtml(message.rawTimestamp ?? "No timestamp in source")}</time></div>
+          <p>${escapeHtml(message.text)}</p>
+          <span class="parsed-message-source">${escapeHtml(message.sourceName)}${message.edited ? " · Edited marker" : ""}${message.deleted ? " · Deleted marker" : ""}</span>
+        </div>`).join("")}
+        ${parsedMessages.length > 200 ? `<p class="parse-note">Showing the first 200 of ${parsedMessages.length} parsed messages.</p>` : ""}
+      </div>
+    </details>
+    ${thread.parsed.warnings.length ? `<p class="parse-note">${thread.parsed.warnings.map(escapeHtml).join(" ")}</p>` : ""}`;
   detailPanel.querySelector('[data-action="copy"]').addEventListener("click", () => copySummary(thread));
   detailPanel.querySelector('[data-action="read"]').addEventListener("click", () => {
     thread.unread = !thread.unread;
@@ -234,38 +260,167 @@ async function copySummary(thread) {
   }
 }
 
-function addConversation() {
-  const transcriptInput = document.querySelector("#conversation-input");
-  const titleInput = document.querySelector("#conversation-title");
-  const error = document.querySelector("#form-error");
-  const transcript = transcriptInput.value.trim();
-  if (!transcript) {
-    error.textContent = "Paste a conversation first so there’s something to analyze.";
-    transcriptInput.focus();
-    return;
-  }
-  const title = titleInput.value.trim() || cleanLine(transcript.split(/\r?\n/).find((line) => line.trim()) ?? "") || "Untitled conversation";
-  const thread = {
+function formatFileSize(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  return bytes < 1024 * 1024 ? `${Math.round(bytes / 1024)} KB` : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function renderFileQueue() {
+  fileQueueElement.replaceChildren();
+  queuedFiles.forEach((entry, index) => {
+    const row = document.createElement("div");
+    row.className = `file-queue-item${entry.error ? " invalid" : ""}`;
+    const description = document.createElement("span");
+    description.textContent = `${entry.file.name} · ${formatFileSize(entry.file.size)}${entry.error ? ` — ${entry.error}` : " — ready to import"}`;
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "file-remove";
+    remove.textContent = "Remove";
+    remove.setAttribute("aria-label", `Remove ${entry.file.name}`);
+    remove.addEventListener("click", () => {
+      queuedFiles.splice(index, 1);
+      renderFileQueue();
+      updateFileError();
+    });
+    row.append(description, remove);
+    fileQueueElement.append(row);
+  });
+}
+
+function getFileValidationError(file, batchBytes) {
+  if (!file.name.toLowerCase().endsWith(".txt")) return "Only .txt exports are supported.";
+  if (file.size === 0) return "This file is empty.";
+  if (file.size > MAX_FILE_BYTES) return "File exceeds the 5 MB per-file limit.";
+  if (batchBytes > MAX_BATCH_BYTES) return "Selected files exceed the 20 MB total limit.";
+  return "";
+}
+
+function updateFileError() {
+  const errors = queuedFiles.filter((entry) => entry.error).map((entry) => `${entry.file.name}: ${entry.error}`);
+  document.querySelector("#form-error").textContent = errors.join(" ");
+}
+
+function handleFileSelection() {
+  const files = Array.from(fileInput.files ?? []);
+  let batchBytes = 0;
+  queuedFiles = files.map((file, index) => {
+    batchBytes += file.size;
+    const error = index >= MAX_FILE_COUNT
+      ? `Only the first ${MAX_FILE_COUNT} selected files can be imported.`
+      : getFileValidationError(file, batchBytes);
+    return { file, error };
+  });
+  renderFileQueue();
+  updateFileError();
+}
+
+function createImportedThread({ title, channel, sourceName, transcript, parsed }) {
+  return {
     id: `imported-${nextThreadId++}`,
     title: truncate(title, 62),
-    channel: "Pasted conversation",
+    channel,
+    sourceName,
     dot: "dot-blue",
     age: "just now",
     unread: true,
     transcript,
-    analysis: analyzeConversation(transcript)
+    parsed,
+    analysis: analyzeConversation(parsed.messages)
   };
-  threads.unshift(thread);
-  selectedThreadId = thread.id;
+}
+
+function importParsedConversation({ title, sourceName, channel, groupName = channel, transcript }) {
+  const parsed = MissedMessageParser.parseConversation(transcript, { sourceName, groupName });
+  if (parsed.errors.length) return { error: `${sourceName}: ${parsed.errors.join(" ")}` };
+  const thread = createImportedThread({ title, sourceName, channel, transcript, parsed });
+  return { thread, warnings: parsed.warnings.map((warning) => `${sourceName}: ${warning}`) };
+}
+
+async function importConversations() {
+  const transcriptInput = document.querySelector("#conversation-input");
+  const titleInput = document.querySelector("#conversation-title");
+  const error = document.querySelector("#form-error");
+  const pastedText = transcriptInput.value;
+  const customTitle = titleInput.value.trim();
+  const imported = [];
+  const messages = [];
+  const warnings = [];
+
+  if (pastedText.trim()) {
+    const title = customTitle || "Pasted conversation";
+    const result = importParsedConversation({
+      title,
+      channel: customTitle || "Pasted messages",
+      groupName: customTitle || null,
+      sourceName: "Pasted messages",
+      transcript: pastedText
+    });
+    if (result.error) messages.push(result.error);
+    else {
+      imported.push(result.thread);
+      warnings.push(...result.warnings);
+    }
+  }
+
+  const successfulFiles = [];
+  for (const entry of queuedFiles) {
+    if (entry.error) {
+      messages.push(`${entry.file.name}: ${entry.error}`);
+      continue;
+    }
+    try {
+      const transcript = await entry.file.text();
+      if (!transcript.trim()) {
+        messages.push(`${entry.file.name}: The file contains no readable messages.`);
+        successfulFiles.push(entry);
+        continue;
+      }
+      const sourceName = entry.file.name;
+      const groupName = sourceName.replace(/\.txt$/i, "");
+      const result = importParsedConversation({
+        title: groupName,
+        channel: groupName,
+        sourceName,
+        transcript
+      });
+      if (result.error) messages.push(result.error);
+      else {
+        imported.push(result.thread);
+        warnings.push(...result.warnings);
+      }
+      successfulFiles.push(entry);
+    } catch (readError) {
+      messages.push(`${entry.file.name}: The browser could not read this file. Please choose it again or paste its text.`);
+      successfulFiles.push(entry);
+    }
+  }
+
+  queuedFiles = queuedFiles.filter((entry) => !successfulFiles.includes(entry));
+  if (successfulFiles.length) fileInput.value = "";
+  renderFileQueue();
+
+  if (!imported.length) {
+    error.textContent = messages.join(" ") || "Paste messages or choose at least one supported .txt export.";
+    return;
+  }
+
+  threads.unshift(...imported);
+  selectedThreadId = imported[0].id;
   activeFilter = "all";
   searchTerm = "";
   document.querySelector("#search-input").value = "";
   transcriptInput.value = "";
   titleInput.value = "";
-  error.textContent = "";
-  importDialog.close();
   render();
-  showToast("Conversation analyzed on this device");
+
+  if (messages.length) {
+    error.textContent = [...messages, ...warnings].join(" ");
+    showToast(`${imported.length} conversation${imported.length > 1 ? "s" : ""} imported; some items need attention`);
+    return;
+  }
+  error.textContent = warnings.join(" ");
+  importDialog.close();
+  showToast(`${imported.length} conversation${imported.length > 1 ? "s" : ""} imported and parsed on this device`);
 }
 
 document.querySelectorAll("[data-filter]").forEach((button) => {
@@ -290,7 +445,13 @@ document.querySelector("#import-button").addEventListener("click", () => {
   document.querySelector("#form-error").textContent = "";
   importDialog.showModal();
 });
-document.querySelector("#analyze-button").addEventListener("click", addConversation);
+document.querySelector("#analyze-button").addEventListener("click", importConversations);
+fileInput.addEventListener("change", handleFileSelection);
+document.querySelector("#sample-button").addEventListener("click", () => {
+  document.querySelector("#conversation-title").value = "Sample launch conversation";
+  document.querySelector("#conversation-input").value = sampleConversation;
+  document.querySelector("#form-error").textContent = "";
+});
 document.querySelector("#help-button").addEventListener("click", () => showToast("Analysis happens in this page. Nothing is sent to a server."));
 document.addEventListener("keydown", (event) => {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {

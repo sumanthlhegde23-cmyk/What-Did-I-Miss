@@ -7,6 +7,7 @@
     <meta name="description" content="A private, local-first way to catch up on the conversations that matter.">
     <title>Threadlight — your conversations, made clear</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="message-parser.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -82,7 +83,7 @@
         <section class="inbox-section">
           <div class="inbox-heading">
             <div><div class="heading-kicker">YOUR INBOX</div><h2>Conversations <span id="thread-count">03</span></h2></div>
-            <button class="import-button" id="import-button"><span>＋</span> Analyze a conversation</button>
+            <button class="import-button" id="import-button"><span>＋</span> Import conversations</button>
           </div>
           <div class="inbox-toolbar">
             <div class="filter-tabs" role="tablist" aria-label="Filter conversations">
@@ -104,12 +105,18 @@
     </div>
 
     <dialog class="import-dialog" id="import-dialog">
-      <form method="dialog" class="dialog-topline"><div><span class="dialog-kicker">LOCAL CONVERSATION ANALYZER</span><h2>Bring the thread into focus.</h2><p>Paste a conversation below. We’ll find the decisions, deadlines, mentions and next steps — right here on your device.</p></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></form>
-      <label class="input-label" for="conversation-title">Give it a name <span>(optional)</span></label>
+      <form method="dialog" class="dialog-topline"><div><span class="dialog-kicker">PRIVATE, ON-DEVICE IMPORT</span><h2>Bring your conversations in.</h2><p>Paste copied messages or choose plain-text exports. WhatsApp and Telegram .txt formats are supported; there is no live chat connection.</p></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></form>
+      <label class="input-label" for="conversation-title">Conversation or group name <span>(optional)</span></label>
       <input id="conversation-title" class="title-input" type="text" placeholder="e.g. Launch planning">
-      <label class="input-label" for="conversation-input">Paste conversation</label>
-      <textarea id="conversation-input" placeholder="Paste messages here — one per line works best.&#10;&#10;Example:&#10;Jamie: Can we get the final deck reviewed by Friday?&#10;Morgan: @Alex, could you take a look today?&#10;Jamie: Decision: we'll use version B for launch."></textarea>
-      <div class="dialog-footer"><span><span class="tiny-lock">⌑</span> Stays on this device. Nothing is uploaded.</span><button class="primary-button" id="analyze-button" type="button">Analyze conversation <span>→</span></button></div>
+      <label class="input-label" for="conversation-input">1. Paste messages</label>
+      <textarea id="conversation-input" placeholder="Paste copied chat messages here. Timestamped WhatsApp/Telegram exports and “Name: message” lines are recognized. Multiline messages are kept together."></textarea>
+      <div class="sample-row"><button class="text-button" id="sample-button" type="button">Load fictional sample messages</button><span>Safe to try — the sample is fictional.</span></div>
+      <div class="file-import">
+        <label class="input-label" for="conversation-files">2. Import chat export(s)</label>
+        <div class="file-picker-row"><input id="conversation-files" type="file" accept=".txt,text/plain" multiple><span>.txt only · up to 10 files · 5 MB each / 20 MB total</span></div>
+        <div class="file-queue" id="file-queue" aria-live="polite"></div>
+      </div>
+      <div class="dialog-footer"><span><span class="tiny-lock">⌑</span> Parsed in this browser. Files are never uploaded.</span><button class="primary-button" id="analyze-button" type="button">Import conversation(s) <span>→</span></button></div>
       <p class="form-error" id="form-error" role="alert"></p>
     </dialog>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
