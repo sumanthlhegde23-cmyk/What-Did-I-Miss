@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f8f5">
+    <meta name="description" content="A private, local-first way to catch up on the conversations that matter.">
+    <title>Threadlight — your conversations, made clear</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#" aria-label="Threadlight home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>threadlight<span class="brand-period">.</span></span>
+        </a>
+
+        <div class="workspace-switcher">
+          <span class="workspace-avatar">S</span>
+          <span class="workspace-copy"><strong>Studio North</strong><small>Personal workspace</small></span>
+          <span class="chevron" aria-hidden="true">⌄</span>
+        </div>
+
+        <p class="nav-label">WORKSPACE</p>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <button class="nav-item active" data-filter="all"><span class="nav-icon">▤</span> All conversations <span class="nav-count" id="all-count">3</span></button>
+          <button class="nav-item" data-filter="unread"><span class="nav-icon">◉</span> Unread <span class="nav-count" id="unread-count">3</span></button>
+          <button class="nav-item" data-filter="mentions"><span class="nav-icon">＠</span> Mentions</button>
+          <button class="nav-item" data-filter="actions"><span class="nav-icon">☑</span> Action items</button>
+        </nav>
+
+        <div class="sidebar-divider"></div>
+        <div class="section-heading"><p class="nav-label">YOUR SPACES</p><button class="icon-button small" aria-label="Add a space">＋</button></div>
+        <button class="space-link"><span class="space-dot dot-purple"></span> Product launch</button>
+        <button class="space-link"><span class="space-dot dot-coral"></span> Design team</button>
+        <button class="space-link"><span class="space-dot dot-blue"></span> Weekend plans</button>
+
+        <div class="sidebar-bottom">
+          <div class="privacy-card">
+            <span class="privacy-lock" aria-hidden="true">⌑</span>
+            <div><strong>Your chats stay yours.</strong><p>Everything is analyzed on this device. Always.</p></div>
+            <span class="privacy-status" aria-label="Local processing enabled"></span>
+          </div>
+          <button class="profile-button"><span class="profile-avatar">A</span><span><strong>Alex Morgan</strong><small>Personal account</small></span><span class="chevron">···</span></button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong>All conversations</strong></div>
+          <div class="topbar-actions">
+            <span class="local-indicator"><span></span> 100% local</span>
+            <button class="icon-button" id="help-button" aria-label="About local privacy">?</button>
+            <button class="avatar-button" aria-label="Account">A</button>
+          </div>
+        </header>
+
+        <section class="welcome-section">
+          <div class="welcome-copy">
+            <div class="eyebrow"><span class="sparkle">✳</span> YOUR DAILY CATCH-UP</div>
+            <h1>Less catching up.<br><span>More moving forward.</span></h1>
+            <p>The important bits from your conversations, ready when you are.</p>
+          </div>
+          <div class="welcome-art" aria-hidden="true">
+            <span class="art-orbit orbit-one"></span><span class="art-orbit orbit-two"></span>
+            <span class="art-sun"><span>✳</span></span>
+            <span class="art-note note-one"><i></i><i></i><i></i></span>
+            <span class="art-note note-two"><i></i><i></i></span>
+          </div>
+        </section>
+
+        <section class="summary-strip" aria-label="Catch-up overview">
+          <div class="summary-intro"><span class="summary-icon">✦</span><div><strong>Your catch-up, at a glance</strong><span>We found a few things worth your attention.</span></div></div>
+          <div class="summary-stat"><strong id="overview-unread">3</strong><span>conversations<br>to catch up on</span></div>
+          <div class="summary-stat"><strong id="overview-actions">5</strong><span>action items<br>for you</span></div>
+          <div class="summary-stat"><strong id="overview-mentions">2</strong><span>direct<br>mentions</span></div>
+          <span class="summary-decoration" aria-hidden="true">✳</span>
+        </section>
+
+        <section class="inbox-section">
+          <div class="inbox-heading">
+            <div><div class="heading-kicker">YOUR INBOX</div><h2>Conversations <span id="thread-count">03</span></h2></div>
+            <button class="import-button" id="import-button"><span>＋</span> Analyze a conversation</button>
+          </div>
+          <div class="inbox-toolbar">
+            <div class="filter-tabs" role="tablist" aria-label="Filter conversations">
+              <button class="filter-tab active" data-filter="all">All <span id="tab-all-count">3</span></button>
+              <button class="filter-tab" data-filter="unread">Unread</button>
+              <button class="filter-tab" data-filter="mentions">Mentions</button>
+              <button class="filter-tab" data-filter="actions">With actions</button>
+            </div>
+            <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search conversations" aria-label="Search conversations"><kbd>⌘ K</kbd></label>
+          </div>
+
+          <div class="conversation-layout">
+            <div class="thread-list" id="thread-list" aria-label="Conversations"></div>
+            <article class="detail-panel" id="detail-panel" aria-live="polite"></article>
+          </div>
+        </section>
+        <footer class="page-footer"><span>Made for the things you might have missed.</span><span><i></i> Your conversations never leave this device.</span></footer>
+      </main>
+    </div>
+
+    <dialog class="import-dialog" id="import-dialog">
+      <form method="dialog" class="dialog-topline"><div><span class="dialog-kicker">LOCAL CONVERSATION ANALYZER</span><h2>Bring the thread into focus.</h2><p>Paste a conversation below. We’ll find the decisions, deadlines, mentions and next steps — right here on your device.</p></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></form>
+      <label class="input-label" for="conversation-title">Give it a name <span>(optional)</span></label>
+      <input id="conversation-title" class="title-input" type="text" placeholder="e.g. Launch planning">
+      <label class="input-label" for="conversation-input">Paste conversation</label>
+      <textarea id="conversation-input" placeholder="Paste messages here — one per line works best.&#10;&#10;Example:&#10;Jamie: Can we get the final deck reviewed by Friday?&#10;Morgan: @Alex, could you take a look today?&#10;Jamie: Decision: we'll use version B for launch."></textarea>
+      <div class="dialog-footer"><span><span class="tiny-lock">⌑</span> Stays on this device. Nothing is uploaded.</span><button class="primary-button" id="analyze-button" type="button">Analyze conversation <span>→</span></button></div>
+      <p class="form-error" id="form-error" role="alert"></p>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
