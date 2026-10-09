@@ -1,6 +1,6 @@
-# MISSED.
+# What Did I Miss?
 
-MISSED. is a local-first conversation catch-up app. The first launch starts with an empty welcome screen. Paste a transcript or import exported conversations to get a local, rule-based briefing.
+What Did I Miss? is a local-first conversation catch-up app. The first launch starts with an empty welcome screen. Paste a transcript or import exported conversations to get a local, rule-based briefing.
 
 ## Run it
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f8f5">
     <meta name="description" content="A private, local-first way to catch up on the conversations that matter.">
-    <title>MISSED. — The Unread Problem</title>
+    <title>What Did I Miss? — Conversation Catch-up</title>
     <link rel="stylesheet" href="styles.css">
     <script src="message-parser.js" defer></script>
     <script src="universal-import.js" defer></script>
@@ -14,9 +14,9 @@
   <body>
     <div class="app-shell">
       <aside class="sidebar">
-        <a class="brand" href="#" aria-label="MISSED home">
+        <a class="brand" href="#" aria-label="What Did I Miss? home">
           <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
-          <span>MISSED<span class="brand-period">.</span></span>
+          <span>What Did I Miss?</span>
         </a>
 
         <div class="workspace-switcher">
@@ -73,7 +73,7 @@
           <div class="first-launch-icon" aria-hidden="true">✳</div>
           <div class="heading-kicker">THE UNREAD PROBLEM, SOLVED</div>
           <h2>What did you miss?</h2>
-          <p>Bring your conversations into MISSED. to discover important updates, decisions, deadlines, and tasks.</p>
+          <p>Bring your conversations into What Did I Miss? to discover important updates, decisions, deadlines, and tasks.</p>
           <span>Import a chat export or paste your messages to get started. Your conversations stay on this device.</span>
           <div class="welcome-actions">
             <button class="primary-button" id="welcome-import-button" type="button">Import Messages <span>→</span></button>
@@ -117,7 +117,7 @@
     </div>
 
     <dialog class="import-dialog" id="import-dialog">
-      <form method="dialog" class="dialog-topline"><div><span class="dialog-kicker">PRIVATE, ON-DEVICE IMPORT</span><h2>Bring your conversations in.</h2><p>Choose a source for export tips, then paste messages or select files you exported. MISSED. does not connect directly to messaging accounts.</p></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></form>
+      <form method="dialog" class="dialog-topline"><div><span class="dialog-kicker">PRIVATE, ON-DEVICE IMPORT</span><h2>Bring your conversations in.</h2><p>Choose a source for export tips, then paste messages or select files you exported. What Did I Miss? does not connect directly to messaging accounts.</p></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></form>
       <label class="input-label" for="source-platform">Message source</label>
       <select id="source-platform" class="title-input">
         <option value="auto">Auto-detect export format</option><option value="whatsapp">WhatsApp</option><option value="telegram">Telegram</option><option value="instagram">Instagram</option><option value="messenger">Messenger</option><option value="discord">Discord</option><option value="other">Other chat export</option>

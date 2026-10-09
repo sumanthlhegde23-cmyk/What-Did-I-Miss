@@ -22,8 +22,7 @@ button { color: inherit; }
 button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid #a5c4a8; outline-offset: 2px; }
 .app-shell { min-height: 100vh; }
 .sidebar { position: fixed; z-index: 3; inset: 0 auto 0 0; width: 246px; padding: 28px 18px 16px; display: flex; flex-direction: column; background: #fff; border-right: 1px solid #edf0ea; }
-.brand { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 33px 8px; color: var(--ink); text-decoration: none; font: 800 19px var(--font-display); letter-spacing: -1px; }
-.brand-period { color: #7d9a7d; }
+.brand { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 33px 8px; color: var(--ink); text-decoration: none; font: 800 15px var(--font-display); letter-spacing: -.5px; white-space: nowrap; }
 .brand-mark { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; gap: 2px; border-radius: 8px; background: var(--green); transform: rotate(-5deg); }
 .brand-mark span { width: 3px; border-radius: 4px; background: #dce9d8; }
 .brand-mark span:nth-child(1) { height: 8px; }.brand-mark span:nth-child(2) { height: 13px; }.brand-mark span:nth-child(3) { height: 10px; }

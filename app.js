@@ -464,7 +464,7 @@ function updatePlatformInstructions() {
     telegram: "Telegram: in Telegram Desktop, open the chat menu → Export chat history. Import its .json or HTML export, or the generated .txt if available.",
     instagram: "Instagram: Accounts Center → Your information and permissions → Download your information. Choose Messages and an available JSON export; select the downloaded file or compatible ZIP.",
     messenger: "Messenger: download your information from Facebook/Accounts Center and select Messages in JSON. Select a message JSON file from the exported archive; this app has no direct account connection.",
-    discord: "Discord: use an authorized data package or chat export in JSON/CSV/text format. MISSED. does not access Discord accounts or tokens.",
+    discord: "Discord: use an authorized data package or chat export in JSON/CSV/text format. What Did I Miss? does not access Discord accounts or tokens.",
     other: "Choose a plain-text chat export, JSON/CSV with message text, or an HTML export in Telegram's export structure. You must save the export locally first."
   };
   document.querySelector("#platform-instructions").textContent = instructions[platform];
