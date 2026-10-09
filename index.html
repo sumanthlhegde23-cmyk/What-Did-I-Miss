@@ -5,38 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f8f5">
     <meta name="description" content="A private, local-first way to catch up on the conversations that matter.">
-    <title>Threadlight — your conversations, made clear</title>
+    <title>MISSED. — The Unread Problem</title>
     <link rel="stylesheet" href="styles.css">
     <script src="message-parser.js" defer></script>
+    <script src="universal-import.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
     <div class="app-shell">
       <aside class="sidebar">
-        <a class="brand" href="#" aria-label="Threadlight home">
+        <a class="brand" href="#" aria-label="MISSED home">
           <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
-          <span>threadlight<span class="brand-period">.</span></span>
+          <span>MISSED<span class="brand-period">.</span></span>
         </a>
 
         <div class="workspace-switcher">
-          <span class="workspace-avatar">S</span>
-          <span class="workspace-copy"><strong>Studio North</strong><small>Personal workspace</small></span>
+          <span class="workspace-avatar">M</span>
+          <span class="workspace-copy"><strong>My workspace</strong><small>Private on this device</small></span>
           <span class="chevron" aria-hidden="true">⌄</span>
         </div>
 
         <p class="nav-label">WORKSPACE</p>
         <nav class="primary-nav" aria-label="Main navigation">
-          <button class="nav-item active" data-filter="all"><span class="nav-icon">▤</span> All conversations <span class="nav-count" id="all-count">3</span></button>
-          <button class="nav-item" data-filter="unread"><span class="nav-icon">◉</span> Unread <span class="nav-count" id="unread-count">3</span></button>
+          <button class="nav-item active" data-filter="all"><span class="nav-icon">▤</span> All conversations <span class="nav-count" id="all-count">0</span></button>
+          <button class="nav-item" data-filter="unread"><span class="nav-icon">◉</span> Unread <span class="nav-count" id="unread-count">0</span></button>
           <button class="nav-item" data-filter="mentions"><span class="nav-icon">＠</span> Mentions</button>
           <button class="nav-item" data-filter="actions"><span class="nav-icon">☑</span> Action items</button>
         </nav>
 
         <div class="sidebar-divider"></div>
-        <div class="section-heading"><p class="nav-label">YOUR SPACES</p><button class="icon-button small" aria-label="Add a space">＋</button></div>
-        <button class="space-link"><span class="space-dot dot-purple"></span> Product launch</button>
-        <button class="space-link"><span class="space-dot dot-coral"></span> Design team</button>
-        <button class="space-link"><span class="space-dot dot-blue"></span> Weekend plans</button>
+        <div class="section-heading"><p class="nav-label">CONVERSATIONS</p><button class="icon-button small" id="add-action-button" aria-label="Import or paste conversations">＋</button></div>
 
         <div class="sidebar-bottom">
           <div class="privacy-card">
@@ -44,7 +42,7 @@
             <div><strong>Your chats stay yours.</strong><p>Everything is analyzed on this device. Always.</p></div>
             <span class="privacy-status" aria-label="Local processing enabled"></span>
           </div>
-          <button class="profile-button"><span class="profile-avatar">A</span><span><strong>Alex Morgan</strong><small>Personal account</small></span><span class="chevron">···</span></button>
+          <button class="profile-button" id="clear-data-button"><span class="profile-avatar">M</span><span><strong>Clear local data</strong><small>Remove imported conversations</small></span></button>
         </div>
       </aside>
 
@@ -54,7 +52,6 @@
           <div class="topbar-actions">
             <span class="local-indicator"><span></span> 100% local</span>
             <button class="icon-button" id="help-button" aria-label="About local privacy">?</button>
-            <button class="avatar-button" aria-label="Account">A</button>
           </div>
         </header>
 
@@ -72,25 +69,40 @@
           </div>
         </section>
 
-        <section class="summary-strip" aria-label="Catch-up overview">
-          <div class="summary-intro"><span class="summary-icon">✦</span><div><strong>Your catch-up, at a glance</strong><span>We found a few things worth your attention.</span></div></div>
-          <div class="summary-stat"><strong id="overview-unread">3</strong><span>conversations<br>to catch up on</span></div>
-          <div class="summary-stat"><strong id="overview-actions">5</strong><span>action items<br>for you</span></div>
-          <div class="summary-stat"><strong id="overview-mentions">2</strong><span>direct<br>mentions</span></div>
+        <section class="first-launch" id="first-launch">
+          <div class="first-launch-icon" aria-hidden="true">✳</div>
+          <div class="heading-kicker">THE UNREAD PROBLEM, SOLVED</div>
+          <h2>What did you miss?</h2>
+          <p>Bring your conversations into MISSED. to discover important updates, decisions, deadlines, and tasks.</p>
+          <span>Import a chat export or paste your messages to get started. Your conversations stay on this device.</span>
+          <div class="welcome-actions">
+            <button class="primary-button" id="welcome-import-button" type="button">Import Messages <span>→</span></button>
+            <button class="secondary-button" id="welcome-paste-button" type="button">Paste Messages</button>
+          </div>
+        </section>
+        <section class="summary-strip" id="summary-strip" aria-label="Catch-up overview">
+          <div class="summary-intro"><span class="summary-icon">✦</span><div><strong>Your catch-up, at a glance</strong><span id="overview-caption">Your imported conversations, summarized locally.</span></div></div>
+          <div class="summary-stat"><strong id="overview-unread">0</strong><span>conversations<br>to catch up on</span></div>
+          <div class="summary-stat"><strong id="overview-actions">0</strong><span>action items<br>identified</span></div>
+          <div class="summary-stat"><strong id="overview-mentions">0</strong><span>direct<br>mentions</span></div>
           <span class="summary-decoration" aria-hidden="true">✳</span>
         </section>
 
-        <section class="inbox-section">
+        <section class="inbox-section" id="inbox-section">
           <div class="inbox-heading">
-            <div><div class="heading-kicker">YOUR INBOX</div><h2>Conversations <span id="thread-count">03</span></h2></div>
-            <button class="import-button" id="import-button"><span>＋</span> Import conversations</button>
+            <div><div class="heading-kicker">YOUR INBOX</div><h2>Conversations <span id="thread-count">00</span></h2></div>
+            <button class="import-button" id="import-button"><span>＋</span> Import Messages</button>
           </div>
           <div class="inbox-toolbar">
             <div class="filter-tabs" role="tablist" aria-label="Filter conversations">
-              <button class="filter-tab active" data-filter="all">All <span id="tab-all-count">3</span></button>
+              <button class="filter-tab active" data-filter="all">All <span id="tab-all-count">0</span></button>
               <button class="filter-tab" data-filter="unread">Unread</button>
               <button class="filter-tab" data-filter="mentions">Mentions</button>
               <button class="filter-tab" data-filter="actions">With actions</button>
+            </div>
+            <div class="advanced-filters">
+              <label for="sender-filter">Sender</label><select id="sender-filter"><option value="">All senders</option></select>
+              <label for="priority-filter">Priority</label><select id="priority-filter"><option value="all">All priority</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select>
             </div>
             <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search conversations" aria-label="Search conversations"><kbd>⌘ K</kbd></label>
           </div>
@@ -105,18 +117,26 @@
     </div>
 
     <dialog class="import-dialog" id="import-dialog">
-      <form method="dialog" class="dialog-topline"><div><span class="dialog-kicker">PRIVATE, ON-DEVICE IMPORT</span><h2>Bring your conversations in.</h2><p>Paste copied messages or choose plain-text exports. WhatsApp and Telegram .txt formats are supported; there is no live chat connection.</p></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></form>
+      <form method="dialog" class="dialog-topline"><div><span class="dialog-kicker">PRIVATE, ON-DEVICE IMPORT</span><h2>Bring your conversations in.</h2><p>Choose a source for export tips, then paste messages or select files you exported. MISSED. does not connect directly to messaging accounts.</p></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></form>
+      <label class="input-label" for="source-platform">Message source</label>
+      <select id="source-platform" class="title-input">
+        <option value="auto">Auto-detect export format</option><option value="whatsapp">WhatsApp</option><option value="telegram">Telegram</option><option value="instagram">Instagram</option><option value="messenger">Messenger</option><option value="discord">Discord</option><option value="other">Other chat export</option>
+      </select>
+      <p class="platform-instructions" id="platform-instructions" aria-live="polite">Choose a source to see instructions. Export files must be downloaded or saved to this device first.</p>
+      <div class="import-shortcuts"><button class="secondary-button" id="choose-files-button" type="button">Import Chat Files</button><button class="secondary-button" id="paste-messages-button" type="button">Paste Messages</button></div>
       <label class="input-label" for="conversation-title">Conversation or group name <span>(optional)</span></label>
       <input id="conversation-title" class="title-input" type="text" placeholder="e.g. Launch planning">
       <label class="input-label" for="conversation-input">1. Paste messages</label>
       <textarea id="conversation-input" placeholder="Paste copied chat messages here. Timestamped WhatsApp/Telegram exports and “Name: message” lines are recognized. Multiline messages are kept together."></textarea>
-      <div class="sample-row"><button class="text-button" id="sample-button" type="button">Load fictional sample messages</button><span>Safe to try — the sample is fictional.</span></div>
+      <label class="input-label" for="mention-keywords">Your name or mention keywords <span>(optional, comma-separated)</span></label>
+      <input id="mention-keywords" class="title-input" type="text" placeholder="Enter only what you want highlighted">
+      <div class="sample-row"><button class="text-button" id="sample-button" type="button">Try fictional sample</button><span>Sample stays optional and is never preloaded.</span></div>
       <div class="file-import">
         <label class="input-label" for="conversation-files">2. Import chat export(s)</label>
-        <div class="file-picker-row"><input id="conversation-files" type="file" accept=".txt,text/plain" multiple><span>.txt only · up to 10 files · 5 MB each / 20 MB total</span></div>
+        <div class="file-picker-row"><input id="conversation-files" type="file" accept=".txt,.json,.html,.htm,.zip,.csv,text/plain,application/json,text/html,application/zip,text/csv" multiple><span>.txt, .json, .html, .csv, supported .zip · 10 files · 20 MB each</span></div>
         <div class="file-queue" id="file-queue" aria-live="polite"></div>
       </div>
-      <div class="dialog-footer"><span><span class="tiny-lock">⌑</span> Parsed in this browser. Files are never uploaded.</span><button class="primary-button" id="analyze-button" type="button">Import conversation(s) <span>→</span></button></div>
+      <div class="dialog-footer"><span><span class="tiny-lock">⌑</span> Parsed and summarized in this browser. Files are never uploaded.</span><button class="primary-button" id="analyze-button" type="button">Summarize Messages <span>→</span></button></div>
       <p class="form-error" id="form-error" role="alert"></p>
     </dialog>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

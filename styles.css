@@ -139,3 +139,52 @@ h1 span { color: #779078; }
   .sample-row,.file-picker-row { align-items: flex-start; flex-direction: column; gap: 5px; }
   .file-picker-row input { max-width: 100%; }
 }
+
+[hidden] { display: none !important; }
+.first-launch { max-width: 690px; margin: 42px auto 58px; padding: 34px 38px; border: 1px solid #e8eee7; border-radius: 13px; background: linear-gradient(135deg,#f4f8f2,#fff 72%); text-align: center; }
+.first-launch-icon { width: 42px; height: 42px; display: grid; place-items: center; margin: 0 auto 16px; color: #f7fbf4; border-radius: 12px; background: #69876d; font-size: 19px; }
+.first-launch h2 { margin: 9px 0 10px; font: 700 28px var(--font-display); letter-spacing: -1px; }
+.first-launch p { max-width: 490px; margin: 0 auto 8px; color: #68756b; font-size: 12px; line-height: 1.65; }
+.first-launch > span { color: #929c93; font-size: 10px; }
+.welcome-actions,.import-shortcuts { display: flex; justify-content: center; gap: 9px; margin-top: 22px; }
+.secondary-button { padding: 10px 13px; color: #49634f; border: 1px solid #dfe8dc; border-radius: 6px; background: #fff; font-size: 10px; font-weight: 600; cursor: pointer; }
+.secondary-button:hover { background: #f5f8f3; }
+.platform-instructions { margin: 7px 0 3px; padding: 9px 10px; color: #78867b; border: 1px solid #e8eee6; border-radius: 6px; background: #f7faf6; font-size: 9px; line-height: 1.55; }
+.import-shortcuts { justify-content: flex-start; margin-top: 10px; }
+.import-shortcuts .secondary-button { padding: 7px 9px; font-size: 9px; }
+.summary-controls { margin-top: 14px; }
+.summarize-thread:disabled,.detail-action:disabled { opacity: .65; cursor: wait; }
+.spinner { width: 11px; height: 11px; border: 2px solid #ffffff70; border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.finding-link { display: inline-flex; align-items: baseline; gap: 5px; padding: 0; color: inherit; border: 0; background: transparent; text-align: left; cursor: pointer; }
+.finding-link:hover { color: #315c4c; text-decoration: underline; text-underline-offset: 2px; }
+.finding-link > span { flex: none; color: #9aaa9a; font-size: 8px; }
+.finding-controls { display: inline-flex; gap: 3px; margin-left: 4px; opacity: .5; }
+.finding-controls:hover,.insight-list li:focus-within .finding-controls { opacity: 1; }
+.finding-controls button { padding: 1px 3px; color: #859087; border: 0; background: transparent; font-size: 8px; cursor: pointer; }
+.finding-controls button:hover { color: #315c4c; text-decoration: underline; }
+.task-checkbox { margin: 0 5px 0 0; accent-color: #68876b; vertical-align: middle; }
+.insight-list li.completed .finding-link { color: #9ca59d; text-decoration: line-through; }
+.analysis-running { display: flex; align-items: center; gap: 7px; color: #728277; font-size: 9px; }
+.summary-disclosure { margin: 12px 0 0; color: #929c93; font-size: 8px; line-height: 1.5; }
+.parsed-message { scroll-margin: 30px; }
+.detail-actions { flex-wrap: wrap; justify-content: flex-end; }
+.import-dialog { max-height: min(90vh, 860px); overflow-y: auto; }
+.advanced-filters { display: flex; align-items: center; gap: 5px; }
+.advanced-filters label { color: #909a92; font-size: 8px; }
+.advanced-filters select { max-width: 112px; height: 28px; padding: 0 5px; color: #68776b; border: 1px solid #e9ece7; border-radius: 5px; background: #fff; font-size: 8px; }
+@media (max-width: 620px) {
+  .first-launch { margin: 25px auto 34px; padding: 26px 16px; }
+  .first-launch h2 { font-size: 24px; }
+  .welcome-actions { align-items: stretch; flex-direction: column; }
+  .detail-actions { gap: 4px; }
+  .detail-action { font-size: 8px; }
+  .import-dialog { max-height: 90vh; }
+  .advanced-filters { width: 100%; flex-wrap: wrap; }
+  .advanced-filters select { flex: 1; }
+}
+@media (max-width: 800px) {
+  .section-heading { display: flex; justify-content: center; }
+  .section-heading .nav-label { display: none; }
+  .section-heading .icon-button.small { display: grid; width: 34px; height: 34px; margin: 12px auto; border: 1px solid #eaede8; border-radius: 8px; }
+}
