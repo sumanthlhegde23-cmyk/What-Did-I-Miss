@@ -1,6 +1,8 @@
 # What Did I Miss?
 
-What Did I Miss? is a local-first conversation catch-up app. The first launch starts with an empty welcome screen. Paste a transcript or import exported conversations to get a local, rule-based briefing.
+What Did I Miss? is a local-first conversation catch-up app. Its visual identity pairs a conversation bubble with a focused, checked discovery lens. The original SVG brand assets include a primary wordmark, compact sidebar mark, app icon, and monochrome mark in `public/assets/`.
+
+The first launch starts with an empty welcome screen. Paste a transcript or import exported conversations to get a local, rule-based briefing.
 
 ## Run it
 

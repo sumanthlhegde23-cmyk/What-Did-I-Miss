@@ -309,7 +309,9 @@ function renderCounts() {
   document.querySelector("#inbox-section").hidden = threads.length === 0;
   document.querySelector(".welcome-section").hidden = threads.length === 0;
   document.querySelector(".inbox-toolbar").hidden = threads.length === 0;
-  document.querySelectorAll(".nav-item").forEach((button) => { button.hidden = threads.length === 0; });
+  document.querySelectorAll(".nav-item").forEach((button) => {
+    button.hidden = threads.length === 0 && button.dataset.filter !== "all";
+  });
   document.querySelector("#add-action-button").hidden = false;
   document.querySelector("#clear-data-button").hidden = threads.length === 0;
   const senderFilter = document.querySelector("#sender-filter");
