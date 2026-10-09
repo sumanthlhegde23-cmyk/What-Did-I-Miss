@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles.css">
     <script src="message-parser.js" defer></script>
     <script src="universal-import.js" defer></script>
+    <script src="message-analyzer.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -128,10 +129,10 @@
       <form method="dialog" class="dialog-topline"><div><span class="dialog-kicker">PRIVATE, ON-DEVICE IMPORT</span><h2>Bring your conversations in.</h2><p>Choose a source for export tips, then paste messages or select files you exported. What Did I Miss? does not connect directly to messaging accounts.</p></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></form>
       <label class="input-label" for="source-platform">Message source</label>
       <select id="source-platform" class="title-input">
-        <option value="auto">Auto-detect export format</option><option value="whatsapp">WhatsApp</option><option value="telegram">Telegram</option><option value="instagram">Instagram</option><option value="messenger">Messenger</option><option value="discord">Discord</option><option value="other">Other chat export</option>
+        <option value="auto">Auto-detect export format</option><option value="whatsapp">WhatsApp</option><option value="telegram">Telegram</option><option value="instagram">Instagram</option><option value="facebook">Facebook Messenger</option><option value="discord">Discord</option><option value="other">Other chat export</option>
       </select>
-      <p class="platform-instructions" id="platform-instructions" aria-live="polite">Choose a source to see instructions. Export files must be downloaded or saved to this device first.</p>
-      <div class="import-shortcuts"><button class="secondary-button" id="choose-files-button" type="button">Import Chat Files</button><button class="secondary-button" id="paste-messages-button" type="button">Paste Messages</button></div>
+      <p class="platform-instructions" id="platform-instructions" aria-live="polite">Choose WhatsApp, Telegram, Instagram, or Facebook Messenger. Export files must be downloaded or saved to this device first; this app does not connect to accounts.</p>
+      <div class="import-shortcuts"><button class="secondary-button" id="choose-files-button" type="button">Choose Export Files</button><button class="secondary-button" id="paste-messages-button" type="button">Paste Messages</button></div>
       <label class="input-label" for="conversation-title">Conversation or group name <span>(optional)</span></label>
       <input id="conversation-title" class="title-input" type="text" placeholder="e.g. Launch planning">
       <label class="input-label" for="conversation-input">1. Paste messages</label>
@@ -141,7 +142,7 @@
       <div class="sample-row"><button class="text-button" id="sample-button" type="button">Try fictional sample</button><span>Sample stays optional and is never preloaded.</span></div>
       <div class="file-import">
         <label class="input-label" for="conversation-files">2. Import chat export(s)</label>
-        <div class="file-picker-row"><input id="conversation-files" type="file" accept=".txt,.json,.html,.htm,.zip,.csv,text/plain,application/json,text/html,application/zip,text/csv" multiple><span>.txt, .json, .html, .csv, supported .zip · 10 files · 20 MB each</span></div>
+        <div class="file-picker-row"><input id="conversation-files" type="file" accept=".txt,.json,.html,.htm,.zip,.csv,text/plain,application/json,text/html,application/zip,application/x-zip-compressed,text/csv" multiple aria-label="Choose exported chat files"><span>Works with saved WhatsApp, Telegram, Instagram, and Facebook Messenger exports: .txt, .json, .html, .csv, or ZIP. On mobile, save the export to Files/Downloads first.</span></div>
         <div class="file-queue" id="file-queue" aria-live="polite"></div>
       </div>
       <div class="dialog-footer"><span><span class="tiny-lock">⌑</span> Parsed and summarized in this browser. Files are never uploaded.</span><button class="primary-button" id="analyze-button" type="button">Summarize Messages <span>→</span></button></div>

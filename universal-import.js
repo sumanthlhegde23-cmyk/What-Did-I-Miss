@@ -103,7 +103,8 @@
     if (Array.isArray(document.messages)) {
       const participants = Array.isArray(document.participants) ? document.participants.map((item) => item.name).filter(Boolean) : [];
       const title = document.title ?? document.name ?? options.title ?? "Imported Conversation";
-      const conversation = conversationFromMessages(document.messages, { ...options, title, format: options.platform === "instagram" ? "instagram-json" : "json" });
+      const format = options.platform === "instagram" ? "instagram-json" : options.platform === "facebook" || options.platform === "messenger" ? "facebook-json" : "json";
+      const conversation = conversationFromMessages(document.messages, { ...options, title, format });
       if (conversation) {
         if (participants.length) conversation.parsed.participants = participants;
         conversations.push(conversation);
@@ -116,7 +117,8 @@
       for (const items of Object.values(inbox)) {
         for (const item of Array.isArray(items) ? items : []) {
           const title = item.title ?? item.thread_path ?? "Imported Conversation";
-          const conversation = conversationFromMessages(item.messages, { ...options, title, format: "instagram-json" });
+          const format = options.platform === "instagram" ? "instagram-json" : "facebook-json";
+          const conversation = conversationFromMessages(item.messages, { ...options, title, format });
           if (conversation) conversations.push(conversation);
         }
       }
@@ -364,15 +366,44 @@
         const entryPlatform = selectedPlatform === "auto" ? detectPlatform(entry.name) : selectedPlatform;
         const pathParts = entry.name.replace(/\\/g, "/").split("/").filter(Boolean);
         const parent = pathParts.length > 1 ? pathParts[pathParts.length - 2] : null;
-        const title = /message_\d+\.json$/i.test(entry.name) && parent
+        const isMessageChunk = /message_\d+\.json$/i.test(entry.name);
+        const title = isMessageChunk && parent
           ? parent.replace(/[_-]+/g, " ")
           : pathParts[pathParts.length - 1].replace(/\.[^.]+$/, "");
         const parsed = parseDocument(entry.text, { sourceName: `${sourceName} / ${entry.name}`, platform: entryPlatform, title });
-        conversations.push(...parsed.conversations);
+        conversations.push(...parsed.conversations.map((conversation) => ({
+          ...conversation,
+          archiveGroup: isMessageChunk ? `${entryPlatform}:${pathParts.slice(0, -1).join("/")}`.toLowerCase() : null,
+          sourcePlatform: entryPlatform
+        })));
         errors.push(...parsed.errors);
         warnings.push(...parsed.warnings);
       }
-      return { conversations, errors, warnings };
+      const grouped = new Map();
+      const merged = [];
+      conversations.forEach((conversation) => {
+        if (!conversation.archiveGroup) {
+          merged.push(conversation);
+          return;
+        }
+        const existing = grouped.get(conversation.archiveGroup);
+        if (!existing) {
+          grouped.set(conversation.archiveGroup, conversation);
+          merged.push(conversation);
+          return;
+        }
+        existing.parsed.messages.push(...conversation.parsed.messages);
+      });
+      merged.forEach((conversation) => {
+        conversation.parsed.messages.sort((a, b) => {
+          const aTime = a.timestampISO ? Date.parse(a.timestampISO) : Number.NaN;
+          const bTime = b.timestampISO ? Date.parse(b.timestampISO) : Number.NaN;
+          return Number.isFinite(aTime) && Number.isFinite(bTime) ? aTime - bTime : a.order - b.order;
+        });
+        conversation.parsed.messages.forEach((message, index) => { message.order = index + 1; });
+        delete conversation.archiveGroup;
+      });
+      return { conversations: merged, errors, warnings };
     } catch (error) {
       return { conversations: [], errors: [`${sourceName}: ${error instanceof Error ? error.message : "The file could not be safely read."}`], warnings: [] };
     }
@@ -382,8 +413,8 @@
     const normalized = name.toLowerCase();
     if (/whatsapp|chat\.txt/.test(normalized)) return "whatsapp";
     if (/telegram|result\.json/.test(normalized)) return "telegram";
+    if (/messenger|facebook/.test(normalized)) return "facebook";
     if (/instagram|message_\d+\.json|messages\.json/.test(normalized)) return "instagram";
-    if (/messenger|facebook/.test(normalized)) return "messenger";
     if (/discord/.test(normalized)) return "discord";
     return "other";
   }

@@ -1,7 +1,3 @@
-const urgencyPattern = /\b(urgent|asap|immediately|blocker|blocked|overdue|due today|today|tonight|by (?:end of day|eod|tomorrow|monday|tuesday|wednesday|thursday|friday)|before \d|deadline)\b/i;
-const deadlinePattern = /\b(?:by|before|due|deadline)\s+(?:(?:end of day|eod|tomorrow|today|tonight|monday|tuesday|wednesday|thursday|friday|saturday|sunday)|\d{1,2}(?::\d{2})?\s*(?:am|pm)?|(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+\d{1,2})\b/i;
-const decisionPattern = /\b(decision|decided|agreed|approved|confirmed|let's go with|we'll use|moving forward|final choice|we are using)\b/i;
-const actionPattern = /\b(action item|next step|i'll|i will|please|can you|could you|need you to|follow up|follow-up|send|review|share|prepare|update|schedule|own|take a look|add feedback|bring)\b/i;
 const MAX_FILE_COUNT = 10;
 const MAX_FILE_BYTES = 20 * 1024 * 1024;
 const MAX_BATCH_BYTES = 20 * 1024 * 1024;
@@ -17,38 +13,7 @@ const sampleConversation = [
   "[10/08/26, 9:31 AM] Priya: Thanks, I will update the checklist."
 ].join("\n");
 
-function analyzeConversation(parsedMessages, mentionKeywords = []) {
-  const messages = parsedMessages.map((message, index) => {
-    const content = message.text;
-    const mention = message.mentions.some((mentionText) => {
-      const target = mentionText.slice(1).toLowerCase();
-      return target === "you" || mentionKeywords.some((keyword) => keyword.replace(/^@/, "").toLowerCase() === target);
-    }) || mentionKeywords.some((keyword) => keyword && content.toLowerCase().includes(keyword.toLowerCase()));
-    const urgent = urgencyPattern.test(content);
-    const deadline = deadlinePattern.test(content);
-    const decision = decisionPattern.test(content) && !content.trim().endsWith("?");
-    const action = actionPattern.test(content);
-    const directedToUser = /\b(?:can|could|would)\s+you\b|\bneed you to\b|\byour (?:action|task|turn)\b|\bplease\b/i.test(content)
-      || (mention && action);
-    const score = (mention ? 5 : 0) + (urgent ? 4 : 0) + (deadline ? 3 : 0) + (action ? 2 : 0) + (decision ? 2 : 0);
-    return { ...message, text: content, source: content, index, mention, urgent, deadline, decision, action, directedToUser, score };
-  });
-
-  const priority = [...messages].sort((a, b) => b.score - a.score || a.index - b.index);
-  const meaningful = priority.filter((message) => message.score > 0);
-  const summaryItems = (meaningful.length ? meaningful : messages).slice(0, 3);
-  const summary = summaryItems.map((message) => message.text).join(" ");
-  const actions = messages.filter((message) => message.action && message.directedToUser).slice(0, 4);
-  const decisions = messages.filter((message) => message.decision).slice(0, 3);
-  const deadlines = messages.filter((message) => message.deadline || message.urgent).slice(0, 3);
-  const mentions = messages.filter((message) => message.mention);
-  const important = priority.filter((message) => message.score >= 3).slice(0, 5);
-  const maxScore = messages.reduce((highest, message) => Math.max(highest, message.score), 0);
-  const priorityLabel = maxScore >= 8 ? "Needs your attention" : maxScore >= 4 ? "Worth a look" : "For your awareness";
-
-  const questions = messages.filter((message) => /\?\s*$/.test(message.text)).slice(0, 5);
-  return { messages, summary, actions, decisions, deadlines, mentions, questions, important, priorityLabel, maxScore, isRuleBased: true };
-}
+const { analyzeConversation } = window.MissedMessageAnalyzer;
 
 const threads = [];
 let activeFilter = "all";
@@ -213,8 +178,14 @@ function renderDetail() {
 
 function renderParsedMessage(message, thread) {
   const id = `source-${thread.id}-${message.order}`;
-  return `<div class="parsed-message" id="${escapeHtml(id)}">
+  const finding = thread.analysis?.messages.find((item) => item.order === message.order);
+  const highlighted = finding && thread.analysis.important.some((item) => item.order === message.order);
+  const badges = highlighted
+    ? `<span class="source-finding-badges">${finding.reasons.map((reason) => `<span class="source-finding-badge">${escapeHtml(reason)}</span>`).join("")}</span>`
+    : "";
+  return `<div class="parsed-message${highlighted ? " important-source" : ""}" id="${escapeHtml(id)}">
     <div class="parsed-message-meta"><span>#${message.order}${message.sender ? ` · ${escapeHtml(message.sender)}` : " · Sender not identified"}</span><time>${escapeHtml(message.rawTimestamp ?? "No timestamp in source")}</time></div>
+    ${badges}
     <p>${escapeHtml(message.text)}</p>
     <span class="parsed-message-source">${escapeHtml(message.sourceName)}${message.edited ? " · Edited marker" : ""}${message.deleted ? " · Deleted marker" : ""}${message.originalReference ? ` · Ref ${escapeHtml(String(message.originalReference))}` : ""}</span>
   </div>`;
@@ -461,13 +432,13 @@ function createImportedThread(conversation) {
 function updatePlatformInstructions() {
   const platform = document.querySelector("#source-platform").value;
   const instructions = {
-    auto: "Auto-detect reads the file format and common export structure. Messaging apps do not appear as folders here; export and save the file to your device first.",
+    auto: "Auto-detect reads common WhatsApp, Telegram, Instagram, and Facebook Messenger export formats. On mobile, export the chat and save it to Files/Downloads before choosing it here.",
     whatsapp: "WhatsApp: open the chat/group → menu → More → Export chat, then save the .txt file (with or without media). Choose the text export; media is not analyzed.",
-    telegram: "Telegram: in Telegram Desktop, open the chat menu → Export chat history. Import its .json or HTML export, or the generated .txt if available.",
-    instagram: "Instagram: Accounts Center → Your information and permissions → Download your information. Choose Messages and an available JSON export; select the downloaded file or compatible ZIP.",
-    messenger: "Messenger: download your information from Facebook/Accounts Center and select Messages in JSON. Select a message JSON file from the exported archive; this app has no direct account connection.",
+    telegram: "Telegram: in Telegram Desktop, open the chat menu → Export chat history. Select the export ZIP, JSON, HTML, or plain text file. On mobile, save a text export to Files/Downloads first.",
+    instagram: "Instagram: Accounts Center → Your information and permissions → Download your information → Messages. Choose JSON, then select the downloaded ZIP or message JSON files from Files/Downloads.",
+    facebook: "Facebook Messenger: Accounts Center → Your information and permissions → Download your information → Messages. Choose JSON, then select the downloaded ZIP or message JSON files from Files/Downloads.",
     discord: "Discord: use an authorized data package or chat export in JSON/CSV/text format. What Did I Miss? does not access Discord accounts or tokens.",
-    other: "Choose a plain-text chat export, JSON/CSV with message text, or an HTML export in Telegram's export structure. You must save the export locally first."
+    other: "Choose a plain-text chat export, JSON/CSV with message text, or an HTML export in Telegram's export structure. On mobile, save the export locally to Files/Downloads first."
   };
   document.querySelector("#platform-instructions").textContent = instructions[platform];
 }
@@ -599,8 +570,6 @@ function openImportDialog(mode = "import") {
   importDialog.showModal();
   if (mode === "paste") {
     document.querySelector("#conversation-input").focus();
-  } else if (mode === "import") {
-    fileInput.click();
   }
 }
 

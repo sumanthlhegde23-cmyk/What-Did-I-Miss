@@ -28,6 +28,23 @@ test("parses Telegram Desktop JSON chats into named normalized conversations", (
   assert.equal(result.conversations[0].parsed.messages[0].originalReference, 11);
 });
 
+test("combines split Instagram and Facebook message JSON files from the same export folder", async () => {
+  for (const platform of ["instagram", "facebook"]) {
+    const entries = [
+      [`${platform}/messages/inbox/family/message_1.json`, JSON.stringify({ messages: [{ sender_name: "Kai", timestamp_ms: 1791460860000, content: "Later message" }] })],
+      [`${platform}/messages/inbox/family/message_2.json`, JSON.stringify({ messages: [{ sender_name: "Mina", timestamp_ms: 1791460800000, content: "Earlier message" }] })]
+    ];
+    const file = new File([makeStoredZipEntries(entries)], `${platform}-export.zip`);
+    const result = await parseFile(file, "auto");
+
+    assert.equal(result.errors.length, 0);
+    assert.equal(result.conversations.length, 1);
+    assert.equal(result.conversations[0].sourcePlatform, platform);
+    assert.deepEqual(result.conversations[0].parsed.messages.map((message) => message.text), ["Earlier message", "Later message"]);
+    assert.deepEqual(result.conversations[0].parsed.messages.map((message) => message.order), [1, 2]);
+  }
+});
+
 test("does not treat a JSON filename as an extracted conversation name", () => {
   const result = parseDocument(JSON.stringify({
     chats: { list: [{ messages: [{ id: 1, from: "Sam", text: "Keep the source filename." }] }] }
@@ -103,6 +120,19 @@ test("parses Messenger messages JSON and safely skips invalid timestamps", () =>
   assert.equal(result.conversations[0].parsed.messages[1].timestampISO, "1970-01-01T00:00:01.000Z");
 });
 
+test("parses Facebook Messenger export JSON", () => {
+  const result = parseDocument(JSON.stringify({
+    title: "Planning group",
+    participants: [{ name: "Morgan" }, { name: "Riley" }],
+    messages: [{ sender_name: "Riley", timestamp_ms: 1791460800000, content: "Please review the agenda by Friday." }]
+  }), { sourceName: "message_1.json", platform: "facebook", title: null });
+
+  assert.equal(result.errors.length, 0);
+  assert.equal(result.conversations[0].sourcePlatform, "facebook");
+  assert.equal(result.conversations[0].parsed.format, "facebook-json");
+  assert.equal(result.conversations[0].parsed.messages[0].sender, "Riley");
+});
+
 test("parses quoted CSV fields with sender, text, and timestamp headers", () => {
   const result = parseDocument('sender,timestamp,message\r\n"Ada, L","2026-10-08 10:00","First line\nsecond line"\r\n', {
     sourceName: "discord.csv",
@@ -131,46 +161,70 @@ test("auto-detects platform export filenames without making live connections", (
   assert.equal(detectPlatform("telegram/result.json"), "telegram");
   assert.equal(detectPlatform("whatsapp-chat.txt"), "whatsapp");
   assert.equal(detectPlatform("other.csv"), "other");
+  assert.equal(detectPlatform("facebook/messages/inbox/family/message_1.json"), "facebook");
 });
 
 function makeStoredZip(filename, content, method = 0) {
+  return makeStoredZipEntries([[filename, content, method]]);
+}
+
+function makeStoredZipEntries(files) {
   const encoder = new TextEncoder();
-  const name = encoder.encode(filename);
-  const uncompressedBody = encoder.encode(content);
-  const body = method === 8 ? deflateRawSync(uncompressedBody) : uncompressedBody;
-  const local = new Uint8Array(30 + name.length + body.length);
-  const localView = new DataView(local.buffer);
-  localView.setUint32(0, 0x04034b50, true);
-  localView.setUint16(4, 20, true);
-  localView.setUint16(8, method, true);
-  localView.setUint32(18, body.length, true);
-  localView.setUint32(22, uncompressedBody.length, true);
-  localView.setUint16(26, name.length, true);
-  local.set(name, 30);
-  local.set(body, 30 + name.length);
+  const localParts = [];
+  const centralParts = [];
+  let localOffset = 0;
+  for (const [filename, content, method = 0] of files) {
+    const name = encoder.encode(filename);
+    const uncompressedBody = encoder.encode(content);
+    const body = method === 8 ? deflateRawSync(uncompressedBody) : uncompressedBody;
+    const local = new Uint8Array(30 + name.length + body.length);
+    const localView = new DataView(local.buffer);
+    localView.setUint32(0, 0x04034b50, true);
+    localView.setUint16(4, 20, true);
+    localView.setUint16(8, method, true);
+    localView.setUint32(18, body.length, true);
+    localView.setUint32(22, uncompressedBody.length, true);
+    localView.setUint16(26, name.length, true);
+    local.set(name, 30);
+    local.set(body, 30 + name.length);
+    localParts.push(local);
 
-  const central = new Uint8Array(46 + name.length);
-  const centralView = new DataView(central.buffer);
-  centralView.setUint32(0, 0x02014b50, true);
-  centralView.setUint16(4, 20, true);
-  centralView.setUint16(6, 20, true);
-  centralView.setUint16(10, method, true);
-  centralView.setUint32(20, body.length, true);
-  centralView.setUint32(24, uncompressedBody.length, true);
-  centralView.setUint16(28, name.length, true);
-  central.set(name, 46);
+    const central = new Uint8Array(46 + name.length);
+    const centralView = new DataView(central.buffer);
+    centralView.setUint32(0, 0x02014b50, true);
+    centralView.setUint16(4, 20, true);
+    centralView.setUint16(6, 20, true);
+    centralView.setUint16(10, method, true);
+    centralView.setUint32(20, body.length, true);
+    centralView.setUint32(24, uncompressedBody.length, true);
+    centralView.setUint16(28, name.length, true);
+    centralView.setUint32(42, localOffset, true);
+    central.set(name, 46);
+    centralParts.push(central);
+    localOffset += local.length;
+  }
 
+  const centralDirectory = new Uint8Array(centralParts.reduce((size, part) => size + part.length, 0));
+  let centralOffset = 0;
+  centralParts.forEach((part) => {
+    centralDirectory.set(part, centralOffset);
+    centralOffset += part.length;
+  });
   const end = new Uint8Array(22);
   const endView = new DataView(end.buffer);
   endView.setUint32(0, 0x06054b50, true);
-  endView.setUint16(8, 1, true);
-  endView.setUint16(10, 1, true);
-  endView.setUint32(12, central.length, true);
-  endView.setUint32(16, local.length, true);
-  const archive = new Uint8Array(local.length + central.length + end.length);
-  archive.set(local, 0);
-  archive.set(central, local.length);
-  archive.set(end, local.length + central.length);
+  endView.setUint16(8, files.length, true);
+  endView.setUint16(10, files.length, true);
+  endView.setUint32(12, centralDirectory.length, true);
+  endView.setUint32(16, localOffset, true);
+  const archive = new Uint8Array(localOffset + centralDirectory.length + end.length);
+  let offset = 0;
+  localParts.forEach((part) => {
+    archive.set(part, offset);
+    offset += part.length;
+  });
+  archive.set(centralDirectory, offset);
+  archive.set(end, offset + centralDirectory.length);
   return archive;
 }
 
