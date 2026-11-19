@@ -94,6 +94,14 @@ People fall behind in busy group conversations and can miss important updates, d
 - **Files/components affected:** `message-analyzer.js`, `message-analyzer.test.js`, and importer tests in `universal-import.test.js`.
 - **Outcome and verification:** Initial focused tests exposed classifier and test expectation issues; these were corrected. Final result: 28 tests passed, 0 failed; `node --check` for changed JavaScript and `git diff --check` passed.
 
+### 3.5 Create comprehensive "How To Use" page & messages import guide
+
+- **Actual prompt/instruction:** "create \"How To Use\" page to help users and it must contain messages import guide, app features, and more. the page must be very informative and good looking. commit and push"
+- **AI tool/model:** Antigravity (Gemini 3.8 Flash). Node test runner, git commands, and code editing tools.
+- **Purpose:** Provide users with an informative, beautiful, and accessible user manual and step-by-step export guide for all platforms, app feature explanations, privacy details, sample playground, and troubleshooting FAQ.
+- **Files/components affected:** Created `how-to-use.html`; updated `styles.css`, `index.html`, `app.js`, `README.md`, and `prompt.md`.
+- **Outcome and verification:** Built `how-to-use.html` with platform tabs (WhatsApp iOS/Android, Telegram Desktop JSON/HTML, Instagram DM JSON, Facebook Messenger, CSV/plain text), quick start flow, feature breakdown, bidirectional context verification demo, technical limits table, sample copy playground, accordion FAQ, and quick-jump navigation. Integrated links across `index.html` navigation, topbar, first-launch banner, import dialog, and footer. Verified all 28 unit tests pass with `node --test` and syntax check with `node --check`.
+
 ## 5. AI Features & Design
 
 - **AI integration:** No generative model, remote inference, or AI API integration is present in the current app. The “summary” is a local, deterministic, rule-based briefing. The analyzer should not be described to users as generative AI.

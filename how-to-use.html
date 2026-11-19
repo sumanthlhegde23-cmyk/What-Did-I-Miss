@@ -1,0 +1,1024 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f8f5">
+    <meta name="description" content="Comprehensive How To Use Guide for What Did I Miss? — Step-by-step export instructions for WhatsApp, Telegram, Instagram, Messenger, and CSV, plus complete app features and privacy documentation.">
+    <meta property="og:title" content="How To Use — What Did I Miss?">
+    <meta property="og:description" content="Master conversation catch-up: learn how to import chat exports, discover critical findings, and verify context 100% privately on your device.">
+    <title>How To Use — What Did I Miss? Guide & Documentation</title>
+    <link rel="icon" type="image/svg+xml" href="public/assets/what-did-i-miss-icon.svg">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Sidebar matching app aesthetics -->
+      <aside class="sidebar">
+        <a class="brand" href="index.html" aria-label="What Did I Miss? home">
+          <img class="brand-symbol" src="public/assets/what-did-i-miss-mark.svg" alt="What Did I Miss? mark">
+          <span class="brand-wordmark">What Did I Miss?</span>
+        </a>
+
+        <a class="workspace-switcher" href="index.html" title="Return to Catch Up Dashboard" style="text-decoration:none;">
+          <span class="workspace-avatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4.5 5.75A2.75 2.75 0 0 1 7.25 3h9.5a2.75 2.75 0 0 1 2.75 2.75v7.5A2.75 2.75 0 0 1 16.75 16h-5.2l-4.8 4v-4.1a2.75 2.75 0 0 1-2.25-2.65z"/><path d="m9 9.8 2.1 2.1 4.2-4.5"/></svg>
+          </span>
+          <span class="workspace-copy">
+            <strong>← Back to App</strong>
+            <small>Catch-up workspace</small>
+          </span>
+        </a>
+
+        <p class="nav-label">TABLE OF CONTENTS</p>
+        <nav class="primary-nav" aria-label="Documentation navigation">
+          <a class="nav-item guide-sidebar-link active" href="#quick-start"><span class="nav-icon" aria-hidden="true">⚡</span> Quick Start</a>
+          <a class="nav-item guide-sidebar-link" href="#import-guide"><span class="nav-icon" aria-hidden="true">📥</span> Import Guide</a>
+          <a class="nav-item guide-sidebar-link" href="#import-methods"><span class="nav-icon" aria-hidden="true">📋</span> Paste vs Files</a>
+          <a class="nav-item guide-sidebar-link" href="#app-features"><span class="nav-icon" aria-hidden="true">✦</span> App Features</a>
+          <a class="nav-item guide-sidebar-link" href="#source-verification"><span class="nav-icon" aria-hidden="true">🔍</span> Context Linking</a>
+          <a class="nav-item guide-sidebar-link" href="#search-and-filters"><span class="nav-icon" aria-hidden="true">⚙</span> Search & Filters</a>
+          <a class="nav-item guide-sidebar-link" href="#privacy-architecture"><span class="nav-icon" aria-hidden="true">🔒</span> Privacy & Security</a>
+          <a class="nav-item guide-sidebar-link" href="#sample-playground"><span class="nav-icon" aria-hidden="true">🧪</span> Try Sample</a>
+          <a class="nav-item guide-sidebar-link" href="#troubleshooting-faq"><span class="nav-icon" aria-hidden="true">❓</span> FAQ & Help</a>
+        </nav>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-bottom">
+          <div class="privacy-card">
+            <span class="privacy-lock" aria-hidden="true">◇</span>
+            <div>
+              <strong>100% Local & Private</strong>
+              <p>Everything runs on your device. Zero cloud uploads or AI servers.</p>
+            </div>
+            <span class="privacy-status" aria-label="Local processing enabled"></span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Top bar -->
+        <header class="topbar">
+          <div class="topbar-leading">
+            <a href="index.html" aria-label="Return home">
+              <img class="topbar-logo" src="public/assets/what-did-i-miss-mark.svg" alt="What Did I Miss?">
+            </a>
+            <div class="breadcrumb">
+              <a href="index.html" style="color:inherit;text-decoration:none;">Workspace</a>
+              <span class="breadcrumb-slash">/</span>
+              <span>Guides</span>
+              <span class="breadcrumb-slash">/</span>
+              <strong>How To Use</strong>
+            </div>
+          </div>
+          <div class="topbar-actions">
+            <span class="local-indicator"><span></span> 100% local</span>
+            <a href="index.html" class="primary-button" style="min-height:36px;padding:0 14px;font-size:11px;text-decoration:none;">
+              Launch App <span>→</span>
+            </a>
+          </div>
+        </header>
+
+        <div class="guide-page-content">
+          <!-- Hero Section -->
+          <header class="guide-hero">
+            <span class="guide-hero-badge">Documentation & User Manual</span>
+            <h1>How to use What Did I Miss?</h1>
+            <p class="guide-subtitle">
+              Your comprehensive guide to importing chats from WhatsApp, Telegram, Instagram, Messenger, and CSV, identifying key action items, and catching up quickly without sacrificing your privacy.
+            </p>
+            <div class="guide-pill-row">
+              <span class="guide-pill"><i></i> 100% On-Device</span>
+              <span class="guide-pill"><i></i> Zero Data Uploads</span>
+              <span class="guide-pill"><i></i> No Cloud AI / API Keys</span>
+              <span class="guide-pill"><i></i> Works Fully Offline</span>
+              <span class="guide-pill"><i></i> Session-Only In-Memory</span>
+            </div>
+            <div class="guide-hero-actions">
+              <a href="index.html" class="primary-button">
+                <span class="button-icon" aria-hidden="true">🚀</span> Open Catch-Up App
+              </a>
+              <a href="#import-guide" class="secondary-button">
+                <span class="button-icon" aria-hidden="true">📥</span> View Import Guides
+              </a>
+              <a href="#app-features" class="secondary-button">
+                <span class="button-icon" aria-hidden="true">✦</span> Discover Features
+              </a>
+            </div>
+          </header>
+
+          <!-- Sticky Quick Nav Bar -->
+          <nav class="guide-quick-nav" aria-label="Quick jump bar">
+            <span class="nav-title">Jump to:</span>
+            <a href="#quick-start" class="guide-jump-link">Quick Start</a>
+            <a href="#import-guide" class="guide-jump-link">Import Guide</a>
+            <a href="#import-methods" class="guide-jump-link">Paste vs Files</a>
+            <a href="#app-features" class="guide-jump-link">Features</a>
+            <a href="#source-verification" class="guide-jump-link">Verification</a>
+            <a href="#search-and-filters" class="guide-jump-link">Search & Filters</a>
+            <a href="#privacy-architecture" class="guide-jump-link">Privacy</a>
+            <a href="#sample-playground" class="guide-jump-link">Sample Test</a>
+            <a href="#troubleshooting-faq" class="guide-jump-link">FAQ</a>
+          </nav>
+
+          <!-- 1. Quick Start -->
+          <section id="quick-start" class="guide-section">
+            <div class="guide-section-header">
+              <span class="guide-section-kicker">GET STARTED IN SECONDS</span>
+              <h2>Quick Start Overview</h2>
+              <p>Catching up on hundreds of messages takes under 30 seconds across three simple steps.</p>
+            </div>
+
+            <div class="step-grid">
+              <div class="step-item">
+                <span class="step-number">1</span>
+                <h3>Export or Copy Chat</h3>
+                <p>
+                  Export your conversation from WhatsApp, Telegram, Instagram, or Facebook Messenger, or simply copy timestamped or <code>Name: message</code> lines directly.
+                </p>
+              </div>
+              <div class="step-item">
+                <span class="step-number">2</span>
+                <h3>Import into the App</h3>
+                <p>
+                  Click <strong>Import Conversations</strong> or <strong>Paste Messages</strong>. Select your export files (<code>.txt</code>, <code>.json</code>, <code>.html</code>, <code>.csv</code>, or <code>.zip</code>) or paste your clipboard.
+                </p>
+              </div>
+              <div class="step-item">
+                <span class="step-number">3</span>
+                <h3>Get Your Briefing</h3>
+                <p>
+                  Instantly review prioritized action items, decisions, announcements, deadlines, and questions. Click any finding to jump directly to the original source message.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 2. Messages Import Guide -->
+          <section id="import-guide" class="guide-section">
+            <div class="guide-section-header">
+              <span class="guide-section-kicker">STEP-BY-STEP EXPORT INSTRUCTIONS</span>
+              <h2>Messages Import Guide</h2>
+              <p>
+                What Did I Miss? does not connect directly to any messaging account (for your safety and security). Instead, you import exported chat files or paste messages. Select your platform below for exact export instructions.
+              </p>
+            </div>
+
+            <!-- Platform Tabs Nav -->
+            <div class="platform-tabs-nav" role="tablist" aria-label="Supported chat platforms">
+              <button class="platform-tab-btn active" data-platform="whatsapp" role="tab" aria-selected="true" aria-controls="panel-whatsapp">
+                <span class="tab-icon">💬</span> WhatsApp
+              </button>
+              <button class="platform-tab-btn" data-platform="telegram" role="tab" aria-selected="false" aria-controls="panel-telegram">
+                <span class="tab-icon">✈️</span> Telegram
+              </button>
+              <button class="platform-tab-btn" data-platform="instagram" role="tab" aria-selected="false" aria-controls="panel-instagram">
+                <span class="tab-icon">📸</span> Instagram
+              </button>
+              <button class="platform-tab-btn" data-platform="messenger" role="tab" aria-selected="false" aria-controls="panel-messenger">
+                <span class="tab-icon">⚡</span> Messenger
+              </button>
+              <button class="platform-tab-btn" data-platform="csv" role="tab" aria-selected="false" aria-controls="panel-csv">
+                <span class="tab-icon">📄</span> CSV & Other
+              </button>
+            </div>
+
+            <!-- Panel: WhatsApp -->
+            <div id="panel-whatsapp" class="platform-panel active" role="tabpanel">
+              <div class="guide-card">
+                <div class="guide-card-header">
+                  <div class="guide-card-icon">💬</div>
+                  <div>
+                    <h3>WhatsApp Export & Import</h3>
+                    <p>Supported file types: <code>.txt</code>, <code>.zip</code>, or pasted text transcripts</p>
+                  </div>
+                </div>
+
+                <div class="platform-meta-strip">
+                  <div class="platform-meta-item"><strong>Supported Formats:</strong> <span class="format-chip">.txt</span> <span class="format-chip">.zip</span></div>
+                  <div class="platform-meta-item"><strong>Timestamp Styles:</strong> iOS brackets <code>[DD/MM/YY, HH:MM]</code> &amp; Android dashes <code>DD/MM/YY, HH:MM -</code></div>
+                </div>
+
+                <h4 style="margin:16px 0 8px;color:#182544;font-size:13px;">On iPhone (iOS):</h4>
+                <div class="steps-list">
+                  <div class="step-row">
+                    <span class="step-num-badge">1</span>
+                    <div class="step-row-body">
+                      <strong>Open WhatsApp and select your chat or group</strong>
+                      <p>Tap on the contact name or group subject at the very top of the conversation screen.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">2</span>
+                    <div class="step-row-body">
+                      <strong>Tap "Export Chat"</strong>
+                      <p>Scroll down to the bottom of the Contact/Group Info screen and select <strong>Export Chat</strong>.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">3</span>
+                    <div class="step-row-body">
+                      <strong>Choose "Without Media"</strong>
+                      <p>Always select <strong>Without Media</strong>. This keeps the file lightweight, avoids large video/photo payloads, and generates an instant <code>_chat.txt</code> or <code>.zip</code>.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">4</span>
+                    <div class="step-row-body">
+                      <strong>Save to Files</strong>
+                      <p>In the iOS Share sheet, tap <strong>Save to Files</strong> and choose your <em>Downloads</em> or <em>On My iPhone</em> folder.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">5</span>
+                    <div class="step-row-body">
+                      <strong>Import into What Did I Miss?</strong>
+                      <p>Open What Did I Miss?, tap <strong>Import Conversations</strong> > <strong>Choose Export Files</strong>, and pick your saved file.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <h4 style="margin:22px 0 8px;color:#182544;font-size:13px;">On Android:</h4>
+                <div class="steps-list">
+                  <div class="step-row">
+                    <span class="step-num-badge">1</span>
+                    <div class="step-row-body">
+                      <strong>Open WhatsApp chat and tap the three dots (⋮)</strong>
+                      <p>Tap the menu icon in the upper-right corner of the chat window.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">2</span>
+                    <div class="step-row-body">
+                      <strong>Select "More" > "Export chat"</strong>
+                      <p>Choose <strong>Without media</strong> when prompted.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">3</span>
+                    <div class="step-row-body">
+                      <strong>Save file to device</strong>
+                      <p>Save to your device's <em>Files</em> or <em>Downloads</em> folder (or email it to yourself/Google Drive to download on desktop).</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="guide-callout tip">
+                  <span class="guide-callout-icon">💡</span>
+                  <div>
+                    <strong>Fast Alternative (Direct Copy &amp; Paste):</strong>
+                    You can select recent messages directly in WhatsApp Web or WhatsApp Desktop, press <kbd>⌘C</kbd> / <kbd>Ctrl+C</kbd>, click <strong>Paste Messages</strong> in What Did I Miss?, and paste them right in!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel: Telegram -->
+            <div id="panel-telegram" class="platform-panel" role="tabpanel">
+              <div class="guide-card">
+                <div class="guide-card-header">
+                  <div class="guide-card-icon">✈️</div>
+                  <div>
+                    <h3>Telegram Export & Import</h3>
+                    <p>Supported file types: <code>.json</code> (Telegram Desktop), <code>.html</code>, or copied text</p>
+                  </div>
+                </div>
+
+                <div class="platform-meta-strip">
+                  <div class="platform-meta-item"><strong>Recommended Export:</strong> Telegram Desktop JSON export (<code>result.json</code>)</div>
+                  <div class="platform-meta-item"><strong>Also Supported:</strong> <code>messages.html</code>, ISO timestamp text</div>
+                </div>
+
+                <h4 style="margin:16px 0 8px;color:#182544;font-size:13px;">Using Telegram Desktop (Best Quality Export):</h4>
+                <div class="steps-list">
+                  <div class="step-row">
+                    <span class="step-num-badge">1</span>
+                    <div class="step-row-body">
+                      <strong>Open Telegram Desktop and open your chat</strong>
+                      <p>Works for private chats, group conversations, and supergroups.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">2</span>
+                    <div class="step-row-body">
+                      <strong>Click the three dots (⋮) > "Export chat history"</strong>
+                      <p>In the upper right corner of the chat header, click the menu button and choose <strong>Export chat history</strong>.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">3</span>
+                    <div class="step-row-body">
+                      <strong>Configure export settings</strong>
+                      <p>Uncheck photos, videos, voice messages, and stickers. Under <em>Format</em>, select <strong>Machine-readable JSON</strong> (or HTML).</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">4</span>
+                    <div class="step-row-body">
+                      <strong>Click "Export" and choose file in What Did I Miss?</strong>
+                      <p>Open What Did I Miss?, choose your exported <code>result.json</code> or <code>messages.html</code>, and receive an instant breakdown!</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="guide-callout info">
+                  <span class="guide-callout-icon">ℹ️</span>
+                  <div>
+                    <strong>Multiline Message Preservation:</strong>
+                    Telegram messages often have multiple lines, code blocks, or bullets. What Did I Miss? automatically groups multiline messages under the original sender without fragmenting.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel: Instagram -->
+            <div id="panel-instagram" class="platform-panel" role="tabpanel">
+              <div class="guide-card">
+                <div class="guide-card-header">
+                  <div class="guide-card-icon">📸</div>
+                  <div>
+                    <h3>Instagram Direct Messages Export & Import</h3>
+                    <p>Supported file types: <code>message_1.json</code>, multi-part split JSON files, or full ZIP</p>
+                  </div>
+                </div>
+
+                <div class="platform-meta-strip">
+                  <div class="platform-meta-item"><strong>Format Requirement:</strong> Select <strong>JSON</strong> format (not HTML) in Meta Accounts Center</div>
+                  <div class="platform-meta-item"><strong>Automatic Merging:</strong> Split files (<code>message_1.json</code>, <code>message_2.json</code>) are auto-combined</div>
+                </div>
+
+                <h4 style="margin:16px 0 8px;color:#182544;font-size:13px;">How to Request an Instagram Message Export:</h4>
+                <div class="steps-list">
+                  <div class="step-row">
+                    <span class="step-num-badge">1</span>
+                    <div class="step-row-body">
+                      <strong>Open Instagram Settings</strong>
+                      <p>Go to your Instagram profile > menu (☰) > <strong>Your Activity</strong> > <strong>Download your information</strong> (or Meta Accounts Center > Your information and permissions).</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">2</span>
+                    <div class="step-row-body">
+                      <strong>Request a Download for Messages</strong>
+                      <p>Select <em>Some of your information</em>, then check only <strong>Messages</strong>.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">3</span>
+                    <div class="step-row-body">
+                      <strong>Select Format: JSON</strong>
+                      <p>Important: Set <em>Format</em> to <strong>JSON</strong>. Set media quality to <em>Low</em> (since media isn't needed) and choose your date range.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">4</span>
+                    <div class="step-row-body">
+                      <strong>Download ZIP and Select in What Did I Miss?</strong>
+                      <p>Meta sends you an email when your file is ready. Download it, select the ZIP or the specific <code>message_1.json</code> from the chat folder in the app.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="guide-callout tip">
+                  <span class="guide-callout-icon">💡</span>
+                  <div>
+                    <strong>Split Folder Multi-File Support:</strong>
+                    When an Instagram DM conversation is long, Meta splits it across <code>message_1.json</code>, <code>message_2.json</code>, etc. You can select all files at once — What Did I Miss? detects they belong to the same chat and merges them chronologically!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel: Facebook Messenger -->
+            <div id="panel-messenger" class="platform-panel" role="tabpanel">
+              <div class="guide-card">
+                <div class="guide-card-header">
+                  <div class="guide-card-icon">⚡</div>
+                  <div>
+                    <h3>Facebook Messenger Export & Import</h3>
+                    <p>Supported file types: Messenger export <code>.json</code> or compressed <code>.zip</code></p>
+                  </div>
+                </div>
+
+                <div class="platform-meta-strip">
+                  <div class="platform-meta-item"><strong>Format Requirement:</strong> Choose <strong>JSON format</strong> in Meta Accounts Center</div>
+                  <div class="platform-meta-item"><strong>Detection:</strong> Automatically resolves conversation title and participant names</div>
+                </div>
+
+                <h4 style="margin:16px 0 8px;color:#182544;font-size:13px;">How to Export from Facebook / Messenger:</h4>
+                <div class="steps-list">
+                  <div class="step-row">
+                    <span class="step-num-badge">1</span>
+                    <div class="step-row-body">
+                      <strong>Navigate to Meta Accounts Center</strong>
+                      <p>On Facebook or Messenger, click your profile picture > <strong>Settings & Privacy</strong> > <strong>Settings</strong> > <strong>Accounts Center</strong>.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">2</span>
+                    <div class="step-row-body">
+                      <strong>Download Your Information</strong>
+                      <p>Click <strong>Your information and permissions</strong> > <strong>Download your information</strong> > <strong>Download or transfer information</strong>.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">3</span>
+                    <div class="step-row-body">
+                      <strong>Select Messages in JSON Format</strong>
+                      <p>Select <em>Messages</em> only. Choose <strong>JSON</strong> format and submit request.</p>
+                    </div>
+                  </div>
+                  <div class="step-row">
+                    <span class="step-num-badge">4</span>
+                    <div class="step-row-body">
+                      <strong>Import into What Did I Miss?</strong>
+                      <p>Import the downloaded chat folder or <code>message_1.json</code> file. What Did I Miss? decodes the timestamps and participants immediately.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel: CSV & Other -->
+            <div id="panel-csv" class="platform-panel" role="tabpanel">
+              <div class="guide-card">
+                <div class="guide-card-header">
+                  <div class="guide-card-icon">📄</div>
+                  <div>
+                    <h3>CSV, Slack, Discord & Custom Transcripts</h3>
+                    <p>Supported file types: <code>.csv</code>, <code>.txt</code>, or any raw copied text</p>
+                  </div>
+                </div>
+
+                <div class="platform-meta-strip">
+                  <div class="platform-meta-item"><strong>CSV Headers Recognized:</strong> <code>sender</code>, <code>timestamp</code>, <code>message</code> (or text, content, author)</div>
+                  <div class="platform-meta-item"><strong>Plain Text:</strong> Standard <code>Name: message</code> format supported</div>
+                </div>
+
+                <h4 style="margin:16px 0 8px;color:#182544;font-size:13px;">Using CSV Files:</h4>
+                <p style="color:#5f6e89;font-size:12px;line-height:1.6;margin-bottom:12px;">
+                  You can export chats from Slack, Discord, internal ticketing systems, or spreadsheets into a CSV file. What Did I Miss? automatically maps common column names:
+                </p>
+
+                <div class="guide-table-wrap">
+                  <table class="guide-table">
+                    <thead>
+                      <tr>
+                        <th>Recognized Field</th>
+                        <th>Accepted Header Column Names</th>
+                        <th>Example Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Sender</strong></td>
+                        <td><code>sender</code>, <code>author</code>, <code>from</code>, <code>username</code>, <code>sendername</code></td>
+                        <td>"Sarah Connor"</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Message Text</strong> (Required)</td>
+                        <td><code>message</code>, <code>content</code>, <code>text</code>, <code>body</code></td>
+                        <td>"Please review the PR by tomorrow afternoon."</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Timestamp</strong> (Optional)</td>
+                        <td><code>timestamp</code>, <code>datetime</code>, <code>date</code>, <code>createdat</code>, <code>time</code></td>
+                        <td>"2026-11-19T10:30:00Z"</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h4 style="margin:22px 0 8px;color:#182544;font-size:13px;">Plain Text "Name: message" Transcripts:</h4>
+                <p style="color:#5f6e89;font-size:12px;line-height:1.6;margin-bottom:12px;">
+                  Even without dates or timestamps, simply pasting lines structured as <code>Name: message</code> is fully parsed. Multiline continuations without a new colon are cleanly attached to the previous speaker.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. Paste vs Files Comparison & Technical Limits -->
+          <section id="import-methods" class="guide-section">
+            <div class="guide-section-header">
+              <span class="guide-section-kicker">METHODS & CAPACITIES</span>
+              <h2>Paste Messages vs. File Upload</h2>
+              <p>Choose the method that fits your workflow and learn about file limits and in-memory processing.</p>
+            </div>
+
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <thead>
+                  <tr>
+                    <th>Capability / Dimension</th>
+                    <th>Direct Copy &amp; Paste</th>
+                    <th>File Import (.txt, .json, .html, .csv, .zip)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Best For</strong></td>
+                    <td>Quick catch-up on recent messages, snippets, or single conversations</td>
+                    <td>Full month/year chat archives, multi-file exports, ZIP bundles</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Supported Platforms</strong></td>
+                    <td>WhatsApp, Telegram, Slack, Teams, plain <code>Name: text</code></td>
+                    <td>WhatsApp, Telegram Desktop, Instagram DMs, Facebook Messenger, CSV</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Maximum Limits</strong></td>
+                    <td>Up to hundreds of lines directly in textarea</td>
+                    <td>Up to 10 files per selection, 20 MB per batch, 50 MB expanded ZIP</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Archive Support</strong></td>
+                    <td>N/A</td>
+                    <td>ZIP archives decompressed in-memory via <code>DecompressionStream</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Split Files Support</strong></td>
+                    <td>Manual copy</td>
+                    <td>Automatic grouping of split <code>message_N.json</code> files from same folder</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Privacy &amp; Storage</strong></td>
+                    <td>Processed in browser RAM; no uploads</td>
+                    <td>Read in browser RAM; zero files extracted to disk; zero uploads</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="guide-callout warning">
+              <span class="guide-callout-icon">⚠️</span>
+              <div>
+                <strong>Mobile Browser Tip:</strong>
+                On mobile devices (iOS Safari &amp; Android Chrome), files downloaded from messaging apps must be saved to your device's <em>Files</em> or <em>Downloads</em> folder before selecting them in the browser picker.
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. App Features & Intelligence -->
+          <section id="app-features" class="guide-section">
+            <div class="guide-section-header">
+              <span class="guide-section-kicker">LOCAL RULE-BASED INTELLIGENCE</span>
+              <h2>App Features &amp; Findings Categories</h2>
+              <p>
+                What Did I Miss? uses transparent, deterministic heuristics to rank messages by urgency and signal rather than slow, unpredictable black-box cloud AI models. Here are the 5 core categories identified:
+              </p>
+            </div>
+
+            <div class="feature-cards-grid">
+              <!-- Feature 1: Actions -->
+              <div class="feature-box">
+                <div class="feature-box-top">
+                  <span class="feature-box-badge action">✓ Action Item</span>
+                </div>
+                <h3>1. Directed Action Items &amp; Commitments</h3>
+                <p>
+                  Identifies explicit tasks directed to team members, commitments made by speakers, and actionable requests. Includes interactive checkboxes to check off tasks as you finish them.
+                </p>
+                <div class="feature-trigger-list">
+                  Trigger cues: <code>please review</code>, <code>can you send</code>, <code>I will deploy</code>, <code>we plan to update</code>, <code>need you to</code>
+                </div>
+              </div>
+
+              <!-- Feature 2: Decisions -->
+              <div class="feature-box">
+                <div class="feature-box-top">
+                  <span class="feature-box-badge decision">◆ Decision &amp; Update</span>
+                </div>
+                <h3>2. Key Decisions &amp; Announcements</h3>
+                <p>
+                  Captures team consensus, official decisions, and major status updates so you know what was decided without reading 80 back-and-forth messages.
+                </p>
+                <div class="feature-trigger-list">
+                  Trigger cues: <code>we agreed on</code>, <code>decided to</code>, <code>approved</code>, <code>heads up</code>, <code>is live</code>, <code>incident</code>
+                </div>
+              </div>
+
+              <!-- Feature 3: Deadlines -->
+              <div class="feature-box">
+                <div class="feature-box-top">
+                  <span class="feature-box-badge deadline">⏰ Deadline &amp; Urgency</span>
+                </div>
+                <h3>3. Deadlines &amp; Urgent Blockers</h3>
+                <p>
+                  Extracts both explicit dates ("by Friday 5pm", "due Nov 30") and relative time cues ("due tomorrow", "tonight"). Differentiates true urgency from routine mentions.
+                </p>
+                <div class="feature-trigger-list">
+                  Trigger cues: <code>due by</code>, <code>deadline is</code>, <code>before Monday</code>, <code>urgent</code>, <code>critical blocker</code>, <code>ASAP</code>
+                </div>
+              </div>
+
+              <!-- Feature 4: Mentions -->
+              <div class="feature-box">
+                <div class="feature-box-top">
+                  <span class="feature-box-badge mention">@ Mention</span>
+                </div>
+                <h3>4. Personalized Mentions &amp; Highlights</h3>
+                <p>
+                  Tracks standard <code>@username</code> mentions. You can also specify custom keywords (like your first name, nicknames, or project code names) in the import modal to highlight messages relevant to you.
+                </p>
+                <div class="feature-trigger-list">
+                  Customizable: Specify comma-separated keywords in <em>"Your name or mention keywords"</em>
+                </div>
+              </div>
+            </div>
+
+            <!-- Additional capabilities -->
+            <div class="guide-card" style="margin-top:20px;">
+              <h3 style="margin:0 0 10px;color:#182544;font-size:15px;">Additional Built-in Features</h3>
+              <ul style="margin:0;padding-left:20px;color:#5a6884;font-size:12px;line-height:1.7;">
+                <li><strong>Interactive Task Checklist:</strong> Mark action items as completed directly in the summary panel; status updates in real-time.</li>
+                <li><strong>Finding Dismissal:</strong> Dismiss items you have already handled or that don't apply to you with one click.</li>
+                <li><strong>Multi-Conversation Workspace:</strong> Import multiple threads at once; switch between them seamlessly.</li>
+                <li><strong>Overview Metric Strip:</strong> Instant summary of total conversations, unread count, actions identified, and direct mentions.</li>
+                <li><strong>Thread Color Dots:</strong> Visual color accents (Purple, Coral, Blue, Green) to distinguish channels and conversations at a glance.</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- 5. Source Message Linking & Context Verification -->
+          <section id="source-verification" class="guide-section">
+            <div class="guide-section-header">
+              <span class="guide-section-kicker">VERIFY BEFORE YOU ACT</span>
+              <h2>Source Linking &amp; Context Verification</h2>
+              <p>The golden rule of What Did I Miss?: <em>"Heuristics highlight, you verify."</em></p>
+            </div>
+
+            <div class="verification-demo-card">
+              <h3 style="margin:0 0 8px;color:#182544;font-size:15px;">Bidirectional Source Navigation</h3>
+              <p style="margin:0 0 16px;color:#606f89;font-size:12px;line-height:1.6;">
+                Every single finding displayed in your summary briefing is directly linked to the exact line in the raw transcript. Clicking on a finding automatically scrolls to that message, pulses it with a subtle highlight animation, and displays reason badges.
+              </p>
+
+              <div class="demo-flow">
+                <div class="demo-step-box">
+                  <span style="font-size:10px;font-weight:700;color:#4e61e0;text-transform:uppercase;">In the Summary Panel</span>
+                  <div style="margin-top:8px;font-size:12px;color:#283654;font-weight:600;">
+                    ✓ <span style="text-decoration:underline;">Review the security checklist by tomorrow 5pm</span>
+                  </div>
+                  <small style="color:#7f8ea6;font-size:10px;display:block;margin-top:4px;">(Clicking this item)</small>
+                </div>
+
+                <div class="demo-arrow">→</div>
+
+                <div class="demo-step-box" style="border-left:3px solid #5869df;background:#f6f7ff;">
+                  <span style="font-size:10px;font-weight:700;color:#354ac7;text-transform:uppercase;">Source Message Highlighted</span>
+                  <div style="margin-top:6px;font-size:11px;color:#192748;line-height:1.5;">
+                    <strong>Marcus:</strong> "Hey everyone, please review the security checklist by tomorrow 5pm so we can proceed with launch."
+                  </div>
+                  <div style="margin-top:6px;display:flex;gap:4px;">
+                    <span class="source-finding-badge">Action</span>
+                    <span class="source-finding-badge">Deadline</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="guide-callout info" style="margin-top:20px;">
+                <span class="guide-callout-icon">🔍</span>
+                <div>
+                  <strong>Full Transcript Accordion:</strong>
+                  Need to inspect the full surrounding dialogue? Expand <strong>"All messages in this conversation"</strong> at the bottom of the detail panel to see the complete transcript in chronological order.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 6. Search, Filters & Shortcuts -->
+          <section id="search-and-filters" class="guide-section">
+            <div class="guide-section-header">
+              <span class="guide-section-kicker">NAVIGATION & PRODUCTIVITY</span>
+              <h2>Search, Filtering &amp; Shortcuts</h2>
+              <p>Quickly isolate the exact information you need across busy discussions.</p>
+            </div>
+
+            <div class="step-grid">
+              <div class="step-item">
+                <span style="font-size:20px;display:block;margin-bottom:8px;">🎯</span>
+                <h3>Tab Filters</h3>
+                <p>
+                  Switch between <strong>All</strong>, <strong>Unread</strong>, <strong>Mentions</strong> (threads containing mentions), and <strong>With actions</strong> (threads requiring action items).
+                </p>
+              </div>
+              <div class="step-item">
+                <span style="font-size:20px;display:block;margin-bottom:8px;">👥</span>
+                <h3>Sender Filter</h3>
+                <p>
+                  Use the <strong>Sender dropdown</strong> in the inbox toolbar to filter messages specifically sent by a particular team member or manager.
+                </p>
+              </div>
+              <div class="step-item">
+                <span style="font-size:20px;display:block;margin-bottom:8px;">🔥</span>
+                <h3>Priority Filter</h3>
+                <p>
+                  Filter by <strong>High</strong> (urgent blockers &amp; upcoming deadlines), <strong>Medium</strong> (actions &amp; decisions), or <strong>Low</strong> (general discussions).
+                </p>
+              </div>
+            </div>
+
+            <div class="guide-card" style="margin-top:18px;">
+              <h3 style="margin:0 0 10px;color:#182544;font-size:15px;">Keyboard Shortcuts &amp; Controls</h3>
+              <div class="guide-table-wrap">
+                <table class="guide-table">
+                  <thead>
+                    <tr>
+                      <th>Action</th>
+                      <th>Shortcut / Button</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Focus Search</strong></td>
+                      <td><kbd>⌘ K</kbd> / <kbd>Ctrl + K</kbd></td>
+                      <td>Immediately focuses the conversation search bar from anywhere on the page.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Close Dialogs</strong></td>
+                      <td><kbd>Esc</kbd></td>
+                      <td>Dismisses the import dialog or open modals immediately.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Clear All Data</strong></td>
+                      <td><kbd>⌫</kbd> (Clear icon in topbar)</td>
+                      <td>Permanently clears all imported conversations from page memory immediately.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- 7. Privacy, Security & Local Processing -->
+          <section id="privacy-architecture" class="guide-section">
+            <div class="guide-section-header">
+              <span class="guide-section-kicker">SECURITY GUARANTEES</span>
+              <h2>Privacy &amp; Local Processing Architecture</h2>
+              <p>Your conversations belong to you alone. Learn how What Did I Miss? ensures 100% privacy.</p>
+            </div>
+
+            <div class="guide-callout privacy">
+              <span class="guide-callout-icon">🛡️</span>
+              <div>
+                <strong>Zero Data Leaves Your Device:</strong>
+                All parsing, indexing, and analysis takes place in memory in this browser tab. There are no tracking scripts, no third-party analytics, and no remote server uploads.
+              </div>
+            </div>
+
+            <div class="feature-cards-grid">
+              <div class="feature-box">
+                <h3>1. In-Memory Session Storage</h3>
+                <p>
+                  Imported messages are held strictly in temporary JavaScript RAM variables for the current session. Nothing is written to <code>localStorage</code>, <code>IndexedDB</code>, or tracking cookies. Reloading or closing the tab instantly vaporizes all data.
+                </p>
+              </div>
+              <div class="feature-box">
+                <h3>2. No External AI API Requests</h3>
+                <p>
+                  Unlike cloud-based summarizing apps, What Did I Miss? does not send your private messages to OpenAI, Anthropic, Google, or any remote AI server. Everything runs on client-side pattern matching algorithms.
+                </p>
+              </div>
+              <div class="feature-box">
+                <h3>3. Verifiable Network Isolation</h3>
+                <p>
+                  You can verify this yourself: open your browser's Developer Tools (<kbd>F12</kbd>), switch to the <strong>Network</strong> tab, import a chat, and observe: zero outgoing HTTP or WebSocket requests occur.
+                </p>
+              </div>
+              <div class="feature-box">
+                <h3>4. Offline Operability</h3>
+                <p>
+                  Once the static files are loaded, you can turn off Wi-Fi or turn on Airplane mode. The application remains 100% functional without internet connectivity.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 8. Interactive Sample & Playground -->
+          <section id="sample-playground" class="guide-section">
+            <div class="guide-section-header">
+              <span class="guide-section-kicker">TRY IT WITHOUT REAL CHATS</span>
+              <h2>Sample Playground &amp; Testing</h2>
+              <p>Want to see the app in action before exporting your own conversations? Test with our fictional sample.</p>
+            </div>
+
+            <div class="sample-box-card">
+              <div class="sample-box-top">
+                <strong>Fictional Product Launch Chat Sample</strong>
+                <button class="copy-sample-btn" id="copy-sample-transcript-btn" type="button">
+                  <span>📋</span> Copy Sample Transcript
+                </button>
+              </div>
+              <p style="color:#606f88;font-size:11px;margin:0 0 12px;line-height:1.5;">
+                Copy this sample text, open the catch-up dashboard, click <strong>Paste Messages</strong>, paste, and click <strong>Summarize Messages</strong>.
+              </p>
+              <pre class="sample-code-display" id="sample-code-display">[19/11/26, 09:15:22] Maya Lin: Good morning team! Quick reminder: the Q4 release candidate is scheduled for deployment this Thursday at 4pm.
+[19/11/26, 09:18:05] David Chen: @Maya I reviewed the security scan results. We have one critical blocker on the authentication module.
+[19/11/26, 09:19:30] Maya Lin: Urgent: @David please coordinate with Alex immediately to resolve the auth patch before tomorrow 2pm.
+[19/11/26, 09:22:14] Alex Rivera: I will deploy the authentication bugfix to staging by 11am today for testing.
+[19/11/26, 09:30:45] Sarah Miller: Announcement: We decided to adopt the new dark mode theme for all mobile users starting in v2.4.
+[19/11/26, 09:35:10] Maya Lin: Decision confirmed: Let's go with the blue accent palette for the header.
+[19/11/26, 09:41:00] David Chen: Could someone please check if the iOS notification certificate is renewed?
+[19/11/26, 09:45:18] Alex Rivera: Verified! Certificate is active until 2028.</pre>
+            </div>
+          </section>
+
+          <!-- 9. Troubleshooting & FAQ -->
+          <section id="troubleshooting-faq" class="guide-section">
+            <div class="guide-section-header">
+              <span class="guide-section-kicker">QUESTIONS & ANSWERS</span>
+              <h2>Frequently Asked Questions</h2>
+              <p>Answers to common questions about formats, security, and troubleshooting.</p>
+            </div>
+
+            <div class="faq-accordion">
+              <details class="faq-item" open>
+                <summary class="faq-summary">Why does What Did I Miss? say "Ambiguous date order"?</summary>
+                <div class="faq-answer">
+                  <p>
+                    When an export uses a numerical date where both numbers are 12 or less (for example, <code>04/05/26</code>), it is impossible to know with 100% certainty whether it represents April 5th (US format) or May 4th (International format) without guessing.
+                  </p>
+                  <p>
+                    Rather than making an incorrect guess, What Did I Miss? retains the exact raw timestamp so the chronological sequence remains honest and trustworthy.
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-summary">Why did my ZIP file fail on a mobile browser?</summary>
+                <div class="faq-answer">
+                  <p>
+                    In-memory ZIP file decompression requires the browser's built-in <code>DecompressionStream("deflate-raw")</code> API. While modern desktop browsers and recent mobile versions support it, some older mobile browsers do not.
+                  </p>
+                  <p>
+                    <strong>Easy Fix:</strong> Simply tap the ZIP file in your phone's native <em>Files</em> or <em>Downloads</em> app to extract it, and select the resulting <code>.txt</code> or <code>.json</code> file in What Did I Miss?.
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-summary">Can the app connect directly to my WhatsApp or Telegram account?</summary>
+                <div class="faq-answer">
+                  <p>
+                    <strong>No, by design.</strong> Direct connections would require you to share session credentials, API keys, or phone numbers, which introduces severe security risks.
+                  </p>
+                  <p>
+                    By requiring exported files or copied text, you maintain absolute control over what is analyzed, ensuring no unauthorized account access is ever possible.
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-summary">Can I export my action items and summary?</summary>
+                <div class="faq-answer">
+                  <p>
+                    Yes! You can easily select and copy any action item, decision, or summary paragraph directly from the detail panel to paste into your notes, Notion, Trello, or email.
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-summary">How do I completely erase all conversation data?</summary>
+                <div class="faq-answer">
+                  <p>
+                    Click the <strong>Clear Data (<kbd>⌫</kbd>)</strong> button in the top navigation bar, or simply refresh or close your browser tab. Because data is never saved to disk or database, closing the page instantly purges everything.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </section>
+
+          <!-- Launch Call to Action Banner -->
+          <div class="guide-launch-cta">
+            <div>
+              <h3>Ready to catch up on what matters?</h3>
+              <p>Open the workspace, paste your messages or import your export files, and get your private briefing in seconds.</p>
+            </div>
+            <a href="index.html" class="primary-button" style="min-height:48px;padding:0 22px;font-size:14px;">
+              Launch What Did I Miss? <span>→</span>
+            </a>
+          </div>
+
+          <!-- Footer -->
+          <footer class="page-footer" style="margin-top:50px;">
+            <span>What Did I Miss? — Catch up. Focus on what matters.</span>
+            <span>
+              <i></i> 100% on-device processing. No cloud upload.
+              <a href="index.html" class="footer-guide-link">Workspace</a>
+            </span>
+          </footer>
+        </div>
+      </main>
+    </div>
+
+    <!-- Toast element for feedback -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Script for Tab Switching, Smooth Scroll, and Sample Copy -->
+    <script>
+      (function() {
+        "use strict";
+
+        // Toast Helper
+        const toast = document.getElementById("toast");
+        let toastTimeout;
+        function showToast(message) {
+          if (!toast) return;
+          toast.textContent = message;
+          toast.classList.add("visible");
+          clearTimeout(toastTimeout);
+          toastTimeout = setTimeout(() => {
+            toast.classList.remove("visible");
+          }, 3200);
+        }
+
+        // Platform Tab Switching
+        const tabButtons = document.querySelectorAll(".platform-tab-btn");
+        const tabPanels = document.querySelectorAll(".platform-panel");
+
+        tabButtons.forEach(button => {
+          button.addEventListener("click", () => {
+            const platform = button.dataset.platform;
+
+            tabButtons.forEach(btn => {
+              btn.classList.remove("active");
+              btn.setAttribute("aria-selected", "false");
+            });
+            tabPanels.forEach(panel => {
+              panel.classList.remove("active");
+            });
+
+            button.classList.add("active");
+            button.setAttribute("aria-selected", "true");
+
+            const targetPanel = document.getElementById(`panel-${platform}`);
+            if (targetPanel) {
+              targetPanel.classList.add("active");
+            }
+          });
+        });
+
+        // Copy Sample Transcript
+        const copySampleBtn = document.getElementById("copy-sample-transcript-btn");
+        const sampleCodeDisplay = document.getElementById("sample-code-display");
+
+        if (copySampleBtn && sampleCodeDisplay) {
+          copySampleBtn.addEventListener("click", async () => {
+            try {
+              await navigator.clipboard.writeText(sampleCodeDisplay.textContent.trim());
+              showToast("Sample transcript copied to clipboard! Paste it into the app.");
+            } catch (err) {
+              // Fallback
+              const textarea = document.createElement("textarea");
+              textarea.value = sampleCodeDisplay.textContent.trim();
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand("copy");
+              document.body.removeChild(textarea);
+              showToast("Sample transcript copied to clipboard!");
+            }
+          });
+        }
+
+        // Active State for Quick Jump Links based on Scroll
+        const sections = document.querySelectorAll(".guide-section");
+        const jumpLinks = document.querySelectorAll(".guide-jump-link");
+        const sidebarLinks = document.querySelectorAll(".guide-sidebar-link");
+
+        function updateActiveLinks() {
+          const scrollPos = window.scrollY + 180;
+
+          sections.forEach(section => {
+            const top = section.offsetTop;
+            const height = section.offsetHeight;
+            const id = section.getAttribute("id");
+
+            if (scrollPos >= top && scrollPos < top + height) {
+              jumpLinks.forEach(link => {
+                link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+              });
+              sidebarLinks.forEach(link => {
+                link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+              });
+            }
+          });
+        }
+
+        window.addEventListener("scroll", updateActiveLinks, { passive: true });
+        updateActiveLinks();
+
+        // Check for URL hash to switch platform tab if requested (e.g. #whatsapp, #telegram)
+        const hash = window.location.hash.replace("#", "").toLowerCase();
+        if (hash) {
+          const matchingTab = document.querySelector(`.platform-tab-btn[data-platform="${hash}"]`);
+          if (matchingTab) {
+            matchingTab.click();
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

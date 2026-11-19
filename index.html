@@ -37,6 +37,12 @@
         </nav>
 
         <div class="sidebar-divider"></div>
+        <p class="nav-label">GUIDES &amp; HELP</p>
+        <nav class="help-nav" aria-label="Help navigation">
+          <a class="space-link" href="how-to-use.html"><span class="nav-icon" aria-hidden="true">📖</span> How To Use Guide</a>
+        </nav>
+
+        <div class="sidebar-divider"></div>
         <div class="section-heading"><p class="nav-label">CONVERSATIONS</p><button class="icon-button small" id="add-action-button" aria-label="Import or paste conversations">＋</button></div>
 
         <div class="sidebar-bottom">
@@ -52,9 +58,10 @@
         <header class="topbar">
           <div class="topbar-leading"><img class="topbar-logo" src="public/assets/what-did-i-miss-mark.svg" alt=""><div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong>All conversations</strong></div></div>
           <div class="topbar-actions">
+            <a href="how-to-use.html" class="topbar-guide-link" title="Open How To Use Guide"><span aria-hidden="true">📖</span> How To Use</a>
             <span class="local-indicator"><span></span> 100% local</span>
             <button class="icon-button clear-button" id="clear-data-button" type="button" title="Clear imported conversations" aria-label="Clear imported conversations" hidden>⌫</button>
-            <button class="icon-button" id="help-button" aria-label="About local privacy">?</button>
+            <a href="how-to-use.html" class="icon-button" id="help-button" title="How To Use &amp; Help Guide" aria-label="How To Use &amp; Help Guide">?</a>
           </div>
         </header>
 
@@ -87,6 +94,9 @@
           <div class="welcome-actions">
             <button class="primary-button" id="welcome-import-button" type="button"><span class="button-icon" aria-hidden="true">↑</span> Import Conversations</button>
             <button class="secondary-button" id="welcome-paste-button" type="button"><span class="button-icon" aria-hidden="true">⌘</span> Paste Messages</button>
+          </div>
+          <div style="margin-top:14px;">
+            <a href="how-to-use.html" class="welcome-guide-link"><span aria-hidden="true">📖</span> Need help exporting or using the app? View the How To Use Guide →</a>
           </div>
         </section>
         <section class="summary-strip" id="summary-strip" aria-label="Catch-up overview">
@@ -121,7 +131,7 @@
             <article class="detail-panel" id="detail-panel" aria-live="polite"></article>
           </div>
         </section>
-        <footer class="page-footer"><span>Catch up. Focus on what matters.</span><span><i></i> Parsed and summarized in this browser. No upload.</span></footer>
+        <footer class="page-footer"><span>Catch up. Focus on what matters.</span><span><i></i> Parsed and summarized in this browser. No upload. <a href="how-to-use.html" class="footer-guide-link">How To Use Guide</a></span></footer>
       </main>
     </div>
 
@@ -131,7 +141,7 @@
       <select id="source-platform" class="title-input">
         <option value="auto">Auto-detect export format</option><option value="whatsapp">WhatsApp</option><option value="telegram">Telegram</option><option value="instagram">Instagram</option><option value="facebook">Facebook Messenger</option><option value="discord">Discord</option><option value="other">Other chat export</option>
       </select>
-      <p class="platform-instructions" id="platform-instructions" aria-live="polite">Choose WhatsApp, Telegram, Instagram, or Facebook Messenger. Export files must be downloaded or saved to this device first; this app does not connect to accounts.</p>
+      <p class="platform-instructions" id="platform-instructions" aria-live="polite">Choose WhatsApp, Telegram, Instagram, or Facebook Messenger. Export files must be downloaded or saved to this device first; this app does not connect to accounts. <a href="how-to-use.html#import-guide" class="guide-inline-link" target="_blank" rel="noopener">View step-by-step export instructions ↗</a></p>
       <div class="import-shortcuts"><button class="secondary-button" id="choose-files-button" type="button">Choose Export Files</button><button class="secondary-button" id="paste-messages-button" type="button">Paste Messages</button></div>
       <label class="input-label" for="conversation-title">Conversation or group name <span>(optional)</span></label>
       <input id="conversation-title" class="title-input" type="text" placeholder="e.g. Launch planning">

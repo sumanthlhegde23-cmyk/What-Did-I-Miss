@@ -280,7 +280,7 @@ function renderCounts() {
   document.querySelector("#inbox-section").hidden = threads.length === 0;
   document.querySelector(".welcome-section").hidden = threads.length === 0;
   document.querySelector(".inbox-toolbar").hidden = threads.length === 0;
-  document.querySelectorAll(".nav-item").forEach((button) => {
+  document.querySelectorAll(".nav-item[data-filter]").forEach((button) => {
     button.hidden = threads.length === 0 && button.dataset.filter !== "all";
   });
   document.querySelector("#add-action-button").hidden = false;
@@ -591,7 +591,10 @@ document.querySelector("#sample-button").addEventListener("click", () => {
   document.querySelector("#form-error").textContent = "";
   document.querySelector("#conversation-input").focus();
 });
-document.querySelector("#help-button").addEventListener("click", () => showToast("Files and messages are analyzed in this browser. They are not uploaded."));
+const helpButton = document.querySelector("#help-button");
+if (helpButton && helpButton.tagName !== "A") {
+  helpButton.addEventListener("click", () => showToast("Files and messages are analyzed in this browser. They are not uploaded."));
+}
 mentionKeywordsInput.addEventListener("change", () => {
   const selected = threads.find((thread) => thread.id === selectedThreadId);
   if (selected?.analysis) summarizeThread(selected);

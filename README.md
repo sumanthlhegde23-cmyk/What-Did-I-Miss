@@ -8,6 +8,15 @@ The first launch starts with an empty welcome screen. Paste a transcript or impo
 
 Open `index.html` in a modern browser. There is no build step, account, API key, or server.
 
+## Documentation and How To Use Guide
+
+Open `how-to-use.html` in your browser or click **How To Use** in the app navigation bar. It includes:
+- Step-by-step export instructions for WhatsApp (iOS & Android), Telegram (Desktop & Mobile), Instagram DMs, Facebook Messenger, and custom CSV transcripts.
+- Comparison of direct paste vs file imports, batch limits, and ZIP archive decompression.
+- In-depth guide to the 5 finding categories (action items, decisions, deadlines, mentions, questions).
+- Source message linking, interactive task checklist, multi-channel filters, and keyboard shortcuts.
+- Privacy guarantees, local-first in-memory architecture, sample playground, and troubleshooting FAQ.
+
 ## Import limits and supported formats
 
 Paste timestamped WhatsApp or Telegram messages, or untimestamped `Name: message` lines. The parser handles common WhatsApp bracketed iOS and dash-separated Android timestamps, ISO-style Telegram timestamps, 12-hour and 24-hour time, multiline messages, and exports with or without a year. Original message text and raw timestamps are retained. An ISO-like normalized timestamp is provided only when the date order and year can be determined without guessing; ambiguous dates remain raw.
