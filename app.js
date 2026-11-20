@@ -680,7 +680,7 @@ function initHeroMotion() {
       }
       const svg = heroPage.querySelector(".hero-motion-clock-svg");
       if (svg) {
-        const animatedEls = svg.querySelectorAll(".hero-clock-outer-boundary, .hero-clock-track, .hero-clock-arrow, .hero-clock-pivot, .hero-hour-hand, .hero-minute-hand");
+        const animatedEls = svg.querySelectorAll(".hero-clock-track, .hero-clock-arrow, .hero-clock-pivot, .hero-hour-hand, .hero-minute-hand");
         animatedEls.forEach((el) => {
           el.style.animation = "none";
           el.offsetHeight;

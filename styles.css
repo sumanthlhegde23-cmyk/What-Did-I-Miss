@@ -1392,16 +1392,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   overflow: visible;
 }
 
-/* 1. CLOCK BOUNDARY & BODY: Initially WHITE with visible boundary -> turns BLUE over 3.4s */
-.hero-clock-outer-boundary {
-  fill: none;
-  stroke: #ffffff;
-  stroke-width: 2.2;
-  opacity: 0.95;
-  filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  animation: clockBoundaryTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
+/* 1. CLOCK BODY & REWIND ARROW: Initially WHITE -> turns BLUE over 3.4s */
 .hero-clock-track {
   fill: none;
   stroke: #ffffff;
@@ -1418,29 +1409,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   stroke-linejoin: round;
   filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   animation: clockArrowTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes clockBoundaryTransition {
-  0% {
-    stroke: #ffffff;
-    opacity: 0.95;
-    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  }
-  25% {
-    stroke: #ffffff;
-    opacity: 0.95;
-    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  }
-  65% {
-    stroke: #4d77f7;
-    opacity: 0.9;
-    filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.6));
-  }
-  100% {
-    stroke: #2563eb;
-    opacity: 1;
-    filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.75));
-  }
 }
 
 @keyframes clockColorTransition {
