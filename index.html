@@ -19,7 +19,7 @@
     <!-- Motion-Driven Hero Page: App's icon where clock & hands movements happen and stop at original position -->
     <div id="motion-hero-page" class="motion-hero-page" role="region" aria-label="What Did I Miss motion hero intro">
       <button id="skip-hero-btn" class="skip-hero-btn" type="button" aria-label="Skip motion intro">
-        Skip Intro <span aria-hidden="true">✕</span>
+        <span data-i18n="skipIntro">Skip Intro</span> <span aria-hidden="true">✕</span>
       </button>
 
       <div class="hero-motion-content">
@@ -56,7 +56,7 @@
           <h1 class="hero-motion-title">
             whatdidi<span class="hero-title-accent">miss</span>
           </h1>
-          <p class="hero-motion-tagline">Catch up. Focus on what matters.</p>
+          <p class="hero-motion-tagline" data-i18n="motionTagline">Catch up. Focus on what matters.</p>
           <div class="hero-motion-progress" aria-hidden="true">
             <div class="hero-progress-bar"></div>
           </div>
@@ -73,30 +73,30 @@
 
         <div class="workspace-switcher">
           <span class="workspace-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 5.75A2.75 2.75 0 0 1 7.25 3h9.5a2.75 2.75 0 0 1 2.75 2.75v7.5A2.75 2.75 0 0 1 16.75 16h-5.2l-4.8 4v-4.1a2.75 2.75 0 0 1-2.25-2.65z"/><path d="m9 9.8 2.1 2.1 4.2-4.5"/></svg></span>
-          <span class="workspace-copy"><strong>Catch up</strong><small>Your conversation workspace</small></span>
+          <span class="workspace-copy"><strong data-i18n="workspaceTitle">Catch up</strong><small data-i18n="workspaceSubtitle">Your conversation workspace</small></span>
         </div>
 
-        <p class="nav-label">YOUR WORKSPACE</p>
+        <p class="nav-label" data-i18n="navWorkspace">YOUR WORKSPACE</p>
         <nav class="primary-nav" aria-label="Main navigation">
-          <button class="nav-item active" data-filter="all"><span class="nav-icon" aria-hidden="true">⌂</span> Catch Up <span class="nav-count" id="all-count">0</span></button>
-          <button class="nav-item" data-filter="unread"><span class="nav-icon" aria-hidden="true">◷</span> Unread <span class="nav-count" id="unread-count">0</span></button>
-          <button class="nav-item" data-filter="mentions"><span class="nav-icon" aria-hidden="true">@</span> Mentions</button>
-          <button class="nav-item" data-filter="actions"><span class="nav-icon" aria-hidden="true">✓</span> Action items</button>
+          <button class="nav-item active" data-filter="all"><span class="nav-icon" aria-hidden="true">⌂</span> <span data-i18n="navCatchUp">Catch Up</span> <span class="nav-count" id="all-count">0</span></button>
+          <button class="nav-item" data-filter="unread"><span class="nav-icon" aria-hidden="true">◷</span> <span data-i18n="navUnread">Unread</span> <span class="nav-count" id="unread-count">0</span></button>
+          <button class="nav-item" data-filter="mentions"><span class="nav-icon" aria-hidden="true">@</span> <span data-i18n="navMentions">Mentions</span></button>
+          <button class="nav-item" data-filter="actions"><span class="nav-icon" aria-hidden="true">✓</span> <span data-i18n="navActions">Action items</span></button>
         </nav>
 
         <div class="sidebar-divider"></div>
-        <p class="nav-label">GUIDES &amp; HELP</p>
+        <p class="nav-label" data-i18n="navHelp">GUIDES &amp; HELP</p>
         <nav class="help-nav" aria-label="Help navigation">
-          <a class="space-link" href="how-to-use.html"><span class="nav-icon" aria-hidden="true">📖</span> How To Use Guide</a>
+          <a class="space-link" href="how-to-use.html"><span class="nav-icon" aria-hidden="true">📖</span> <span data-i18n="navHowToUse">How To Use Guide</span></a>
         </nav>
 
         <div class="sidebar-divider"></div>
-        <div class="section-heading"><p class="nav-label">CONVERSATIONS</p><button class="icon-button small" id="add-action-button" aria-label="Import or paste conversations">＋</button></div>
+        <div class="section-heading"><p class="nav-label" data-i18n="navConversations">CONVERSATIONS</p><button class="icon-button small" id="add-action-button" aria-label="Import or paste conversations">＋</button></div>
 
         <div class="sidebar-bottom">
           <div class="privacy-card">
             <span class="privacy-lock" aria-hidden="true">◇</span>
-            <div><strong>Private by design</strong><p>Messages are parsed and summarized in this browser. Nothing is uploaded.</p></div>
+            <div><strong data-i18n="privacyTitle">Private by design</strong><p data-i18n="privacyDesc">Messages are parsed and summarized in this browser. Nothing is uploaded.</p></div>
             <span class="privacy-status" aria-label="Local processing enabled"></span>
           </div>
         </div>
@@ -104,21 +104,49 @@
 
       <main class="main-content">
         <header class="topbar">
-          <div class="topbar-leading"><img class="topbar-logo" src="public/assets/what-did-i-miss-mark.png" alt="whatdidimiss"><div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong>All conversations</strong></div></div>
+          <div class="topbar-leading"><img class="topbar-logo" src="public/assets/what-did-i-miss-mark.png" alt="whatdidimiss"><div class="breadcrumb"><span data-i18n="breadcrumbWorkspace">Workspace</span><span class="breadcrumb-slash">/</span><strong data-i18n="breadcrumbConversations">All conversations</strong></div></div>
           <div class="topbar-actions">
-            <button class="topbar-replay-btn replay-motion-btn" type="button" title="Replay Motion Intro" aria-label="Replay Motion Intro"><span aria-hidden="true">⟲</span> Motion</button>
-            <a href="how-to-use.html" class="topbar-guide-link" title="Open How To Use Guide"><span aria-hidden="true">📖</span> How To Use</a>
-            <span class="local-indicator"><span></span> 100% local</span>
+            <button class="topbar-replay-btn replay-motion-btn" type="button" title="Replay Motion Intro" aria-label="Replay Motion Intro"><span aria-hidden="true">⟲</span> <span data-i18n="replayMotion">Motion</span></button>
+            <a href="how-to-use.html" class="topbar-guide-link" title="Open How To Use Guide"><span aria-hidden="true">📖</span> <span data-i18n="howToUseGuide">How To Use</span></a>
+            <span class="local-indicator"><span></span> <span data-i18n="localIndicator">100% local</span></span>
             <button class="icon-button clear-button" id="clear-data-button" type="button" title="Clear imported conversations" aria-label="Clear imported conversations" hidden>⌫</button>
             <a href="how-to-use.html" class="icon-button" id="help-button" title="How To Use &amp; Help Guide" aria-label="How To Use &amp; Help Guide">?</a>
+
+            <!-- Three-Dot Menu in Topbar with Language Selection Panel -->
+            <div class="topbar-menu-wrap" id="topbar-menu-wrap">
+              <button class="icon-button topbar-menu-btn" id="topbar-menu-btn" type="button" title="Language &amp; Settings" aria-label="Settings and language menu" aria-haspopup="true" aria-expanded="false">
+                <span class="three-dots-icon" aria-hidden="true">⋮</span>
+              </button>
+              <div class="topbar-menu-panel" id="topbar-menu-panel" role="menu" aria-label="Settings and Language Panel" hidden>
+                <div class="menu-panel-header">
+                  <div class="menu-panel-title">
+                    <span class="menu-lang-icon" aria-hidden="true">🌐</span>
+                    <strong data-i18n="selectLanguageTitle">Select Language</strong>
+                  </div>
+                  <p class="menu-panel-hint" data-i18n="selectLanguageHint">Choose your preferred display language.</p>
+                </div>
+                <div class="lang-options-grid" id="lang-options-grid" role="radiogroup" aria-label="Language selection">
+                  <!-- Generated by app.js -->
+                </div>
+                <div class="menu-panel-divider"></div>
+                <div class="menu-panel-footer">
+                  <a href="how-to-use.html" class="menu-footer-link">
+                    <span aria-hidden="true">📖</span> <span data-i18n="menuHowToUse">How To Use Guide</span>
+                  </a>
+                  <button type="button" class="menu-footer-btn replay-motion-btn" id="menu-replay-motion">
+                    <span aria-hidden="true">⟲</span> <span data-i18n="menuReplayIntro">Replay Intro Motion</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </header>
 
         <section class="welcome-section">
           <div class="welcome-copy">
-            <div class="eyebrow">YOUR DAILY CATCH-UP</div>
-            <h1>Catch up.<br><span>Focus on what matters.</span></h1>
-            <p>Your conversations, thoughtfully distilled.</p>
+            <div class="eyebrow" data-i18n="welcomeEyebrow">YOUR DAILY CATCH-UP</div>
+            <h1><span data-i18n="welcomeH1Part1">Catch up.</span><br><span data-i18n="welcomeH1Part2">Focus on what matters.</span></h1>
+            <p data-i18n="welcomeDesc">Your conversations, thoughtfully distilled.</p>
           </div>
           <div class="welcome-art" aria-hidden="true">
             <span class="art-orbit orbit-one"></span><span class="art-orbit orbit-two"></span>
@@ -130,49 +158,49 @@
 
         <section class="first-launch" id="first-launch">
           <img class="welcome-logo" src="public/assets/what-did-i-miss-mark.png" alt="whatdidimiss">
-          <div class="heading-kicker">YOUR PERSONAL CONVERSATION BRIEFING</div>
-          <h2>What Did I Miss?</h2>
-          <p>Your conversations move fast. Catch up on what matters without reading every message.</p>
+          <div class="heading-kicker" data-i18n="firstLaunchKicker">YOUR PERSONAL CONVERSATION BRIEFING</div>
+          <h2 data-i18n="firstLaunchTitle">What Did I Miss?</h2>
+          <p data-i18n="firstLaunchDesc">Your conversations move fast. Catch up on what matters without reading every message.</p>
           <div class="welcome-capabilities" aria-label="Findings you can discover">
-            <span><i aria-hidden="true">✦</i> Important updates</span>
-            <span><i aria-hidden="true">✓</i> Decisions & announcements</span>
-            <span><i aria-hidden="true">↗</i> Tasks & deadlines</span>
-            <span><i aria-hidden="true">?</i> Questions that need answers</span>
+            <span data-i18n="capUpdates"><i aria-hidden="true">✦</i> Important updates</span>
+            <span data-i18n="capDecisions"><i aria-hidden="true">✓</i> Decisions & announcements</span>
+            <span data-i18n="capTasks"><i aria-hidden="true">↗</i> Tasks & deadlines</span>
+            <span data-i18n="capQuestions"><i aria-hidden="true">?</i> Questions that need answers</span>
           </div>
-          <span class="welcome-privacy">Private by design · Your messages are processed in this browser and are not uploaded.</span>
+          <span class="welcome-privacy" data-i18n="firstLaunchPrivacy">Private by design · Your messages are processed in this browser and are not uploaded.</span>
           <div class="welcome-actions">
-            <button class="primary-button" id="welcome-import-button" type="button"><span class="button-icon" aria-hidden="true">↑</span> Import Conversations</button>
-            <button class="secondary-button" id="welcome-paste-button" type="button"><span class="button-icon" aria-hidden="true">⌘</span> Paste Messages</button>
+            <button class="primary-button" id="welcome-import-button" type="button"><span class="button-icon" aria-hidden="true">↑</span> <span data-i18n="btnImportConversations">Import Conversations</span></button>
+            <button class="secondary-button" id="welcome-paste-button" type="button"><span class="button-icon" aria-hidden="true">⌘</span> <span data-i18n="btnPasteMessages">Paste Messages</span></button>
           </div>
           <div style="margin-top:14px;">
-            <a href="how-to-use.html" class="welcome-guide-link"><span aria-hidden="true">📖</span> Need help exporting or using the app? View the How To Use Guide →</a>
+            <a href="how-to-use.html" class="welcome-guide-link"><span aria-hidden="true">📖</span> <span data-i18n="welcomeGuideLink">Need help exporting or using the app? View the How To Use Guide →</span></a>
           </div>
         </section>
         <section class="summary-strip" id="summary-strip" aria-label="Catch-up overview">
-          <div class="summary-intro"><span class="summary-icon">✦</span><div><strong>Your catch-up, at a glance</strong><span id="overview-caption">Your imported conversations, summarized locally.</span></div></div>
-          <div class="summary-stat"><strong id="overview-unread">0</strong><span>conversations<br>to catch up on</span></div>
-          <div class="summary-stat"><strong id="overview-actions">0</strong><span>action items<br>identified</span></div>
-          <div class="summary-stat"><strong id="overview-mentions">0</strong><span>direct<br>mentions</span></div>
+          <div class="summary-intro"><span class="summary-icon">✦</span><div><strong data-i18n="summaryIntroStrong">Your catch-up, at a glance</strong><span id="overview-caption" data-i18n="summaryIntroCaption">Your imported conversations, summarized locally.</span></div></div>
+          <div class="summary-stat"><strong id="overview-unread">0</strong><span data-i18n="statCatchUp">conversations<br>to catch up on</span></div>
+          <div class="summary-stat"><strong id="overview-actions">0</strong><span data-i18n="statActions">action items<br>identified</span></div>
+          <div class="summary-stat"><strong id="overview-mentions">0</strong><span data-i18n="statMentions">direct<br>mentions</span></div>
           <span class="summary-decoration" aria-hidden="true">✳</span>
         </section>
 
         <section class="inbox-section" id="inbox-section">
           <div class="inbox-heading">
-            <div><div class="heading-kicker">YOUR INBOX</div><h2>Conversations <span id="thread-count">00</span></h2></div>
-            <button class="import-button" id="import-button"><span aria-hidden="true">＋</span> Import Conversations</button>
+            <div><div class="heading-kicker" data-i18n="inboxKicker">YOUR INBOX</div><h2><span data-i18n="inboxHeading">Conversations</span> <span id="thread-count">00</span></h2></div>
+            <button class="import-button" id="import-button"><span aria-hidden="true">＋</span> <span data-i18n="btnImportConversations">Import Conversations</span></button>
           </div>
           <div class="inbox-toolbar">
             <div class="filter-tabs" role="tablist" aria-label="Filter conversations">
-              <button class="filter-tab active" data-filter="all">All <span id="tab-all-count">0</span></button>
-              <button class="filter-tab" data-filter="unread">Unread</button>
-              <button class="filter-tab" data-filter="mentions">Mentions</button>
-              <button class="filter-tab" data-filter="actions">With actions</button>
+              <button class="filter-tab active" data-filter="all"><span data-i18n="filterAll">All</span> <span id="tab-all-count">0</span></button>
+              <button class="filter-tab" data-filter="unread" data-i18n="filterUnread">Unread</button>
+              <button class="filter-tab" data-filter="mentions" data-i18n="filterMentions">Mentions</button>
+              <button class="filter-tab" data-filter="actions" data-i18n="filterActions">With actions</button>
             </div>
             <div class="advanced-filters">
-              <label for="sender-filter">Sender</label><select id="sender-filter"><option value="">All senders</option></select>
-              <label for="priority-filter">Priority</label><select id="priority-filter"><option value="all">All priority</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select>
+              <label for="sender-filter" data-i18n="lblSender">Sender</label><select id="sender-filter"><option value="" data-i18n="optAllSenders">All senders</option></select>
+              <label for="priority-filter" data-i18n="lblPriority">Priority</label><select id="priority-filter"><option value="all" data-i18n="optAllPriority">All priority</option><option value="high" data-i18n="optHigh">High</option><option value="medium" data-i18n="optMedium">Medium</option><option value="low" data-i18n="optLow">Low</option></select>
             </div>
-            <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search conversations" aria-label="Search conversations"><kbd>⌘ K</kbd></label>
+            <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search conversations" data-i18n-placeholder="searchPlaceholder" aria-label="Search conversations"><kbd>⌘ K</kbd></label>
           </div>
 
           <div class="conversation-layout">
@@ -180,41 +208,41 @@
             <article class="detail-panel" id="detail-panel" aria-live="polite"></article>
           </div>
         </section>
-        <footer class="page-footer"><span>Catch up. Focus on what matters.</span><span><i></i> Parsed and summarized in this browser. No upload. <a href="how-to-use.html" class="footer-guide-link">How To Use Guide</a></span></footer>
+        <footer class="page-footer"><span data-i18n="footerTagline">Catch up. Focus on what matters.</span><span><i></i> <span data-i18n="footerPrivacy">Parsed and summarized in this browser. No upload.</span> <a href="how-to-use.html" class="footer-guide-link" data-i18n="howToUseGuide">How To Use Guide</a></span></footer>
       </main>
     </div>
 
     <dialog class="import-dialog" id="import-dialog">
-      <form method="dialog" class="dialog-topline"><div><span class="dialog-kicker">PRIVATE, ON-DEVICE IMPORT</span><h2>Bring your conversations in.</h2><p>Choose a source for export tips, then paste messages or select files you exported. What Did I Miss? does not connect directly to messaging accounts.</p></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></form>
-      <label class="input-label" for="source-platform">Message source</label>
+      <form method="dialog" class="dialog-topline"><div><span class="dialog-kicker" data-i18n="dialogKicker">PRIVATE, ON-DEVICE IMPORT</span><h2 data-i18n="dialogHeading">Bring your conversations in.</h2><p data-i18n="dialogDesc">Choose a source for export tips, then paste messages or select files you exported. What Did I Miss? does not connect directly to messaging accounts.</p></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></form>
+      <label class="input-label" for="source-platform" data-i18n="lblSourcePlatform">Message source</label>
       <select id="source-platform" class="title-input">
-        <option value="auto">Auto-detect export format</option><option value="whatsapp">WhatsApp</option><option value="telegram">Telegram</option><option value="instagram">Instagram</option><option value="facebook">Facebook Messenger</option><option value="discord">Discord</option><option value="other">Other chat export</option>
+        <option value="auto" data-i18n="optAutoDetect">Auto-detect export format</option><option value="whatsapp">WhatsApp</option><option value="telegram">Telegram</option><option value="instagram">Instagram</option><option value="facebook">Facebook Messenger</option><option value="discord">Discord</option><option value="other" data-i18n="optOtherChat">Other chat export</option>
       </select>
       <p class="platform-instructions" id="platform-instructions" aria-live="polite">Choose WhatsApp, Telegram, Instagram, or Facebook Messenger. Export files must be downloaded or saved to this device first; this app does not connect to accounts. <a href="how-to-use.html#import-guide" class="guide-inline-link" target="_blank" rel="noopener">View step-by-step export instructions ↗</a></p>
-      <div class="import-shortcuts"><button class="secondary-button" id="choose-files-button" type="button">Choose Export Files</button><button class="secondary-button" id="paste-messages-button" type="button">Paste Messages</button></div>
-      <label class="input-label" for="conversation-title">Conversation or group name <span>(optional)</span></label>
-      <input id="conversation-title" class="title-input" type="text" placeholder="e.g. Launch planning">
-      <label class="input-label" for="conversation-input">1. Paste messages</label>
-      <textarea id="conversation-input" placeholder="Paste copied chat messages here. Timestamped WhatsApp/Telegram exports and “Name: message” lines are recognized. Multiline messages are kept together."></textarea>
-      <label class="input-label" for="mention-keywords">Your name or mention keywords <span>(optional, comma-separated)</span></label>
-      <input id="mention-keywords" class="title-input" type="text" placeholder="Enter only what you want highlighted">
-      <div class="sample-row"><button class="text-button" id="sample-button" type="button">Try fictional sample</button><span>Sample stays optional and is never preloaded.</span></div>
+      <div class="import-shortcuts"><button class="secondary-button" id="choose-files-button" type="button" data-i18n="btnChooseExportFiles">Choose Export Files</button><button class="secondary-button" id="paste-messages-button" type="button" data-i18n="btnPasteMessages">Paste Messages</button></div>
+      <label class="input-label" for="conversation-title"><span data-i18n="lblConvTitle">Conversation or group name</span> <span data-i18n="lblOptional">(optional)</span></label>
+      <input id="conversation-title" class="title-input" type="text" placeholder="e.g. Launch planning" data-i18n-placeholder="placeholderConvTitle">
+      <label class="input-label" for="conversation-input" data-i18n="lblPasteStep">1. Paste messages</label>
+      <textarea id="conversation-input" placeholder="Paste copied chat messages here. Timestamped WhatsApp/Telegram exports and “Name: message” lines are recognized. Multiline messages are kept together." data-i18n-placeholder="placeholderPasteInput"></textarea>
+      <label class="input-label" for="mention-keywords"><span data-i18n="lblMentionKeywords">Your name or mention keywords</span> <span data-i18n="lblOptional">(optional, comma-separated)</span></label>
+      <input id="mention-keywords" class="title-input" type="text" placeholder="Enter only what you want highlighted" data-i18n-placeholder="placeholderMentionKeywords">
+      <div class="sample-row"><button class="text-button" id="sample-button" type="button" data-i18n="btnSample">Try fictional sample</button><span data-i18n="sampleNote">Sample stays optional and is never preloaded.</span></div>
       <div class="file-import" id="file-dropzone">
-        <label class="input-label" for="conversation-files">2. Import chat export(s)</label>
+        <label class="input-label" for="conversation-files" data-i18n="lblImportStep">2. Import chat export(s)</label>
         <div class="file-picker-row">
           <label class="custom-file-btn" for="conversation-files">
             <span class="file-btn-icon" aria-hidden="true">📂</span>
-            <span class="file-btn-text">Choose Files</span>
+            <span class="file-btn-text" data-i18n="btnChooseFiles">Choose Files</span>
           </label>
           <input id="conversation-files" class="visually-hidden-file-input" type="file" accept=".txt,.json,.html,.htm,.zip,.csv,text/plain,application/json,text/html,application/zip,application/x-zip-compressed,text/csv" multiple aria-label="Choose exported chat files">
           <div class="file-chosen-status" id="file-chosen-status" aria-live="polite">
-            <span class="file-status-pill empty"><span class="status-dot"></span>No file chosen</span>
+            <span class="file-status-pill empty"><span class="status-dot"></span><span data-i18n="noFileChosen">No file chosen</span></span>
           </div>
         </div>
-        <span class="file-picker-note">Works with saved WhatsApp, Telegram, Instagram, and Facebook Messenger exports: .txt, .json, .html, .csv, or ZIP. Drag & drop files here anytime.</span>
+        <span class="file-picker-note" data-i18n="filePickerNote">Works with saved WhatsApp, Telegram, Instagram, and Facebook Messenger exports: .txt, .json, .html, .csv, or ZIP. Drag & drop files here anytime.</span>
         <div class="file-queue" id="file-queue" aria-live="polite"></div>
       </div>
-      <div class="dialog-footer"><span><span class="tiny-lock">⌑</span> Parsed and summarized in this browser. Files are never uploaded.</span><button class="primary-button" id="analyze-button" type="button">Summarize Messages <span>→</span></button></div>
+      <div class="dialog-footer"><span><span class="tiny-lock">⌑</span> <span data-i18n="dialogPrivacyNote">Parsed and summarized in this browser. Files are never uploaded.</span></span><button class="primary-button" id="analyze-button" type="button"><span data-i18n="btnSummarizeMessages">Summarize Messages</span> <span>→</span></button></div>
       <p class="form-error" id="form-error" role="alert"></p>
     </dialog>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>

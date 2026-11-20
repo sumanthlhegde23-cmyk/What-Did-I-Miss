@@ -3,7 +3,7 @@
 
   const TIMESTAMP_LINE = /^\s*(?<bracket>\[)?(?<date>\d{1,4}[./-]\d{1,2}(?:[./-]\d{2,4})?)[, ]+\s*(?<time>\d{1,2}:\d{2}(?::\d{2})?(?:\s*[ap]\.?m\.?)?)\]?\s*(?:[-–,]\s*)?(?<rest>.*)$/i;
   const MALFORMED_TIMESTAMP_LINE = /^\s*\[?\d{1,4}[./-]\d{1,2}(?:[./-]\d{2,4})?[, ]+\d{1,2}:\d{2}(?::\d{2})?(?:\s*[ap]\.?m\.?)?/i;
-  const SENDER_LINE = /^\s*(?<sender>[^:\r\n]{1,80}):\s?(?<text>.*)$/;
+  const SENDER_LINE = /^\s*(?<sender>[^:\r\n–—：]{1,80})(?::|：|\s+[-–—]\s+)\s*(?<text>.*)$/;
   const MENTION_PATTERN = /(?<![\w.+-])@([\p{L}\p{N}_][\p{L}\p{N}._~-]*)/gu;
   const EDITED_PATTERN = /\b(?:this message was edited|message edited|edited message)\b|<this message was edited>/i;
   const DELETED_PATTERN = /\b(?:this message was deleted|message deleted|you deleted this message|this message was removed)\b|<this message was deleted>/i;
@@ -171,7 +171,44 @@
     }
     flushCurrent();
 
+    const isHtml = /^\s*(?:<!doctype|<html|<\?xml)/i.test(input);
+
     if (leadingLines.length) {
+      if (!timestampCount && !genericCount && !isHtml) {
+        const plainMessages = [];
+        for (const line of leadingLines) {
+          const trimmed = line.trim();
+          if (!trimmed) continue;
+          const senderMatch = trimmed.match(SENDER_LINE);
+          if (senderMatch?.groups) {
+            plainMessages.push(createMessage({
+              sender: senderMatch.groups.sender.trim(),
+              text: senderMatch.groups.text,
+              rawLines: [line],
+              sourceName,
+              groupName,
+              order: plainMessages.length + 1
+            }));
+          } else {
+            plainMessages.push(createMessage({
+              sender: null,
+              text: trimmed,
+              rawLines: [line],
+              sourceName,
+              groupName,
+              order: plainMessages.length + 1
+            }));
+          }
+        }
+        if (plainMessages.length) {
+          return {
+            ...base,
+            format: "plain-text",
+            messages: plainMessages
+          };
+        }
+      }
+
       messages.unshift(createMessage({
         sender: null,
         text: leadingLines.join("\n"),

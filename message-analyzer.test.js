@@ -74,3 +74,36 @@ test("keeps corrections, questions, and highlights tied to the original message 
   assert.deepEqual(result.questions.map((message) => message.order), [2]);
   assert.equal(result.messages[0].source, "Correction: the release is postponed to Monday.");
 });
+
+test("accurately detects and summarizes Kannada messages in Kannada with zero errors", () => {
+  const result = analyzeConversation(messages(
+    "ನಮಸ್ಕಾರ ಎಲ್ಲರಿಗೂ!",
+    "ನಾಳೆ ಬೆಳಿಗ್ಗೆ 10:00 ಗಂಟೆಗೆ ಪ್ರಾಜೆಕ್ಟ್ ಸಭೆ ಇರುತ್ತದೆ.",
+    "ದಯವಿಟ್ಟು ಎಲ್ಲರೂ ಸಿದ್ಧರಾಗಿ ಬನ್ನಿ.",
+    "ನಿರ್ಧಾರ: ನಾವು ಹೊಸ ವಿನ್ಯಾಸದೊಂದಿಗೆ ಮುಂದುವರಿಯಲಿದ್ದೇವೆ.",
+    "ನಾನು ಬಜೆಟ್ ವರದಿಯನ್ನು ಇಂದು ಸಂಜೆಯೊಳಗೆ ಕಳುಹಿಸುತ್ತೇನೆ.",
+    "ಪ್ರಸ್ತುತ ಸ್ಥಿತಿಯ ಬಗ್ಗೆ ಯಾರಾದರೂ ಕ್ಲೈಂಟ್‌ಗೆ ತಿಳಿಸಿದ್ದೀರಾ?"
+  ));
+
+  assert.equal(result.detectedLanguage, "kn");
+  assert.ok(result.actions.some((msg) => msg.text.includes("ದಯವಿಟ್ಟು")));
+  assert.ok(result.decisions.some((msg) => msg.text.includes("ನಿರ್ಧಾರ")));
+  assert.ok(result.deadlines.some((msg) => msg.text.includes("ನಾಳೆ") || msg.text.includes("ಇಂದು")));
+  assert.ok(result.questions.some((msg) => msg.text.includes("ತಿಳಿಸಿದ್ದೀರಾ")));
+  assert.match(result.summary, /ನಾಳೆ|ನಿರ್ಧಾರ|ಬಜೆಟ್/);
+  assert.match(result.priorityLabel, /ಗಮನ|ಯೋಗ್ಯ|ಮಾಹಿತಿ/);
+});
+
+test("accurately detects and summarizes Hindi messages in Hindi with zero errors", () => {
+  const result = analyzeConversation(messages(
+    "नमस्ते दोस्तों!",
+    "कल सुबह 10 बजे हमारी मीटिंग है।",
+    "कृपया सभी समय पर आएं।",
+    "फैसला: हम नया डिज़ाइन उपयोग करेंगे।"
+  ));
+
+  assert.equal(result.detectedLanguage, "hi");
+  assert.ok(result.actions.some((msg) => msg.text.includes("कृपया")));
+  assert.ok(result.decisions.some((msg) => msg.text.includes("फैसला")));
+  assert.match(result.summary, /कल|फैसला/);
+});
