@@ -123,9 +123,23 @@ function renderDetail() {
     thread.corrections ??= {};
     thread.completedActions ??= [];
     detailPanel.innerHTML = `
+      <div class="detail-top-nav">
+        <button class="back-home-button" type="button" data-action="back-home" title="Back to home page">
+          <span class="back-home-icon" aria-hidden="true">←</span>
+          <span>Back to Home</span>
+        </button>
+        <div class="detail-top-crumbs" aria-label="Breadcrumb">
+          <span class="crumb-link" data-action="back-home">Home</span>
+          <span class="crumb-sep" aria-hidden="true">/</span>
+          <span class="crumb-active">${escapeHtml(truncate(thread.title, 28))}</span>
+        </div>
+      </div>
       <div class="detail-head">
         <div><div class="detail-channel"><i class="space-dot ${thread.dot}"></i>${escapeHtml(thread.sourcePlatform)} · ${escapeHtml(thread.sourceName)}</div><h3 class="detail-title">${escapeHtml(thread.title)}</h3><div class="detail-meta">${thread.parsed.messages.length} messages parsed · ${escapeHtml(thread.parsed.format)} format · ${escapeHtml(thread.age)}</div></div>
-        <div class="detail-actions"><button class="detail-action" data-action="remove">Remove</button></div>
+        <div class="detail-actions">
+          <button class="detail-action" data-action="back-home">← Home</button>
+          <button class="detail-action" data-action="remove">Remove</button>
+        </div>
       </div>
       <section class="detail-summary">
         <div class="detail-summary-label">
@@ -155,9 +169,26 @@ function renderDetail() {
     ? `<div class="attention-banner"><span>◉</span><span><strong>${escapeHtml(analysis.priorityLabel)}:</strong> ${escapeHtml(truncate(topMessage.text, 105))}</span></div>`
     : "";
   detailPanel.innerHTML = `
+    <div class="detail-top-nav">
+      <button class="back-home-button" type="button" data-action="back-home" title="Back to home page">
+        <span class="back-home-icon" aria-hidden="true">←</span>
+        <span>Back to Home</span>
+      </button>
+      <div class="detail-top-crumbs" aria-label="Breadcrumb">
+        <span class="crumb-link" data-action="back-home">Home</span>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <span class="crumb-active">${escapeHtml(truncate(thread.title, 28))}</span>
+      </div>
+    </div>
     <div class="detail-head">
       <div><div class="detail-channel"><i class="space-dot ${thread.dot}"></i>${escapeHtml(thread.channel)}</div><h3 class="detail-title">${escapeHtml(thread.title)}</h3><div class="detail-meta">${analysis.messages.length} parsed messages · ${escapeHtml(thread.parsed.format)} format · ${escapeHtml(thread.age)}</div></div>
-      <div class="detail-actions"><button class="detail-action" data-action="copy">Copy briefing</button><button class="detail-action" data-action="read">${thread.unread ? "Mark read" : "Mark unread"}</button><button class="detail-action" data-action="resummarize" ${isSummarizing ? "disabled" : ""}>${isSummarizing ? "Summarizing…" : "Summarize again"}</button><button class="detail-action" data-action="remove">Remove</button></div>
+      <div class="detail-actions">
+        <button class="detail-action" data-action="back-home">← Home</button>
+        <button class="detail-action" data-action="copy">Copy briefing</button>
+        <button class="detail-action" data-action="read">${thread.unread ? "Mark read" : "Mark unread"}</button>
+        <button class="detail-action" data-action="resummarize" ${isSummarizing ? "disabled" : ""}>${isSummarizing ? "Summarizing…" : "Summarize again"}</button>
+        <button class="detail-action" data-action="remove">Remove</button>
+      </div>
     </div>
     ${isSummarizing ? `<p class="analysis-running"><span class="spinner"></span> Re-analyzing this conversation locally…</p>` : ""}
     ${thread.analysisError ? `<p class="form-error" role="alert">${escapeHtml(thread.analysisError)}</p>` : ""}
@@ -212,6 +243,13 @@ function renderParsedMessage(message, thread) {
 }
 
 function bindDetailActions(thread) {
+  detailPanel.querySelectorAll('[data-action="back-home"]').forEach((btn) => {
+    btn.addEventListener("click", () => {
+      selectedThreadId = null;
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
   detailPanel.querySelector('[data-action="copy"]')?.addEventListener("click", () => copySummary(thread));
   detailPanel.querySelector('[data-action="remove"]')?.addEventListener("click", () => removeThread(thread.id));
   detailPanel.querySelector('[data-action="resummarize"]')?.addEventListener("click", () => summarizeThread(thread));
