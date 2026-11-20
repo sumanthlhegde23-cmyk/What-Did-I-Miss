@@ -278,7 +278,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .summary-stat > span { color: #738097; font-size: 10px; }
 .summary-decoration { color: #eff0ff; }
 .first-launch { max-width: 740px; margin: 25px auto 48px; padding: 37px clamp(18px,5vw,58px) 35px; border: 1px solid #e5e9f3; border-radius: 22px; background: #fff; box-shadow: 0 18px 50px #1525440a; text-align: center; }
-.welcome-logo { display: block; width: min(340px,90%); max-height: 280px; height: auto; margin: 0 auto 20px; border-radius: 16px; object-fit: contain; filter: drop-shadow(0 10px 24px rgba(24, 15, 68, 0.1)); }
+.welcome-logo { display: block; width: 88px; height: 88px; margin: 0 auto 20px; border-radius: 22px; object-fit: cover; filter: drop-shadow(0 10px 24px rgba(24, 15, 68, 0.16)); }
 .first-launch .heading-kicker { margin-bottom: 9px; }
 .first-launch h2 { margin: 8px 0 11px; color: #172442; font-size: clamp(27px,3.6vw,36px); letter-spacing: -1.2px; }
 .first-launch p { max-width: 520px; margin: 0 auto; color: #5f6d85; font-size: 15px; line-height: 1.65; }
@@ -433,7 +433,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .welcome-copy h1 { font-size: clamp(29px,8vw,35px); }
   .welcome-copy > p { max-width: 280px; font-size: 12px; line-height: 1.55; }
   .first-launch { margin: 12px 0 27px; padding: 26px 17px 23px; border-radius: 18px; }
-  .welcome-logo { width: min(220px, 75%); max-height: 240px; margin-bottom: 16px; }
+  .welcome-logo { width: 76px; height: 76px; margin-bottom: 16px; border-radius: 20px; }
   .first-launch .heading-kicker { font-size: 9px; }
   .first-launch h2 { font-size: 27px; }
   .first-launch p { font-size: 13px; }
@@ -1353,46 +1353,40 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Whole Logo Container */
-.hero-motion-logo-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.motion-logo-icon-wrap {
+/* App Icon Container with Motion Clock */
+.hero-motion-icon-wrap {
   position: relative;
-  width: min(290px, 66vw);
-  max-width: 320px;
+  width: min(250px, 62vw);
+  max-width: 270px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.motion-logo-icon-bg {
+.hero-motion-icon-bg {
   width: 100%;
   height: auto;
   display: block;
   object-fit: contain;
-  filter: drop-shadow(0 14px 34px rgba(24, 15, 68, 0.18));
+  filter: drop-shadow(0 14px 34px rgba(24, 15, 68, 0.22));
 }
 
-/* Clock positioned right inside the speech bubble of the whole logo */
-.motion-clock-container {
+/* Clock positioned exactly inside the speech bubble of the app icon */
+.hero-motion-clock-container {
   position: absolute;
-  top: 49.5%;
-  left: 51.5%;
+  top: 46.1%;
+  left: 49.6%;
   transform: translate(-50%, -50%);
-  width: 33%;
-  height: 35%;
+  width: 25.5%;
+  height: 25.5%;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
 }
 
-.motion-hero-clock-svg {
+.hero-motion-clock-svg {
   width: 100%;
   height: 100%;
   overflow: visible;
@@ -1402,16 +1396,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .hero-clock-outer-boundary {
   fill: none;
   stroke: #ffffff;
-  stroke-width: 2.6;
+  stroke-width: 2.2;
   opacity: 0.95;
+  filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   animation: clockBoundaryTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .hero-clock-track {
   fill: none;
   stroke: #ffffff;
-  stroke-width: 9.5;
+  stroke-width: 11;
   stroke-linecap: round;
+  filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   animation: clockColorTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
@@ -1420,6 +1416,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   stroke: #ffffff;
   stroke-width: 1.5;
   stroke-linejoin: round;
+  filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   animation: clockArrowTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
@@ -1427,17 +1424,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   0% {
     stroke: #ffffff;
     opacity: 0.95;
-    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   }
   25% {
     stroke: #ffffff;
     opacity: 0.95;
-    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   }
   65% {
-    stroke: #5b7df7;
+    stroke: #4d77f7;
     opacity: 0.9;
-    filter: drop-shadow(0 0 5px rgba(91, 125, 247, 0.65));
+    filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.6));
   }
   100% {
     stroke: #2563eb;
@@ -1449,15 +1446,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @keyframes clockColorTransition {
   0% {
     stroke: #ffffff;
-    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   }
   25% {
     stroke: #ffffff;
-    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   }
   65% {
-    stroke: #5b7df7;
-    filter: drop-shadow(0 0 6px rgba(91, 125, 247, 0.65));
+    stroke: #4d77f7;
+    filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.6));
   }
   100% {
     stroke: #2563eb;
@@ -1477,9 +1474,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   }
   65% {
-    fill: #5b7df7;
-    stroke: #5b7df7;
-    filter: drop-shadow(0 0 6px rgba(91, 125, 247, 0.65));
+    fill: #4d77f7;
+    stroke: #4d77f7;
+    filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.6));
   }
   100% {
     fill: #2563eb;
@@ -1488,10 +1485,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   }
 }
 
-/* 2. CLOCK HANDS: Initially WHITE -> turns GOLDEN over the duration */
+/* 2. CLOCK HANDS: Initially WHITE -> turns GOLDEN, sweeps & stops at exact original position */
 .hero-clock-pivot {
   fill: #ffffff;
   stroke: none;
+  filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   animation: handsPivotTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
@@ -1499,8 +1497,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   stroke: #ffffff;
   stroke-width: 8;
   stroke-linecap: round;
-  transform-origin: 50px 50px;
-  animation: handsColorTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: 49px 50px;
+  filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
 }
 
 .hero-hour-hand {
@@ -1527,8 +1525,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     filter: drop-shadow(0 0 5px rgba(245, 184, 56, 0.7));
   }
   100% {
-    fill: #dba135;
-    filter: drop-shadow(0 0 8px rgba(219, 161, 53, 0.85));
+    fill: #d89b33;
+    filter: drop-shadow(0 0 8px rgba(216, 155, 51, 0.85));
   }
 }
 
@@ -1546,47 +1544,54 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     filter: drop-shadow(0 0 6px rgba(245, 184, 56, 0.7));
   }
   100% {
-    stroke: #dba135;
-    filter: drop-shadow(0 0 10px rgba(219, 161, 53, 0.9));
+    stroke: #d89b33;
+    filter: drop-shadow(0 0 10px rgba(216, 155, 51, 0.9));
   }
 }
 
+/* Hands sweep smoothly and finish at exact 0° relative angle (original position) */
 @keyframes hourHandSweep {
   0% { transform: rotate(0deg); }
-  25% { transform: rotate(-35deg); }
-  60% { transform: rotate(-160deg); }
-  100% { transform: rotate(-90deg); }
+  25% { transform: rotate(-90deg); }
+  60% { transform: rotate(-240deg); }
+  100% { transform: rotate(-360deg); }
 }
 
 @keyframes minuteHandSweep {
   0% { transform: rotate(0deg); }
-  30% { transform: rotate(-180deg); }
+  30% { transform: rotate(-270deg); }
   70% { transform: rotate(-540deg); }
-  100% { transform: rotate(-450deg); }
+  100% { transform: rotate(-720deg); }
 }
 
-/* Whole Logo Wordmark Text */
-.motion-logo-wordmark {
-  margin-top: 20px;
-  width: min(340px, 80vw);
-  max-width: 380px;
+/* Brand Wordmark below the Icon */
+.hero-motion-brand {
+  margin-top: 22px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-.motion-logo-wordmark img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
+.hero-motion-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5.5vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #1a104f;
+  line-height: 1;
+}
+
+.hero-title-accent {
+  color: #d89b33;
 }
 
 .hero-motion-tagline {
-  margin: 14px 0 0;
-  color: #4b3d7a;
+  margin: 12px 0 0;
+  color: #55487f;
   font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
   opacity: 0;
   animation: heroFadeIn 1s 0.8s ease forwards;
 }
@@ -1677,12 +1682,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     padding: 6px 11px;
     font-size: 10px;
   }
-  .motion-logo-icon-wrap {
-    width: min(230px, 68vw);
+  .hero-motion-icon-wrap {
+    width: min(200px, 68vw);
   }
-  .motion-logo-wordmark {
-    width: min(270px, 80vw);
-    margin-top: 14px;
+  .hero-motion-title {
+    font-size: 30px;
   }
   .topbar-replay-btn {
     height: 32px;

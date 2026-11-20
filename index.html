@@ -16,7 +16,7 @@
     <script src="app.js" defer></script>
   </head>
   <body>
-    <!-- Motion-Driven Hero Page: Whole Logo displayed for 3-4s where clock turns from white to blue and hands from white to golden -->
+    <!-- Motion-Driven Hero Page: App's icon where clock & hands movements happen and stop at original position -->
     <div id="motion-hero-page" class="motion-hero-page" role="region" aria-label="What Did I Miss motion hero intro">
       <button id="skip-hero-btn" class="skip-hero-btn" type="button" aria-label="Skip motion intro">
         Skip Intro <span aria-hidden="true">✕</span>
@@ -26,43 +26,43 @@
         <!-- Ambient glowing aura -->
         <div class="hero-motion-glow" aria-hidden="true"></div>
 
-        <!-- The Whole Logo: Squircle Icon with Speech Bubble & Wordmark -->
-        <div class="hero-motion-logo-card">
-          <div class="motion-logo-icon-wrap">
-            <!-- Squircle app icon background with speech bubble & golden dot -->
-            <img class="motion-logo-icon-bg" src="public/assets/what-did-i-miss-mark-blank.png" alt="What Did I Miss app icon">
+        <!-- The App's Icon with Animated Clock and Hands -->
+        <div class="hero-motion-icon-wrap">
+          <img class="hero-motion-icon-bg" src="public/assets/what-did-i-miss-mark-blank.png" alt="What Did I Miss app icon">
 
-            <!-- Animated Clock right inside the speech bubble of the whole logo -->
-            <div class="motion-clock-container">
-              <svg class="motion-hero-clock-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Clock transformation animation">
-                <!-- 1. Outer boundary: Initially white with visible boundary -> turning blue -->
-                <circle class="hero-clock-outer-boundary" cx="50" cy="50" r="39"/>
+          <!-- Animated Clock positioned right inside the speech bubble of the app icon -->
+          <div class="hero-motion-clock-container">
+            <svg class="hero-motion-clock-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Clock transformation animation">
+              <!-- Outer boundary: Initially white with visible boundary -> turns blue -->
+              <circle class="hero-clock-outer-boundary" cx="49" cy="50" r="46"/>
 
-                <!-- 2. Circular body & rewind arrow: Initially white -> turning blue -->
-                <g class="hero-clock-body">
-                  <path class="hero-clock-track" d="M 54 84 A 34 34 0 1 1 74 32"/>
-                  <path class="hero-clock-arrow" d="M 64 36 L 79 24 L 84 42 Z"/>
-                </g>
+              <!-- Circular track body with rewind arrow: Initially white -> turns blue -->
+              <g class="hero-clock-body">
+                <path class="hero-clock-track" d="M 47 13 A 37 37 0 1 0 85 41"/>
+                <path class="hero-clock-arrow" d="M 76 43 L 85 21 L 94 43 Z"/>
+              </g>
 
-                <!-- 3. Hands & pivot: Initially white -> turning golden color -->
-                <g class="hero-clock-hands">
-                  <circle class="hero-clock-pivot" cx="50" cy="50" r="4.5"/>
-                  <line class="hero-hand hero-hour-hand" x1="50" y1="50" x2="50" y2="28"/>
-                  <line class="hero-hand hero-minute-hand" x1="50" y1="50" x2="68" y2="50"/>
-                </g>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Wordmark text below squircle from the uploaded logo -->
-          <div class="motion-logo-wordmark">
-            <img src="public/assets/what-did-i-miss-text.png" alt="whatdidimiss">
+              <!-- Clock Hands: Initially white -> turns golden color, sweeps and stops at original position -->
+              <g class="hero-clock-hands">
+                <circle class="hero-clock-pivot" cx="49" cy="50" r="3.5"/>
+                <!-- Hour Hand: points straight UP at 12:00 in original icon -->
+                <line class="hero-hand hero-hour-hand" x1="49" y1="50" x2="49" y2="29"/>
+                <!-- Minute Hand: points DOWN-RIGHT at 4:30 in original icon -->
+                <line class="hero-hand hero-minute-hand" x1="49" y1="50" x2="66" y2="61"/>
+              </g>
+            </svg>
           </div>
         </div>
 
-        <p class="hero-motion-tagline">Catch up. Focus on what matters.</p>
-        <div class="hero-motion-progress" aria-hidden="true">
-          <div class="hero-progress-bar"></div>
+        <!-- Wordmark below the app's icon -->
+        <div class="hero-motion-brand">
+          <h1 class="hero-motion-title">
+            whatdidi<span class="hero-title-accent">miss</span>
+          </h1>
+          <p class="hero-motion-tagline">Catch up. Focus on what matters.</p>
+          <div class="hero-motion-progress" aria-hidden="true">
+            <div class="hero-progress-bar"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@
         </section>
 
         <section class="first-launch" id="first-launch">
-          <img class="welcome-logo" src="public/assets/what-did-i-miss-logo.jpg" alt="whatdidimiss">
+          <img class="welcome-logo" src="public/assets/what-did-i-miss-mark.png" alt="whatdidimiss">
           <div class="heading-kicker">YOUR PERSONAL CONVERSATION BRIEFING</div>
           <h2>What Did I Miss?</h2>
           <p>Your conversations move fast. Catch up on what matters without reading every message.</p>
