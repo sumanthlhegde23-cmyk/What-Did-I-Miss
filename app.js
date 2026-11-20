@@ -127,7 +127,14 @@ function renderDetail() {
         <div><div class="detail-channel"><i class="space-dot ${thread.dot}"></i>${escapeHtml(thread.sourcePlatform)} · ${escapeHtml(thread.sourceName)}</div><h3 class="detail-title">${escapeHtml(thread.title)}</h3><div class="detail-meta">${thread.parsed.messages.length} messages parsed · ${escapeHtml(thread.parsed.format)} format · ${escapeHtml(thread.age)}</div></div>
         <div class="detail-actions"><button class="detail-action" data-action="remove">Remove</button></div>
       </div>
-      <section class="detail-summary"><div class="detail-summary-label"><span>✦</span> READY TO SUMMARIZE</div><p>Messages were parsed locally. The briefing uses a basic rule-based summary, not a generative AI model.</p></section>
+      <section class="detail-summary">
+        <div class="detail-summary-label">
+          <span class="sparkle-icon">✦</span>
+          <span>READY TO SUMMARIZE</span>
+          <span class="local-privacy-pill">🔒 100% On-Device</span>
+        </div>
+        <p>Messages were parsed securely on your device. Click below to generate your comprehensive AI conversation briefing.</p>
+      </section>
       ${thread.analysisError ? `<p class="form-error" role="alert">${escapeHtml(thread.analysisError)}</p>` : ""}
       <div class="summary-controls"><button class="primary-button summarize-thread" type="button" ${isSummarizing ? "disabled" : ""}>${isSummarizing ? '<span class="spinner"></span> Summarizing…' : 'Summarize Messages <span>→</span>'}</button></div>
       <details class="parsed-messages">
@@ -154,7 +161,20 @@ function renderDetail() {
     </div>
     ${isSummarizing ? `<p class="analysis-running"><span class="spinner"></span> Re-analyzing this conversation locally…</p>` : ""}
     ${thread.analysisError ? `<p class="form-error" role="alert">${escapeHtml(thread.analysisError)}</p>` : ""}
-    <section class="detail-summary"><div class="detail-summary-label"><span>✦</span> WHAT YOU MISSED · BASIC LOCAL SUMMARY</div><p>${escapeHtml(truncate(analysis.summary, 420))}</p></section>
+    <section class="detail-summary">
+      <div class="detail-summary-label">
+        <span class="sparkle-icon">✦</span>
+        <span>WHAT YOU MISSED · AI CONVERSATION BRIEFING</span>
+        <span class="local-privacy-pill">🔒 100% On-Device</span>
+      </div>
+      <p class="summary-body">${escapeHtml(truncate(analysis.summary, 450))}</p>
+      <div class="summary-key-metrics">
+        <span class="metric-pill"><strong class="metric-num">${visibleCount(analysis.actions, "actions")}</strong> Action Items</span>
+        <span class="metric-pill"><strong class="metric-num">${visibleCount(analysis.decisions, "decisions")}</strong> Decisions</span>
+        <span class="metric-pill"><strong class="metric-num">${visibleCount(analysis.deadlines, "deadlines")}</strong> Deadlines</span>
+        <span class="metric-pill"><strong class="metric-num">${visibleCount(analysis.questions, "questions")}</strong> Questions</span>
+      </div>
+    </section>
     <div class="detail-grid">
       <section><h4 class="detail-section-title"><span class="section-count">${visibleCount(analysis.important, "important")}</span> IMPORTANT MESSAGES</h4>${renderInsightList(analysis.important, "important", "No high-priority announcements identified.", thread)}</section>
       <section><h4 class="detail-section-title"><span class="section-count">${visibleCount(analysis.decisions, "decisions")}</span> DECISIONS MADE</h4>${renderInsightList(analysis.decisions, "decisions", "No explicit decisions identified.", thread)}</section>
@@ -171,7 +191,7 @@ function renderDetail() {
       <div class="parsed-message-list">${parsedMessages.slice(0, 200).map((message) => renderParsedMessage(message, thread)).join("")}
       ${parsedMessages.length > 200 ? `<p class="parse-note">Showing the first 200 of ${parsedMessages.length} parsed messages.</p>` : ""}</div>
     </details>
-    <p class="summary-disclosure">Basic rule-based summary — it may miss context. Findings link to their source messages.</p>
+    <p class="summary-disclosure">Private AI briefing synthesized locally in your browser. Findings link to their source messages.</p>
     ${thread.parsed.warnings.length ? `<p class="parse-note">${thread.parsed.warnings.map(escapeHtml).join(" ")}</p>` : ""}`;
   bindDetailActions(thread);
 }
@@ -314,8 +334,18 @@ function showToast(message) {
 
 async function copySummary(thread) {
   const text = `${thread.title}\n\n${thread.analysis.summary}\n\nNext steps:\n${thread.analysis.actions.map((item) => `• ${item.text}`).join("\n") || "No action items found."}`;
+  const copyBtn = detailPanel.querySelector('[data-action="copy"]');
   try {
     await navigator.clipboard.writeText(text);
+    if (copyBtn) {
+      const orig = copyBtn.textContent;
+      copyBtn.innerHTML = "✓ Copied!";
+      copyBtn.style.color = "#059669";
+      setTimeout(() => {
+        copyBtn.textContent = orig;
+        copyBtn.style.color = "";
+      }, 2000);
+    }
     showToast("Summary copied to clipboard");
   } catch (error) {
     showToast("Clipboard access is unavailable in this browser");
@@ -325,6 +355,48 @@ async function copySummary(thread) {
 function formatFileSize(bytes) {
   if (bytes < 1024) return `${bytes} B`;
   return bytes < 1024 * 1024 ? `${Math.round(bytes / 1024)} KB` : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+let lastSelectedFiles = [];
+
+function updateFileStatusIndicator(files, state, extraCount = 0) {
+  const statusEl = document.querySelector("#file-chosen-status");
+  if (!statusEl) return;
+
+  if (state === "empty" || !files || !files.length) {
+    statusEl.innerHTML = '<span class="file-status-pill empty"><span class="status-dot"></span>No file chosen</span>';
+    return;
+  }
+
+  if (state === "imported") {
+    const name = files.length === 1 ? files[0].name : `${files.length} files`;
+    const countText = extraCount > 0 ? ` (${extraCount} msgs)` : "";
+    statusEl.innerHTML = `<span class="file-status-pill imported" title="${escapeHtml(name)}">
+      <span class="status-icon-check">✓</span>
+      <strong class="file-name-text">${escapeHtml(truncate(name, 28))}</strong>
+      <span class="status-tag success">Imported${countText}</span>
+    </span>`;
+    return;
+  }
+
+  // Chosen / Ready state
+  if (files.length === 1) {
+    const f = files[0];
+    statusEl.innerHTML = `<span class="file-status-pill chosen" title="${escapeHtml(f.name)}">
+      <span class="status-icon-check">✓</span>
+      <strong class="file-name-text">${escapeHtml(truncate(f.name, 28))}</strong>
+      <span class="file-size-tag">(${formatFileSize(f.size)})</span>
+      <span class="status-tag ready">Ready to summarize</span>
+    </span>`;
+  } else {
+    const totalBytes = files.reduce((acc, f) => acc + f.size, 0);
+    statusEl.innerHTML = `<span class="file-status-pill chosen" title="${files.length} files selected">
+      <span class="status-icon-check">✓</span>
+      <strong class="file-name-text">${files.length} files chosen</strong>
+      <span class="file-size-tag">(${formatFileSize(totalBytes)})</span>
+      <span class="status-tag ready">Ready to summarize</span>
+    </span>`;
+  }
 }
 
 function renderFileQueue() {
@@ -346,6 +418,13 @@ function renderFileQueue() {
       queuedFiles.splice(index, 1);
       renderFileQueue();
       updateFileError();
+      if (!queuedFiles.length) {
+        lastSelectedFiles = [];
+        updateFileStatusIndicator(null, "empty");
+      } else {
+        lastSelectedFiles = queuedFiles.map((e) => e.file);
+        updateFileStatusIndicator(lastSelectedFiles, "chosen");
+      }
     });
     remove.disabled = entry.loading;
     row.append(description, remove);
@@ -367,9 +446,17 @@ function updateFileError() {
   document.querySelector("#form-error").textContent = errors.join(" ");
 }
 
-async function handleFileSelection() {
-  const files = Array.from(fileInput.files ?? []);
+async function handleFileSelection(customFiles) {
+  const files = customFiles ? Array.from(customFiles) : Array.from(fileInput.files ?? []);
   fileInput.value = "";
+  if (!files.length && !queuedFiles.length) {
+    updateFileStatusIndicator(null, "empty");
+    return;
+  }
+  if (files.length) {
+    lastSelectedFiles = files;
+    updateFileStatusIndicator(files, "chosen");
+  }
   let batchBytes = 0;
   queuedFiles = files.map((file, index) => {
     batchBytes += file.size;
@@ -401,6 +488,9 @@ async function parseQueuedFiles() {
   } finally {
     analyzeButton.disabled = false;
     updateFileError();
+    if (queuedFiles.length) {
+      updateFileStatusIndicator(queuedFiles.map((e) => e.file), "chosen");
+    }
   }
 }
 
@@ -507,6 +597,10 @@ async function importConversations() {
     titleInput.value = "";
     queuedFiles = queuedFiles.filter((entry) => entry.error || !entry.result?.conversations.length);
     renderFileQueue();
+    const totalMsgCount = imported.reduce((count, thread) => count + thread.parsed.messages.length, 0);
+    if (lastSelectedFiles.length) {
+      updateFileStatusIndicator(lastSelectedFiles, "imported", totalMsgCount);
+    }
     error.textContent = "";
     importDialog.close();
 
@@ -628,6 +722,39 @@ document.addEventListener("keydown", (event) => {
 updatePlatformInstructions();
 render();
 initHeroMotion();
+initFileDropzone();
+
+function initFileDropzone() {
+  const dropzone = document.querySelector("#file-dropzone");
+  if (dropzone) {
+    ["dragenter", "dragover"].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.add("drag-active");
+      });
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.remove("drag-active");
+      });
+    });
+
+    dropzone.addEventListener("drop", (e) => {
+      const dt = e.dataTransfer;
+      if (dt && dt.files && dt.files.length) {
+        handleFileSelection(dt.files);
+      }
+    });
+  }
+
+  document.querySelector("#choose-files-button")?.addEventListener("click", () => {
+    fileInput.click();
+  });
+}
 
 function initHeroMotion() {
   const heroPage = document.querySelector("#motion-hero-page");

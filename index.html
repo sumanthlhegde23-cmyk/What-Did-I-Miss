@@ -199,9 +199,19 @@
       <label class="input-label" for="mention-keywords">Your name or mention keywords <span>(optional, comma-separated)</span></label>
       <input id="mention-keywords" class="title-input" type="text" placeholder="Enter only what you want highlighted">
       <div class="sample-row"><button class="text-button" id="sample-button" type="button">Try fictional sample</button><span>Sample stays optional and is never preloaded.</span></div>
-      <div class="file-import">
+      <div class="file-import" id="file-dropzone">
         <label class="input-label" for="conversation-files">2. Import chat export(s)</label>
-        <div class="file-picker-row"><input id="conversation-files" type="file" accept=".txt,.json,.html,.htm,.zip,.csv,text/plain,application/json,text/html,application/zip,application/x-zip-compressed,text/csv" multiple aria-label="Choose exported chat files"><span>Works with saved WhatsApp, Telegram, Instagram, and Facebook Messenger exports: .txt, .json, .html, .csv, or ZIP. On mobile, save the export to Files/Downloads first.</span></div>
+        <div class="file-picker-row">
+          <label class="custom-file-btn" for="conversation-files">
+            <span class="file-btn-icon" aria-hidden="true">📂</span>
+            <span class="file-btn-text">Choose Files</span>
+          </label>
+          <input id="conversation-files" class="visually-hidden-file-input" type="file" accept=".txt,.json,.html,.htm,.zip,.csv,text/plain,application/json,text/html,application/zip,application/x-zip-compressed,text/csv" multiple aria-label="Choose exported chat files">
+          <div class="file-chosen-status" id="file-chosen-status" aria-live="polite">
+            <span class="file-status-pill empty"><span class="status-dot"></span>No file chosen</span>
+          </div>
+        </div>
+        <span class="file-picker-note">Works with saved WhatsApp, Telegram, Instagram, and Facebook Messenger exports: .txt, .json, .html, .csv, or ZIP. Drag & drop files here anytime.</span>
         <div class="file-queue" id="file-queue" aria-live="polite"></div>
       </div>
       <div class="dialog-footer"><span><span class="tiny-lock">⌑</span> Parsed and summarized in this browser. Files are never uploaded.</span><button class="primary-button" id="analyze-button" type="button">Summarize Messages <span>→</span></button></div>
