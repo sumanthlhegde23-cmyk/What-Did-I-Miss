@@ -1,9 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 64" fill="none">
-  <rect x="63" width="289" height="64" rx="14" fill="#fff"/>
-  <rect x="0" y="4" width="56" height="56" rx="17" fill="#111B35"/>
-  <path d="M9.5 21A7 7 0 0 1 16.5 14h15a7 7 0 0 1 7 7v9a7 7 0 0 1-7 7h-7.2l-9.3 7.8v-8A7 7 0 0 1 9.5 30z" stroke="#F7F9FF" stroke-width="3" stroke-linejoin="round"/>
-  <circle cx="39" cy="42" r="10" fill="#6575F5" stroke="#111B35" stroke-width="3"/>
-  <path d="m35.2 42 2.7 2.7 5.1-5.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="72" y="41" fill="#111B35" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="-.8">What Did I Miss?</text>
-  <text x="73" y="55" fill="#6575F5" font-family="Segoe UI, Arial, sans-serif" font-size="8" font-weight="700" letter-spacing="1.8">CATCH UP. FOCUS ON WHAT MATTERS.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 560" fill="none">
+  <defs>
+    <!-- Background squircle gradient: rich royal purple to deep midnight indigo -->
+    <linearGradient id="logo-bg" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#4938b8"/>
+      <stop offset="42%" stop-color="#34229f"/>
+      <stop offset="100%" stop-color="#180e54"/>
+    </linearGradient>
+
+    <!-- Golden notification dot gradient -->
+    <linearGradient id="logo-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbd55f"/>
+      <stop offset="45%" stop-color="#f0ae2d"/>
+      <stop offset="100%" stop-color="#d68c14"/>
+    </linearGradient>
+
+    <!-- Subtle soft shadow for speech bubble -->
+    <filter id="logo-bubble-shadow" x="0" y="0" width="512" height="512" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#120938" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <!-- Ground contact shadow -->
+  <ellipse cx="256" cy="406" rx="140" ry="14" fill="#140b3d" opacity="0.45"/>
+
+  <!-- Main Squircle Icon Container (Scaled to fit nicely above text) -->
+  <g transform="translate(48, 10) scale(0.8125)">
+    <rect x="44" y="38" width="424" height="424" rx="112" fill="url(#logo-bg)"/>
+    <rect x="45" y="39" width="422" height="422" rx="111" fill="none" stroke="rgba(255, 255, 255, 0.16)" stroke-width="2"/>
+
+    <!-- Chat Speech Bubble with Bottom-Left Tail -->
+    <g filter="url(#logo-bubble-shadow)">
+      <path d="M 198 126 H 332 A 66 66 0 0 1 398 192 V 292 A 66 66 0 0 1 332 358 H 222 L 166 410 C 160 415 164 388 170 370 L 172 358 A 66 66 0 0 1 132 292 V 192 A 66 66 0 0 1 198 126 Z" fill="#F4F3FC"/>
+    </g>
+
+    <!-- Golden Notification Badge Dot -->
+    <circle cx="396" cy="138" r="27" fill="url(#logo-gold)"/>
+
+    <!-- Clock Rewind Circular Arrow -->
+    <path d="M 276 291 A 48 48 0 1 1 305 218" fill="none" stroke="#26196A" stroke-width="15" stroke-linecap="round"/>
+    <path d="M 292 225 L 313 209 L 321 233 Z" fill="#26196A" stroke="#26196A" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- Clock Hands (Hour & Minute hands) -->
+    <path d="M 262 216 V 248 H 284" fill="none" stroke="#26196A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Wordmark Text matching user logo: "whatdidi" (indigo) + "miss" (golden amber) -->
+  <g text-anchor="middle" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', Roboto, sans-serif" font-weight="800" font-size="52" letter-spacing="-1">
+    <text x="256" y="490">
+      <tspan fill="#261B68">whatdidi</tspan><tspan fill="#DBA135">miss</tspan>
+    </text>
+  </g>
 </svg>

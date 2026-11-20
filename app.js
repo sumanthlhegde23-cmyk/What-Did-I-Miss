@@ -627,3 +627,75 @@ document.addEventListener("keydown", (event) => {
 
 updatePlatformInstructions();
 render();
+initHeroMotion();
+
+function initHeroMotion() {
+  const heroPage = document.querySelector("#motion-hero-page");
+  if (!heroPage) return;
+
+  const DURATION_MS = 3600; // 3.6 seconds (in the 3-4s range)
+  let timerId = null;
+
+  function dismissHero() {
+    if (timerId) {
+      clearTimeout(timerId);
+      timerId = null;
+    }
+    heroPage.classList.add("fade-out");
+    setTimeout(() => {
+      heroPage.style.display = "none";
+    }, 650);
+  }
+
+  // Auto-dismiss after 3.6 seconds
+  timerId = setTimeout(dismissHero, DURATION_MS);
+
+  // Skip button click
+  const skipBtn = document.querySelector("#skip-hero-btn");
+  if (skipBtn) {
+    skipBtn.addEventListener("click", dismissHero);
+  }
+
+  // Keyboard dismiss (Escape, Space, Enter)
+  window.addEventListener("keydown", (e) => {
+    if (heroPage.style.display !== "none" && !heroPage.classList.contains("fade-out")) {
+      if (e.key === "Escape" || e.key === " " || e.key === "Enter") {
+        dismissHero();
+      }
+    }
+  });
+
+  // Replay motion triggers
+  document.querySelectorAll(".replay-motion-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      heroPage.style.display = "flex";
+      heroPage.classList.remove("fade-out");
+
+      // Reset and retrigger animations
+      const content = heroPage.querySelector(".hero-motion-content");
+      if (content) {
+        content.style.animation = "none";
+        content.offsetHeight;
+        content.style.animation = "";
+      }
+      const svg = heroPage.querySelector(".hero-motion-clock-svg");
+      if (svg) {
+        const animatedEls = svg.querySelectorAll(".hero-clock-outer-boundary, .hero-clock-track, .hero-clock-arrow, .hero-clock-pivot, .hero-hour-hand, .hero-minute-hand");
+        animatedEls.forEach((el) => {
+          el.style.animation = "none";
+          el.offsetHeight;
+          el.style.animation = "";
+        });
+      }
+      const progressBar = heroPage.querySelector(".hero-progress-bar");
+      if (progressBar) {
+        progressBar.style.animation = "none";
+        progressBar.offsetHeight;
+        progressBar.style.animation = "";
+      }
+
+      if (timerId) clearTimeout(timerId);
+      timerId = setTimeout(dismissHero, DURATION_MS);
+    });
+  });
+}

@@ -102,6 +102,14 @@ People fall behind in busy group conversations and can miss important updates, d
 - **Files/components affected:** Created `how-to-use.html`; updated `styles.css`, `index.html`, `app.js`, `README.md`, and `prompt.md`.
 - **Outcome and verification:** Built `how-to-use.html` with platform tabs (WhatsApp iOS/Android, Telegram Desktop JSON/HTML, Instagram DM JSON, Facebook Messenger, CSV/plain text), quick start flow, feature breakdown, bidirectional context verification demo, technical limits table, sample copy playground, accordion FAQ, and quick-jump navigation. Integrated links across `index.html` navigation, topbar, first-launch banner, import dialog, and footer. Verified all 28 unit tests pass with `node --test` and syntax check with `node --check`.
 
+### 3.6 New app logo integration & motion-driven hero page
+
+- **Actual prompt/instruction:** "This is the new logo created by me so replace the old logo of the app with new, good looking logo. Make sure it fits perfectly in logo part.\" then, create a motion-driven hero page for my project what did I miss which should appear for 3-4 seconds  where initially the clock should be white, with it's boundray visible and clock's colour should turn from white to blue in the duration and colour of the hands should turn from white to golden colour in that same duration. \" the things in double quots is only for motion pitcure for hero page. do not make any changes in the app logo. commit and push"
+- **AI tool/model:** Antigravity (Gemini 3.8 Flash).
+- **Purpose:** Replace all instances of the old app logo with the user's new brand design (purple-indigo squircle, white speech bubble, golden notification dot, purple rewind clock, and dual-color `whatdidi` + `miss` wordmark). Create a motion-driven hero page with a 3.5s animation transforming the clock from white to vibrant blue and hands from white to golden amber, resolving smoothly into the workspace with skip and replay controls.
+- **Files/components affected:** `public/assets/what-did-i-miss-mark.svg`, `public/assets/what-did-i-miss-icon.svg`, `public/assets/what-did-i-miss-logo.svg`, `public/assets/what-did-i-miss-monochrome.svg`, `index.html`, `how-to-use.html`, `styles.css`, `app.js`, `prompt.md`.
+- **Outcome and verification:** Vectorized and integrated user logo across mark, favicon, sidebar, and welcome cards. Created motion hero overlay with exact color transitions, timing, skip/replay controls, and keyboard handlers. Verified `node --test` (28/28 passed) and `node --check`.
+
 ## 5. AI Features & Design
 
 - **AI integration:** No generative model, remote inference, or AI API integration is present in the current app. The “summary” is a local, deterministic, rule-based briefing. The analyzer should not be described to users as generative AI.

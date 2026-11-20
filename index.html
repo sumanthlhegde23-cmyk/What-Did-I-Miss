@@ -16,11 +16,60 @@
     <script src="app.js" defer></script>
   </head>
   <body>
+    <!-- Motion-Driven Hero Page: appears for 3-4s with clock color transition (white to blue) & hands (white to golden) -->
+    <div id="motion-hero-page" class="motion-hero-page" role="region" aria-label="What Did I Miss motion hero intro">
+      <button id="skip-hero-btn" class="skip-hero-btn" type="button" aria-label="Skip motion intro">
+        Skip Intro <span aria-hidden="true">✕</span>
+      </button>
+
+      <div class="hero-motion-content">
+        <!-- Ambient glowing aura -->
+        <div class="hero-motion-glow" aria-hidden="true"></div>
+
+        <!-- Clock Graphic Frame -->
+        <div class="hero-bubble-frame">
+          <svg class="hero-motion-clock-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rewind Clock transition animation">
+            <!-- 1. Outer boundary (visible boundary initially white -> turning blue) -->
+            <circle class="hero-clock-outer-boundary" cx="100" cy="100" r="78"/>
+
+            <!-- 2. Circular track body with rewind arrow (initially white -> turning blue) -->
+            <g class="hero-clock-body">
+              <!-- Rewind circular arc -->
+              <path class="hero-clock-track" d="M 106 166 A 68 68 0 1 1 146 64"/>
+              <!-- Arrow head -->
+              <path class="hero-clock-arrow" d="M 130 73 L 158 50 L 168 85 Z"/>
+            </g>
+
+            <!-- 3. Clock Hands: Initially white -> turning golden color -->
+            <g class="hero-clock-hands">
+              <!-- Pivot dot -->
+              <circle class="hero-clock-pivot" cx="100" cy="100" r="7"/>
+              <!-- Hour Hand -->
+              <line class="hero-hand hero-hour-hand" x1="100" y1="100" x2="100" y2="58"/>
+              <!-- Minute Hand -->
+              <line class="hero-hand hero-minute-hand" x1="100" y1="100" x2="134" y2="100"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Animated Brand Wordmark: "whatdidi" (blue/white) + "miss" (golden) -->
+        <div class="hero-motion-brand">
+          <h1 class="hero-motion-title">
+            <span class="hero-title-part1">whatdidi</span><span class="hero-title-part2">miss</span>
+          </h1>
+          <p class="hero-motion-tagline">Catch up. Focus on what matters.</p>
+          <div class="hero-motion-progress" aria-hidden="true">
+            <div class="hero-progress-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="app-shell">
       <aside class="sidebar">
         <a class="brand" href="#" aria-label="What Did I Miss? home">
-          <img class="brand-symbol" src="public/assets/what-did-i-miss-mark.svg" alt="">
-          <span class="brand-wordmark">What Did I Miss?</span>
+          <img class="brand-symbol" src="public/assets/what-did-i-miss-mark.svg" alt="What Did I Miss?">
+          <span class="brand-wordmark">whatdidi<span class="brand-wordmark-gold">miss</span></span>
         </a>
 
         <div class="workspace-switcher">
@@ -58,6 +107,7 @@
         <header class="topbar">
           <div class="topbar-leading"><img class="topbar-logo" src="public/assets/what-did-i-miss-mark.svg" alt=""><div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong>All conversations</strong></div></div>
           <div class="topbar-actions">
+            <button class="topbar-replay-btn replay-motion-btn" type="button" title="Replay Motion Intro" aria-label="Replay Motion Intro"><span aria-hidden="true">⟲</span> Motion</button>
             <a href="how-to-use.html" class="topbar-guide-link" title="Open How To Use Guide"><span aria-hidden="true">📖</span> How To Use</a>
             <span class="local-indicator"><span></span> 100% local</span>
             <button class="icon-button clear-button" id="clear-data-button" type="button" title="Clear imported conversations" aria-label="Clear imported conversations" hidden>⌫</button>
