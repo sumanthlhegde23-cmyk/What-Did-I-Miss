@@ -8,7 +8,7 @@
     <meta property="og:title" content="What Did I Miss?">
     <meta property="og:description" content="Catch up. Focus on what matters.">
     <title>What Did I Miss? — Conversation Catch-up</title>
-    <link rel="icon" type="image/svg+xml" href="public/assets/what-did-i-miss-icon.svg">
+    <link rel="icon" type="image/png" href="public/assets/what-did-i-miss-mark.png">
     <link rel="stylesheet" href="styles.css">
     <script src="message-parser.js" defer></script>
     <script src="universal-import.js" defer></script>
@@ -16,7 +16,7 @@
     <script src="app.js" defer></script>
   </head>
   <body>
-    <!-- Motion-Driven Hero Page: appears for 3-4s with clock color transition (white to blue) & hands (white to golden) -->
+    <!-- Motion-Driven Hero Page: Whole Logo displayed for 3-4s where clock turns from white to blue and hands from white to golden -->
     <div id="motion-hero-page" class="motion-hero-page" role="region" aria-label="What Did I Miss motion hero intro">
       <button id="skip-hero-btn" class="skip-hero-btn" type="button" aria-label="Skip motion intro">
         Skip Intro <span aria-hidden="true">✕</span>
@@ -26,41 +26,43 @@
         <!-- Ambient glowing aura -->
         <div class="hero-motion-glow" aria-hidden="true"></div>
 
-        <!-- Clock Graphic Frame -->
-        <div class="hero-bubble-frame">
-          <svg class="hero-motion-clock-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rewind Clock transition animation">
-            <!-- 1. Outer boundary (visible boundary initially white -> turning blue) -->
-            <circle class="hero-clock-outer-boundary" cx="100" cy="100" r="78"/>
+        <!-- The Whole Logo: Squircle Icon with Speech Bubble & Wordmark -->
+        <div class="hero-motion-logo-card">
+          <div class="motion-logo-icon-wrap">
+            <!-- Squircle app icon background with speech bubble & golden dot -->
+            <img class="motion-logo-icon-bg" src="public/assets/what-did-i-miss-mark-blank.png" alt="What Did I Miss app icon">
 
-            <!-- 2. Circular track body with rewind arrow (initially white -> turning blue) -->
-            <g class="hero-clock-body">
-              <!-- Rewind circular arc -->
-              <path class="hero-clock-track" d="M 106 166 A 68 68 0 1 1 146 64"/>
-              <!-- Arrow head -->
-              <path class="hero-clock-arrow" d="M 130 73 L 158 50 L 168 85 Z"/>
-            </g>
+            <!-- Animated Clock right inside the speech bubble of the whole logo -->
+            <div class="motion-clock-container">
+              <svg class="motion-hero-clock-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Clock transformation animation">
+                <!-- 1. Outer boundary: Initially white with visible boundary -> turning blue -->
+                <circle class="hero-clock-outer-boundary" cx="50" cy="50" r="39"/>
 
-            <!-- 3. Clock Hands: Initially white -> turning golden color -->
-            <g class="hero-clock-hands">
-              <!-- Pivot dot -->
-              <circle class="hero-clock-pivot" cx="100" cy="100" r="7"/>
-              <!-- Hour Hand -->
-              <line class="hero-hand hero-hour-hand" x1="100" y1="100" x2="100" y2="58"/>
-              <!-- Minute Hand -->
-              <line class="hero-hand hero-minute-hand" x1="100" y1="100" x2="134" y2="100"/>
-            </g>
-          </svg>
+                <!-- 2. Circular body & rewind arrow: Initially white -> turning blue -->
+                <g class="hero-clock-body">
+                  <path class="hero-clock-track" d="M 54 84 A 34 34 0 1 1 74 32"/>
+                  <path class="hero-clock-arrow" d="M 64 36 L 79 24 L 84 42 Z"/>
+                </g>
+
+                <!-- 3. Hands & pivot: Initially white -> turning golden color -->
+                <g class="hero-clock-hands">
+                  <circle class="hero-clock-pivot" cx="50" cy="50" r="4.5"/>
+                  <line class="hero-hand hero-hour-hand" x1="50" y1="50" x2="50" y2="28"/>
+                  <line class="hero-hand hero-minute-hand" x1="50" y1="50" x2="68" y2="50"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Wordmark text below squircle from the uploaded logo -->
+          <div class="motion-logo-wordmark">
+            <img src="public/assets/what-did-i-miss-text.png" alt="whatdidimiss">
+          </div>
         </div>
 
-        <!-- Animated Brand Wordmark: "whatdidi" (blue/white) + "miss" (golden) -->
-        <div class="hero-motion-brand">
-          <h1 class="hero-motion-title">
-            <span class="hero-title-part1">whatdidi</span><span class="hero-title-part2">miss</span>
-          </h1>
-          <p class="hero-motion-tagline">Catch up. Focus on what matters.</p>
-          <div class="hero-motion-progress" aria-hidden="true">
-            <div class="hero-progress-bar"></div>
-          </div>
+        <p class="hero-motion-tagline">Catch up. Focus on what matters.</p>
+        <div class="hero-motion-progress" aria-hidden="true">
+          <div class="hero-progress-bar"></div>
         </div>
       </div>
     </div>
@@ -68,7 +70,7 @@
     <div class="app-shell">
       <aside class="sidebar">
         <a class="brand" href="#" aria-label="What Did I Miss? home">
-          <img class="brand-symbol" src="public/assets/what-did-i-miss-mark.svg" alt="What Did I Miss?">
+          <img class="brand-symbol" src="public/assets/what-did-i-miss-mark.png" alt="whatdidimiss">
           <span class="brand-wordmark">whatdidi<span class="brand-wordmark-gold">miss</span></span>
         </a>
 
@@ -105,7 +107,7 @@
 
       <main class="main-content">
         <header class="topbar">
-          <div class="topbar-leading"><img class="topbar-logo" src="public/assets/what-did-i-miss-mark.svg" alt=""><div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong>All conversations</strong></div></div>
+          <div class="topbar-leading"><img class="topbar-logo" src="public/assets/what-did-i-miss-mark.png" alt="whatdidimiss"><div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong>All conversations</strong></div></div>
           <div class="topbar-actions">
             <button class="topbar-replay-btn replay-motion-btn" type="button" title="Replay Motion Intro" aria-label="Replay Motion Intro"><span aria-hidden="true">⟲</span> Motion</button>
             <a href="how-to-use.html" class="topbar-guide-link" title="Open How To Use Guide"><span aria-hidden="true">📖</span> How To Use</a>
@@ -130,7 +132,7 @@
         </section>
 
         <section class="first-launch" id="first-launch">
-          <img class="welcome-logo" src="public/assets/what-did-i-miss-logo.svg" alt="What Did I Miss?">
+          <img class="welcome-logo" src="public/assets/what-did-i-miss-logo.jpg" alt="whatdidimiss">
           <div class="heading-kicker">YOUR PERSONAL CONVERSATION BRIEFING</div>
           <h2>What Did I Miss?</h2>
           <p>Your conversations move fast. Catch up on what matters without reading every message.</p>

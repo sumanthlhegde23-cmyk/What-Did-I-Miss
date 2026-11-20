@@ -278,7 +278,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .summary-stat > span { color: #738097; font-size: 10px; }
 .summary-decoration { color: #eff0ff; }
 .first-launch { max-width: 740px; margin: 25px auto 48px; padding: 37px clamp(18px,5vw,58px) 35px; border: 1px solid #e5e9f3; border-radius: 22px; background: #fff; box-shadow: 0 18px 50px #1525440a; text-align: center; }
-.welcome-logo { display: block; width: min(280px,80%); max-height: 290px; height: auto; margin: 0 auto 20px; object-fit: contain; filter: drop-shadow(0 12px 28px rgba(24, 15, 68, 0.12)); }
+.welcome-logo { display: block; width: min(340px,90%); max-height: 280px; height: auto; margin: 0 auto 20px; border-radius: 16px; object-fit: contain; filter: drop-shadow(0 10px 24px rgba(24, 15, 68, 0.1)); }
 .first-launch .heading-kicker { margin-bottom: 9px; }
 .first-launch h2 { margin: 8px 0 11px; color: #172442; font-size: clamp(27px,3.6vw,36px); letter-spacing: -1.2px; }
 .first-launch p { max-width: 520px; margin: 0 auto; color: #5f6d85; font-size: 15px; line-height: 1.65; }
@@ -1296,7 +1296,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 
 /* ==========================================================================
-   Motion-Driven Hero Page Styles
+   Motion-Driven Hero Page Styles (Whole Logo + Animated Clock)
    ========================================================================== */
 
 .motion-hero-page {
@@ -1306,8 +1306,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 40%, #1c1154 0%, #100a33 55%, #07041a 100%);
-  color: #ffffff;
+  background: radial-gradient(circle at 50% 45%, #f7f6fd 0%, #ece9f7 60%, #dedbf0 100%);
+  color: #1a104f;
   overflow: hidden;
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s;
 }
@@ -1319,21 +1319,21 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   visibility: hidden;
 }
 
-/* Ambient Background Lighting */
+/* Ambient Background Glow */
 .hero-motion-glow {
   position: absolute;
-  width: 460px;
-  height: 460px;
+  width: 520px;
+  height: 520px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(73, 56, 184, 0.5) 0%, rgba(37, 99, 235, 0.22) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(73, 56, 184, 0.16) 0%, rgba(37, 99, 235, 0.08) 50%, transparent 75%);
   filter: blur(55px);
   pointer-events: none;
   animation: heroAuraPulse 3.4s ease-in-out infinite alternate;
 }
 
 @keyframes heroAuraPulse {
-  0% { transform: scale(0.85); opacity: 0.5; }
-  100% { transform: scale(1.25); opacity: 0.9; }
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.2); opacity: 0.95; }
 }
 
 .hero-motion-content {
@@ -1344,29 +1344,57 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   align-items: center;
   text-align: center;
   padding: 24px;
-  max-width: 580px;
+  max-width: 600px;
   animation: heroContentIntro 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes heroContentIntro {
-  0% { opacity: 0; transform: translateY(24px) scale(0.95); }
+  0% { opacity: 0; transform: translateY(22px) scale(0.96); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Speech Bubble Framing Silhouette */
-.hero-bubble-frame {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  display: grid;
-  place-items: center;
-  margin-bottom: 22px;
+/* Whole Logo Container */
+.hero-motion-logo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Clock SVG Sizing */
-.hero-motion-clock-svg {
-  width: 195px;
-  height: 195px;
+.motion-logo-icon-wrap {
+  position: relative;
+  width: min(290px, 66vw);
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.motion-logo-icon-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 34px rgba(24, 15, 68, 0.18));
+}
+
+/* Clock positioned right inside the speech bubble of the whole logo */
+.motion-clock-container {
+  position: absolute;
+  top: 49.5%;
+  left: 51.5%;
+  transform: translate(-50%, -50%);
+  width: 33%;
+  height: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.motion-hero-clock-svg {
+  width: 100%;
+  height: 100%;
   overflow: visible;
 }
 
@@ -1374,15 +1402,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .hero-clock-outer-boundary {
   fill: none;
   stroke: #ffffff;
-  stroke-width: 2.5;
-  opacity: 0.85;
+  stroke-width: 2.6;
+  opacity: 0.95;
   animation: clockBoundaryTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .hero-clock-track {
   fill: none;
   stroke: #ffffff;
-  stroke-width: 14;
+  stroke-width: 9.5;
   stroke-linecap: round;
   animation: clockColorTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
@@ -1390,7 +1418,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .hero-clock-arrow {
   fill: #ffffff;
   stroke: #ffffff;
-  stroke-width: 2;
+  stroke-width: 1.5;
   stroke-linejoin: round;
   animation: clockArrowTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
@@ -1399,41 +1427,41 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   0% {
     stroke: #ffffff;
     opacity: 0.95;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
   }
   25% {
     stroke: #ffffff;
     opacity: 0.95;
-    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.95));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
   }
   65% {
-    stroke: #60a5fa;
-    opacity: 0.85;
-    filter: drop-shadow(0 0 15px rgba(96, 165, 250, 0.8));
+    stroke: #5b7df7;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 5px rgba(91, 125, 247, 0.65));
   }
   100% {
     stroke: #2563eb;
-    opacity: 0.95;
-    filter: drop-shadow(0 0 20px rgba(37, 99, 235, 1));
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.75));
   }
 }
 
 @keyframes clockColorTransition {
   0% {
     stroke: #ffffff;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.85));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
   }
   25% {
     stroke: #ffffff;
-    filter: drop-shadow(0 0 11px rgba(255, 255, 255, 0.9));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
   }
   65% {
-    stroke: #60a5fa;
-    filter: drop-shadow(0 0 16px rgba(96, 165, 250, 0.85));
+    stroke: #5b7df7;
+    filter: drop-shadow(0 0 6px rgba(91, 125, 247, 0.65));
   }
   100% {
     stroke: #2563eb;
-    filter: drop-shadow(0 0 24px rgba(37, 99, 235, 1));
+    filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.85));
   }
 }
 
@@ -1441,26 +1469,26 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   0% {
     fill: #ffffff;
     stroke: #ffffff;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.85));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   }
   25% {
     fill: #ffffff;
     stroke: #ffffff;
-    filter: drop-shadow(0 0 11px rgba(255, 255, 255, 0.9));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   }
   65% {
-    fill: #60a5fa;
-    stroke: #60a5fa;
-    filter: drop-shadow(0 0 16px rgba(96, 165, 250, 0.85));
+    fill: #5b7df7;
+    stroke: #5b7df7;
+    filter: drop-shadow(0 0 6px rgba(91, 125, 247, 0.65));
   }
   100% {
     fill: #2563eb;
     stroke: #2563eb;
-    filter: drop-shadow(0 0 24px rgba(37, 99, 235, 1));
+    filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.85));
   }
 }
 
-/* 2. CLOCK HANDS: Initially WHITE -> turns GOLDEN in the same duration */
+/* 2. CLOCK HANDS: Initially WHITE -> turns GOLDEN over the duration */
 .hero-clock-pivot {
   fill: #ffffff;
   stroke: none;
@@ -1469,9 +1497,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 .hero-hand {
   stroke: #ffffff;
-  stroke-width: 12;
+  stroke-width: 8;
   stroke-linecap: round;
-  transform-origin: 100px 100px;
+  transform-origin: 50px 50px;
   animation: handsColorTransition 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
@@ -1488,112 +1516,76 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @keyframes handsPivotTransition {
   0% {
     fill: #ffffff;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   }
   25% {
     fill: #ffffff;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   }
   65% {
-    fill: #fde047;
-    filter: drop-shadow(0 0 13px rgba(253, 224, 71, 0.85));
+    fill: #f5b838;
+    filter: drop-shadow(0 0 5px rgba(245, 184, 56, 0.7));
   }
   100% {
     fill: #dba135;
-    filter: drop-shadow(0 0 18px rgba(219, 161, 53, 1));
+    filter: drop-shadow(0 0 8px rgba(219, 161, 53, 0.85));
   }
 }
 
 @keyframes handsColorTransition {
   0% {
     stroke: #ffffff;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   }
   25% {
     stroke: #ffffff;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+    filter: drop-shadow(0 0 2px rgba(28, 16, 75, 0.65));
   }
   65% {
-    stroke: #fde047;
-    filter: drop-shadow(0 0 13px rgba(253, 224, 71, 0.85));
+    stroke: #f5b838;
+    filter: drop-shadow(0 0 6px rgba(245, 184, 56, 0.7));
   }
   100% {
     stroke: #dba135;
-    filter: drop-shadow(0 0 20px rgba(219, 161, 53, 1));
+    filter: drop-shadow(0 0 10px rgba(219, 161, 53, 0.9));
   }
 }
 
 @keyframes hourHandSweep {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(-35deg);
-  }
-  60% {
-    transform: rotate(-160deg);
-  }
-  100% {
-    transform: rotate(-90deg);
-  }
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-35deg); }
+  60% { transform: rotate(-160deg); }
+  100% { transform: rotate(-90deg); }
 }
 
 @keyframes minuteHandSweep {
-  0% {
-    transform: rotate(0deg);
-  }
-  30% {
-    transform: rotate(-180deg);
-  }
-  70% {
-    transform: rotate(-540deg);
-  }
-  100% {
-    transform: rotate(-450deg);
-  }
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(-180deg); }
+  70% { transform: rotate(-540deg); }
+  100% { transform: rotate(-450deg); }
 }
 
-/* 3. Hero Brand Typography */
-.hero-motion-brand {
-  margin-top: 14px;
+/* Whole Logo Wordmark Text */
+.motion-logo-wordmark {
+  margin-top: 20px;
+  width: min(340px, 80vw);
+  max-width: 380px;
+  display: flex;
+  justify-content: center;
 }
 
-.hero-motion-title {
-  margin: 0 0 8px;
-  font-family: var(--font-display);
-  font-size: clamp(34px, 6vw, 48px);
-  font-weight: 800;
-  letter-spacing: -1.2px;
-  line-height: 1;
-}
-
-.hero-title-part1 {
-  color: #ffffff;
-  animation: titlePart1Transition 3.4s ease forwards;
-}
-
-.hero-title-part2 {
-  color: #ffffff;
-  animation: titlePart2Transition 3.4s ease forwards;
-}
-
-@keyframes titlePart1Transition {
-  0%, 25% { color: #ffffff; }
-  65% { color: #93c5fd; }
-  100% { color: #ffffff; }
-}
-
-@keyframes titlePart2Transition {
-  0%, 25% { color: #ffffff; }
-  65% { color: #fde047; }
-  100% { color: #dba135; }
+.motion-logo-wordmark img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .hero-motion-tagline {
-  margin: 0;
-  color: #a4b2d1;
+  margin: 14px 0 0;
+  color: #4b3d7a;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.3px;
   opacity: 0;
   animation: heroFadeIn 1s 0.8s ease forwards;
@@ -1608,16 +1600,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .hero-motion-progress {
   width: 140px;
   height: 3px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(43, 27, 112, 0.12);
   border-radius: 999px;
-  margin: 22px auto 0;
+  margin: 20px auto 0;
   overflow: hidden;
 }
 
 .hero-progress-bar {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #3b82f6, #dba135);
+  background: linear-gradient(90deg, #2563eb, #dba135);
   border-radius: 999px;
   animation: heroProgressFill 3.4s linear forwards;
 }
@@ -1637,10 +1629,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  color: #cbd5e1;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #3e306b;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(62, 48, 107, 0.18);
   border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(24, 15, 68, 0.08);
   backdrop-filter: blur(8px);
   font-size: 11px;
   font-weight: 600;
@@ -1649,9 +1642,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 
 .skip-hero-btn:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.3);
+  color: #1a104f;
+  background: #ffffff;
+  border-color: rgba(62, 48, 107, 0.35);
   transform: translateY(-1px);
 }
 
@@ -1684,16 +1677,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     padding: 6px 11px;
     font-size: 10px;
   }
-  .hero-bubble-frame {
-    width: 170px;
-    height: 170px;
+  .motion-logo-icon-wrap {
+    width: min(230px, 68vw);
   }
-  .hero-motion-clock-svg {
-    width: 150px;
-    height: 150px;
-  }
-  .hero-motion-title {
-    font-size: 32px;
+  .motion-logo-wordmark {
+    width: min(270px, 80vw);
+    margin-top: 14px;
   }
   .topbar-replay-btn {
     height: 32px;

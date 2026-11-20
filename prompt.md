@@ -110,6 +110,14 @@ People fall behind in busy group conversations and can miss important updates, d
 - **Files/components affected:** `public/assets/what-did-i-miss-mark.svg`, `public/assets/what-did-i-miss-icon.svg`, `public/assets/what-did-i-miss-logo.svg`, `public/assets/what-did-i-miss-monochrome.svg`, `index.html`, `how-to-use.html`, `styles.css`, `app.js`, `prompt.md`.
 - **Outcome and verification:** Vectorized and integrated user logo across mark, favicon, sidebar, and welcome cards. Created motion hero overlay with exact color transitions, timing, skip/replay controls, and keyboard handlers. Verified `node --test` (28/28 passed) and `node --check`.
 
+### 3.7 Whole logo hero motion page & exact uploaded logo preservation
+
+- **Actual prompt/instruction:** "in the motion pitcure the logo should be there and there initially the clock should be white, with it's boundray visible and clock's colour should turn from white to blue in the duration and colour of the hands should turn from white to golden colour in that same duration. you just only added clock in hero page. i said whole logo should be there. and one more thing, you changed logo from what i had sent it to you. do not make any changes. keep the logo as uploaded. again ia am saying in motion picture whole logo should be there and do changes what i mentioned above. do not amke any mistakes. commit and push"
+- **AI tool/model:** Antigravity (Gemini 3.8 Flash).
+- **Purpose:** Ensure the app uses the exact uploaded logo without alterations, and in the motion hero page, display the whole logo (squircle, speech bubble, golden notification dot, and wordmark) with the animated clock inside the bubble transitioning from white (with visible boundary) to blue, and hands from white to golden over 3-4s.
+- **Files/components affected:** `public/assets/what-did-i-miss-logo.jpg`, `public/assets/what-did-i-miss-mark.png`, `public/assets/what-did-i-miss-mark-blank.png`, `public/assets/what-did-i-miss-text.png`, `index.html`, `how-to-use.html`, `styles.css`, `prompt.md`.
+- **Outcome and verification:** Replaced app welcome logo with the exact uploaded `what-did-i-miss-logo.jpg` and sidebar/topbar/favicon with `what-did-i-miss-mark.png`. Re-engineered `#motion-hero-page` to present the whole logo with the overlaid animated clock. All 28 tests pass (`node --test`), syntax check passed (`node --check`).
+
 ## 5. AI Features & Design
 
 - **AI integration:** No generative model, remote inference, or AI API integration is present in the current app. The “summary” is a local, deterministic, rule-based briefing. The analyzer should not be described to users as generative AI.
