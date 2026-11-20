@@ -371,32 +371,49 @@ function updateFileStatusIndicator(files, state, extraCount = 0) {
   if (state === "imported") {
     const name = files.length === 1 ? files[0].name : `${files.length} files`;
     const countText = extraCount > 0 ? ` (${extraCount} msgs)` : "";
-    statusEl.innerHTML = `<span class="file-status-pill imported" title="${escapeHtml(name)}">
-      <span class="status-icon-check">✓</span>
-      <strong class="file-name-text">${escapeHtml(truncate(name, 28))}</strong>
-      <span class="status-tag success">Imported${countText}</span>
-    </span>`;
+    statusEl.innerHTML = `
+      <div class="file-status-pill imported" title="${escapeHtml(name)}">
+        <span class="status-icon-check">✓</span>
+        <div class="file-info-group">
+          <strong class="file-name-text">${escapeHtml(truncate(name, 35))}</strong>
+          <span class="file-meta-sub"><span class="status-tag success">Imported successfully</span>${countText}</span>
+        </div>
+      </div>`;
     return;
   }
 
   // Chosen / Ready state
   if (files.length === 1) {
     const f = files[0];
-    statusEl.innerHTML = `<span class="file-status-pill chosen" title="${escapeHtml(f.name)}">
-      <span class="status-icon-check">✓</span>
-      <strong class="file-name-text">${escapeHtml(truncate(f.name, 28))}</strong>
-      <span class="file-size-tag">(${formatFileSize(f.size)})</span>
-      <span class="status-tag ready">Ready to summarize</span>
-    </span>`;
+    statusEl.innerHTML = `
+      <div class="file-status-pill chosen" title="${escapeHtml(f.name)}">
+        <span class="status-icon-check">✓</span>
+        <div class="file-info-group">
+          <strong class="file-name-text">${escapeHtml(truncate(f.name, 35))}</strong>
+          <span class="file-meta-sub"><span class="file-size-tag">${formatFileSize(f.size)}</span> · <span class="status-tag ready">Ready to summarize</span></span>
+        </div>
+        <button type="button" class="file-clear-chip" title="Clear chosen file" aria-label="Clear chosen file">✕</button>
+      </div>`;
   } else {
     const totalBytes = files.reduce((acc, f) => acc + f.size, 0);
-    statusEl.innerHTML = `<span class="file-status-pill chosen" title="${files.length} files selected">
-      <span class="status-icon-check">✓</span>
-      <strong class="file-name-text">${files.length} files chosen</strong>
-      <span class="file-size-tag">(${formatFileSize(totalBytes)})</span>
-      <span class="status-tag ready">Ready to summarize</span>
-    </span>`;
+    statusEl.innerHTML = `
+      <div class="file-status-pill chosen" title="${files.length} files selected">
+        <span class="status-icon-check">✓</span>
+        <div class="file-info-group">
+          <strong class="file-name-text">${files.length} files chosen</strong>
+          <span class="file-meta-sub"><span class="file-size-tag">${formatFileSize(totalBytes)} total</span> · <span class="status-tag ready">Ready to summarize</span></span>
+        </div>
+        <button type="button" class="file-clear-chip" title="Clear all chosen files" aria-label="Clear all chosen files">✕</button>
+      </div>`;
   }
+
+  statusEl.querySelector(".file-clear-chip")?.addEventListener("click", () => {
+    queuedFiles = [];
+    lastSelectedFiles = [];
+    renderFileQueue();
+    updateFileError();
+    updateFileStatusIndicator(null, "empty");
+  });
 }
 
 function renderFileQueue() {
@@ -446,17 +463,28 @@ function updateFileError() {
   document.querySelector("#form-error").textContent = errors.join(" ");
 }
 
-async function handleFileSelection(customFiles) {
-  const files = customFiles ? Array.from(customFiles) : Array.from(fileInput.files ?? []);
-  fileInput.value = "";
-  if (!files.length && !queuedFiles.length) {
-    updateFileStatusIndicator(null, "empty");
+async function handleFileSelection(source) {
+  let files = [];
+  if (source && (Array.isArray(source) || source instanceof FileList)) {
+    files = Array.from(source);
+  } else if (source && source.target && source.target.files && source.target.files.length) {
+    files = Array.from(source.target.files);
+  } else if (fileInput && fileInput.files && fileInput.files.length) {
+    files = Array.from(fileInput.files);
+  }
+
+  if (fileInput) fileInput.value = "";
+
+  if (!files.length) {
+    if (!queuedFiles.length) {
+      updateFileStatusIndicator(null, "empty");
+    }
     return;
   }
-  if (files.length) {
-    lastSelectedFiles = files;
-    updateFileStatusIndicator(files, "chosen");
-  }
+
+  lastSelectedFiles = files;
+  updateFileStatusIndicator(files, "chosen");
+
   let batchBytes = 0;
   queuedFiles = files.map((file, index) => {
     batchBytes += file.size;
