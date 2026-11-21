@@ -13,6 +13,7 @@
     <script src="message-parser.js" defer></script>
     <script src="universal-import.js" defer></script>
     <script src="message-analyzer.js" defer></script>
+    <script src="love-analyzer.js" defer></script>
     <script src="sample-conversations.js" defer></script>
     <script src="app.js" defer></script>
   </head>
@@ -105,7 +106,18 @@
 
       <main class="main-content">
         <header class="topbar">
-          <div class="topbar-leading"><img class="topbar-logo" src="public/assets/what-did-i-miss-mark.png" alt="whatdidimiss"><div class="breadcrumb"><span data-i18n="breadcrumbWorkspace">Workspace</span><span class="breadcrumb-slash">/</span><strong data-i18n="breadcrumbConversations">All conversations</strong></div></div>
+          <div class="topbar-leading">
+            <button class="topbar-love-btn" id="topbar-love-btn" type="button" aria-haspopup="dialog" aria-expanded="false" title="Analyze Love &amp; Relationship Psychology">
+              <span class="love-heart-icon" aria-hidden="true">❤️</span>
+              <span class="love-btn-text">LOVE</span>
+            </button>
+            <img class="topbar-logo" src="public/assets/what-did-i-miss-mark.png" alt="whatdidimiss">
+            <div class="breadcrumb">
+              <span data-i18n="breadcrumbWorkspace">Workspace</span>
+              <span class="breadcrumb-slash">/</span>
+              <strong data-i18n="breadcrumbConversations">All conversations</strong>
+            </div>
+          </div>
           <div class="topbar-actions">
             <button class="topbar-replay-btn replay-motion-btn" type="button" title="Replay Motion Intro" aria-label="Replay Motion Intro"><span aria-hidden="true">⟲</span> <span data-i18n="replayMotion">Motion</span></button>
             <a href="how-to-use.html" class="topbar-guide-link" title="Open How To Use Guide"><span aria-hidden="true">📖</span> <span data-i18n="howToUseGuide">How To Use</span></a>
@@ -278,6 +290,90 @@
         </div>
         <div class="sample-cards-grid" id="sample-cards-grid">
           <!-- Populated dynamically with scenario cards -->
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Love & Relationship Psychology Analyzer Dialog -->
+    <dialog class="love-dialog" id="love-dialog" aria-labelledby="love-dialog-title">
+      <div class="love-dialog-header">
+        <div class="love-title-group">
+          <span class="love-badge-icon" aria-hidden="true">❤️</span>
+          <div>
+            <h2 id="love-dialog-title" class="love-dialog-title">Love &amp; Relationship Psychology Analyzer</h2>
+            <p class="love-dialog-subtitle">Calculates emotional attachment, romantic signals, and psychological reasons from chat conversations.</p>
+          </div>
+        </div>
+        <button class="icon-button close-dialog" id="close-love-dialog-btn" type="button" aria-label="Close Love Analyzer">×</button>
+      </div>
+
+      <div class="love-dialog-body">
+        <!-- Quick Sample Presets -->
+        <div class="love-samples-bar">
+          <span class="love-samples-label">⚡ Try Romance Samples:</span>
+          <div class="love-sample-chips">
+            <button type="button" class="love-sample-btn" data-love-sample="en">🇬🇧 English Romance</button>
+            <button type="button" class="love-sample-btn" data-love-sample="kn">🇮🇳 ಕನ್ನಡ (Kannada)</button>
+            <button type="button" class="love-sample-btn" data-love-sample="hi">🇮🇳 हिन्दी (Hindi)</button>
+          </div>
+        </div>
+
+        <!-- Input Section: Paste or Import -->
+        <div class="love-input-section">
+          <div class="love-field-block">
+            <label class="field-label" for="love-paste-input">
+              <strong>1. Paste conversation</strong>
+              <small>Timestamps, WhatsApp, Telegram, Instagram exports or "Name: message" lines</small>
+            </label>
+            <textarea id="love-paste-input" class="love-textarea" rows="7" placeholder="Paste conversation here... (e.g. [10:30 PM] Alex: Did you reach safely? I miss you ❤️)"></textarea>
+          </div>
+
+          <div class="love-field-block">
+            <label class="field-label" for="love-file-input">
+              <strong>2. Or import chat export file</strong>
+              <small>Works with .txt, .json, .csv, WhatsApp or Telegram exports</small>
+            </label>
+            <div class="file-picker-row">
+              <label class="file-picker-button" for="love-file-input">
+                <span class="file-picker-icon" aria-hidden="true">📂</span>
+                <span>Choose File</span>
+              </label>
+              <input type="file" id="love-file-input" class="visually-hidden" accept=".txt,.json,.csv,.html">
+              <span class="file-status-pill empty" id="love-file-status"><span class="status-dot"></span><span id="love-file-name-text">No file chosen</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="love-actions-row">
+          <button class="primary-button love-analyze-trigger-btn" id="love-analyze-btn" type="button">
+            <span>❤️ Calculate Love Findings</span>
+            <span>→</span>
+          </button>
+          <button class="ghost-button" id="love-clear-btn" type="button">Clear</button>
+        </div>
+        <p class="form-error" id="love-error-msg" role="alert" hidden></p>
+
+        <!-- Results Container (revealed on analysis) -->
+        <div class="love-results-container" id="love-results-container" hidden>
+          <div class="love-verdict-banner" id="love-verdict-banner">
+            <!-- Verdict title, love score badge, summary text -->
+          </div>
+
+          <!-- Participant Scores Comparison -->
+          <div class="love-participants-grid" id="love-participants-grid">
+            <!-- Score card per participant -->
+          </div>
+
+          <!-- Reasons Section -->
+          <div class="love-reasons-wrapper">
+            <div class="love-reasons-header">
+              <h3 class="love-reasons-title" id="love-reasons-title">Psychological &amp; Logical Reasons</h3>
+              <span class="love-reasons-count-badge" id="love-reasons-count-badge">0 Reasons</span>
+            </div>
+            <div class="love-reasons-list" id="love-reasons-list">
+              <!-- Rendered reason cards -->
+            </div>
+          </div>
         </div>
       </div>
     </dialog>

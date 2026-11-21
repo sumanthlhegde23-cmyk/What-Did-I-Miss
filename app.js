@@ -2066,7 +2066,229 @@ function initSamplePickerDialog() {
   });
 }
 
+function initLoveAnalyzerDialog() {
+  const loveBtn = document.querySelector("#topbar-love-btn");
+  const dialog = document.querySelector("#love-dialog");
+  const closeBtn = document.querySelector("#close-love-dialog-btn");
+  const pasteInput = document.querySelector("#love-paste-input");
+  const fileInput = document.querySelector("#love-file-input");
+  const fileStatus = document.querySelector("#love-file-status");
+  const fileNameText = document.querySelector("#love-file-name-text");
+  const analyzeBtn = document.querySelector("#love-analyze-btn");
+  const clearBtn = document.querySelector("#love-clear-btn");
+  const errorMsg = document.querySelector("#love-error-msg");
+  const resultsContainer = document.querySelector("#love-results-container");
+  const verdictBanner = document.querySelector("#love-verdict-banner");
+  const participantsGrid = document.querySelector("#love-participants-grid");
+  const reasonsList = document.querySelector("#love-reasons-list");
+  const reasonsCountBadge = document.querySelector("#love-reasons-count-badge");
+
+  if (!loveBtn || !dialog) return;
+
+  const LOVE_SAMPLES = {
+    en: [
+      "[10:15 PM] Alex: Hey Maya, did you reach home safely? It was raining so heavily!",
+      "[10:16 PM] Alex: Please make sure you have dinner and take some hot tea ❤️",
+      "[10:17 PM] Alex: I can't stop thinking about our conversation today. You looked so beautiful.",
+      "[10:20 PM] Maya: Yes reached. Thanks. Had some soup.",
+      "[11:45 PM] Alex: I miss you already babe. Sleep well, sweet dreams!",
+      "[11:46 PM] Alex: Next time we meet, we will go to that lakeside place together.",
+      "[11:48 PM] Maya: Goodnight."
+    ].join("\n"),
+    kn: [
+      "[10:30 PM] ರಮೇಶ್: ಪ್ರಿಯಾ, ಮನೆಗೆ ಹುಷಾರಾಗಿ ತಲುಪಿದ್ಯಾ? ಊಟ ಆಯ್ತಾ?",
+      "[10:31 PM] ರಮೇಶ್: ನಿನ್ನದೇ ಯೋಚನೆ ನನಗೆ. ನೀನು ತುಂಬಾ ಮುದ್ದಾಗಿದ್ದೀಯಾ ❤️",
+      "[10:32 PM] ರಮೇಶ್: ನಿನ್ನ ಪ್ರೀತಿ ನನ್ನ ಜೀವನ ಬಂಗಾರ. ಐ ಲವ್ ಯು.",
+      "[10:35 PM] ಪ್ರಿಯಾ: ಹೌದು ರಮೇಶ್, ಊಟ ಆಯ್ತು. ನೀನು ಊಟ ಮಾಡಿದ್ಯಾ?",
+      "[11:45 PM] ರಮೇಶ್: ನಾವು ಒಟ್ಟಿಗೆ ಮುಂದಿನ ವಾರ ಭೇಟಿಯಾಗೋಣ. ಶುಭ ರಾತ್ರಿ ಚಿನ್ನ, ಸಿಹಿ ಕನಸು!"
+    ].join("\n"),
+    hi: [
+      "[10:15 PM] कबीर: जोया, घर सुरक्षित पहुंच गई? खाना खाया तुमने?",
+      "[10:16 PM] कबीर: मुझे तुम्हारी बहुत याद आ रही है जानू ❤️",
+      "[10:17 PM] कबीर: तुम बहुत सुंदर लग रही थी आज।",
+      "[10:20 PM] जोया: हां कबीर, पहुंच गई। खाना भी खा लिया।",
+      "[11:30 PM] कबीर: हम दोनों साथ रहेंगे हमेशा। अपना ख्याल रखना। शुभ रात्रि स्वीट ड्रीम्स!"
+    ].join("\n")
+  };
+
+  function openDialog() {
+    if (typeof dialog.showModal === "function") {
+      dialog.showModal();
+    } else {
+      dialog.setAttribute("open", "");
+    }
+    loveBtn.setAttribute("aria-expanded", "true");
+  }
+
+  function closeDialog() {
+    dialog.close();
+    loveBtn.setAttribute("aria-expanded", "false");
+  }
+
+  loveBtn.addEventListener("click", openDialog);
+  closeBtn?.addEventListener("click", closeDialog);
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) closeDialog();
+  });
+
+  // Sample buttons
+  dialog.querySelectorAll(".love-sample-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const sampleKey = btn.dataset.loveSample;
+      if (LOVE_SAMPLES[sampleKey]) {
+        pasteInput.value = LOVE_SAMPLES[sampleKey];
+        if (errorMsg) errorMsg.hidden = true;
+        runLoveAnalysis();
+      }
+    });
+  });
+
+  // File input
+  fileInput?.addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (fileNameText) fileNameText.textContent = file.name;
+    if (fileStatus) {
+      fileStatus.classList.remove("empty");
+      fileStatus.classList.add("chosen");
+    }
+    const reader = new FileReader();
+    reader.onload = (loadEvt) => {
+      pasteInput.value = String(loadEvt.target?.result || "");
+      if (errorMsg) errorMsg.hidden = true;
+    };
+    reader.readAsText(file);
+  });
+
+  // Clear button
+  clearBtn?.addEventListener("click", () => {
+    pasteInput.value = "";
+    if (fileInput) fileInput.value = "";
+    if (fileNameText) fileNameText.textContent = "No file chosen";
+    if (fileStatus) {
+      fileStatus.classList.add("empty");
+      fileStatus.classList.remove("chosen");
+    }
+    if (resultsContainer) resultsContainer.hidden = true;
+    if (errorMsg) errorMsg.hidden = true;
+  });
+
+  // Calculate button
+  analyzeBtn?.addEventListener("click", runLoveAnalysis);
+
+  function runLoveAnalysis() {
+    const text = pasteInput.value.trim();
+    if (!text) {
+      if (errorMsg) {
+        errorMsg.textContent = "Please paste chat messages or choose a file to calculate love indicators.";
+        errorMsg.hidden = false;
+      }
+      return;
+    }
+    if (errorMsg) errorMsg.hidden = true;
+
+    if (!window.LoveMessageAnalyzer || typeof window.LoveMessageAnalyzer.analyzeLovePsychology !== "function") {
+      if (errorMsg) {
+        errorMsg.textContent = "Love analyzer engine is loading. Please try again.";
+        errorMsg.hidden = false;
+      }
+      return;
+    }
+
+    const findings = window.LoveMessageAnalyzer.analyzeLovePsychology(text);
+    renderLoveFindings(findings);
+  }
+
+  function renderLoveFindings(findings) {
+    if (!resultsContainer) return;
+    resultsContainer.hidden = false;
+
+    // 1. Verdict Banner
+    const isMutual = findings.mutualLove;
+    const winner = findings.winnerSender;
+    verdictBanner.innerHTML = `
+      <div class="love-verdict-tag">
+        <span>❤️</span>
+        <span>${isMutual ? "Psychological Assessment: Mutual Romantic Love" : "Psychological Assessment: Primary Romantic Attachment"}</span>
+      </div>
+      <h3 class="love-verdict-headline">${escapeHtml(findings.verdict)}</h3>
+      <p class="love-verdict-summary">${escapeHtml(findings.summaryText)}</p>
+    `;
+
+    // 2. Participants Comparison Grid
+    participantsGrid.innerHTML = findings.participants.map((p) => {
+      const isLead = winner === p.name || (isMutual && p.loveScore >= 50);
+      const scoreClass = p.loveScore >= 60 ? "high" : "";
+      return `
+        <div class="love-participant-card ${isLead ? "winner" : ""}">
+          <div class="love-participant-top">
+            <span class="love-participant-name">${escapeHtml(p.name)}</span>
+            <span class="love-score-badge ${scoreClass}">❤️ ${p.loveScore}% Love Score</span>
+          </div>
+          <div class="love-meter-track" role="progressbar" aria-valuenow="${p.loveScore}" aria-valuemin="0" aria-valuemax="100">
+            <div class="love-meter-bar" style="width: ${p.loveScore}%;"></div>
+          </div>
+          <div class="love-stat-chips">
+            <span class="love-stat-chip">💬 ${p.messages.length} messages</span>
+            <span class="love-stat-chip">❤️ ${p.affectionCount} affection cues</span>
+            <span class="love-stat-chip">🛡️ ${p.careCount} care check-ins</span>
+            <span class="love-stat-chip">🌙 ${p.lateNightCount} late-night</span>
+            <span class="love-stat-chip">⚡ ${p.doubleTexts} double-texts</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    // 3. Reasons List
+    if (reasonsCountBadge) {
+      reasonsCountBadge.textContent = `${findings.totalReasonsCount} Scientific Reasons Identified`;
+    }
+
+    if (findings.reasons.length === 0) {
+      reasonsList.innerHTML = `
+        <div class="love-reason-card">
+          <p class="love-observation">No overt romantic or emotional attachment indicators were found. The conversation appears casual or task-focused.</p>
+        </div>
+      `;
+    } else {
+      reasonsList.innerHTML = findings.reasons.map((r, idx) => {
+        const quotesHtml = r.quotes && r.quotes.length > 0
+          ? `
+            <div class="love-quotes-box">
+              <strong style="font-size: 11px; color: #9f1239;">Exact Quoted Evidence:</strong>
+              ${r.quotes.map((q) => `<div class="love-quote-pill">“${escapeHtml(q)}”</div>`).join("")}
+            </div>
+          `
+          : "";
+
+        return `
+          <div class="love-reason-card">
+            <div class="love-reason-header">
+              <span class="love-reason-cat">
+                <span>Reason ${idx + 1}:</span>
+                <strong>${escapeHtml(r.category)}</strong>
+              </span>
+              <span class="love-reason-person-badge">Person: ${escapeHtml(r.person)}</span>
+            </div>
+            <div class="love-psychology-box">
+              <strong>Psychological Principle:</strong>
+              ${escapeHtml(r.psychology)}
+            </div>
+            <div class="love-observation">
+              <strong>Behavioral Observation:</strong> ${escapeHtml(r.observation)}
+            </div>
+            ${quotesHtml}
+          </div>
+        `;
+      }).join("");
+    }
+
+    resultsContainer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
 initSamplePickerDialog();
+initLoveAnalyzerDialog();
 
 const helpButton = document.querySelector("#help-button");
 if (helpButton && helpButton.tagName !== "A") {
