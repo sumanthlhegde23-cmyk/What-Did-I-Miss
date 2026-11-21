@@ -13,6 +13,7 @@
     <script src="message-parser.js" defer></script>
     <script src="universal-import.js" defer></script>
     <script src="message-analyzer.js" defer></script>
+    <script src="sample-conversations.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -245,6 +246,42 @@
       <div class="dialog-footer"><span><span class="tiny-lock">⌑</span> <span data-i18n="dialogPrivacyNote">Parsed and summarized in this browser. Files are never uploaded.</span></span><button class="primary-button" id="analyze-button" type="button"><span data-i18n="btnSummarizeMessages">Summarize Messages</span> <span>→</span></button></div>
       <p class="form-error" id="form-error" role="alert"></p>
     </dialog>
+
+    <!-- Fictional Sample Picker Dialog with Multi-Language Selection -->
+    <dialog class="sample-picker-dialog" id="sample-picker-dialog" aria-labelledby="sample-dialog-title">
+      <div class="sample-dialog-header">
+        <div class="sample-dialog-title-wrap">
+          <button class="sample-dialog-back-btn" id="sample-dialog-back-btn" type="button" aria-label="Back to language list" hidden>
+            <span aria-hidden="true">←</span> <span data-i18n="backToLanguages">All Languages</span>
+          </button>
+          <div>
+            <h2 id="sample-dialog-title" class="sample-dialog-title" data-i18n="tryFictionalSampleTitle">Try Fictional Sample</h2>
+            <p id="sample-dialog-subtitle" class="sample-dialog-subtitle" data-i18n="sampleDialogSubtitle">Choose a language to preview realistic chat conversations.</p>
+          </div>
+        </div>
+        <button class="icon-button close-dialog" id="close-sample-dialog-btn" type="button" aria-label="Close sample picker">×</button>
+      </div>
+
+      <!-- Step 1: Language selection grid -->
+      <div class="sample-language-step" id="sample-language-step">
+        <p class="sample-step-prompt" data-i18n="sampleLangPrompt">In which language do you want a sample?</p>
+        <div class="sample-lang-grid" id="sample-lang-grid" role="radiogroup" aria-label="Select sample language">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- Step 2: 5-8 Samples for chosen language -->
+      <div class="sample-cards-step" id="sample-cards-step" hidden>
+        <div class="sample-cards-header">
+          <span class="sample-active-lang-badge" id="sample-active-lang-badge">Language · 6 samples</span>
+          <p class="sample-cards-instruction" data-i18n="selectSampleInstruction">Click on any sample to load it into your import window:</p>
+        </div>
+        <div class="sample-cards-grid" id="sample-cards-grid">
+          <!-- Populated dynamically with scenario cards -->
+        </div>
+      </div>
+    </dialog>
+
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>
 </html>

@@ -60,6 +60,14 @@ const SUPPORTED_LANGUAGES = [
 
 const TRANSLATIONS = {
   en: {
+    tryFictionalSampleTitle: "Try Fictional Sample",
+    sampleDialogSubtitle: "Choose a language to preview realistic chat conversations.",
+    sampleLangPrompt: "In which language do you want a sample?",
+    backToLanguages: "All Languages",
+    selectSampleInstruction: "Click on any sample to load it into your import window:",
+    useThisSample: "Use This Sample",
+    toastSampleLoaded: "Loaded fictional sample",
+    sampleCountText: "samples",
     workspaceTitle: "Catch up",
     workspaceSubtitle: "Your conversation workspace",
     navWorkspace: "YOUR WORKSPACE",
@@ -169,6 +177,14 @@ const TRANSLATIONS = {
     skipIntro: "Skip Intro"
   },
   kn: {
+    tryFictionalSampleTitle: "ಕಾಲ್ಪನಿಕ ಮಾದರಿ ಪ್ರಯತ್ನಿಸಿ",
+    sampleDialogSubtitle: "ನೈಜ ಚಾಟ್ ಸಂಭಾಷಣೆಗಳನ್ನು ಪರೀಕ್ಷಿಸಲು ಭಾಷೆಯನ್ನು ಆರಿಸಿ.",
+    sampleLangPrompt: "ಯಾವ ಭಾಷೆಯಲ್ಲಿ ನಿಮಗೆ ಮಾದರಿ ಸಂಭಾಷಣೆ ಬೇಕು?",
+    backToLanguages: "ಎಲ್ಲಾ ಭಾಷೆಗಳು",
+    selectSampleInstruction: "ಇಂಪೋರ್ಟ್ ವಿಂಡೋಗೆ ಲೋಡ್ ಮಾಡಲು ಯಾವುದೇ ಮಾದರಿಯ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ:",
+    useThisSample: "ಈ ಮಾದರಿ ಬಳಸಿ",
+    toastSampleLoaded: "ಕಾಲ್ಪನಿಕ ಮಾದರಿ ಲೋಡ್ ಮಾಡಲಾಗಿದೆ",
+    sampleCountText: "ಮಾದರಿಗಳು",
     workspaceTitle: "ಕ್ಯಾಚ್ ಅಪ್",
     workspaceSubtitle: "ನಿಮ್ಮ ಸಂಭಾಷಣೆ ಕಾರ್ಯಕ್ಷೇತ್ರ",
     navWorkspace: "ನಿಮ್ಮ ಕಾರ್ಯಕ್ಷೇತ್ರ",
@@ -278,6 +294,14 @@ const TRANSLATIONS = {
     skipIntro: "ಇಂಟ್ರೋ ಬಿಟ್ಟುಬಿಡಿ"
   },
   hi: {
+    tryFictionalSampleTitle: "काल्पनिक नमूना आज़माएं",
+    sampleDialogSubtitle: "यथार्थवादी चैट बातचीत देखने के लिए भाषा चुनें।",
+    sampleLangPrompt: "आप किस भाषा में नमूना चाहते हैं?",
+    backToLanguages: "सभी भाषाएं",
+    selectSampleInstruction: "इनपुट में लोड करने के लिए किसी भी नमूने पर क्लिक करें:",
+    useThisSample: "यह नमूना उपयोग करें",
+    toastSampleLoaded: "काल्पनिक नमूना लोड किया गया",
+    sampleCountText: "नमूने",
     workspaceTitle: "कैच अप",
     workspaceSubtitle: "आपका बातचीत कार्यक्षेत्र",
     navWorkspace: "आपका कार्यक्षेत्र",
@@ -387,6 +411,14 @@ const TRANSLATIONS = {
     skipIntro: "स्किप करें"
   },
   te: {
+    tryFictionalSampleTitle: "నమూనా సంభాషణను ప్రయత్నించండి",
+    sampleDialogSubtitle: "చాట్ సంభాషణలను చూడటానికి భాషను ఎంచుకోండి.",
+    sampleLangPrompt: "మీకు ఏ భాషలో నమూనా కావాలి?",
+    backToLanguages: "అన్ని భాషలు",
+    selectSampleInstruction: "ఇన్‌పుట్‌లోకి లోడ్ చేయడానికి ఏదైనా నమూనాపై క్లిక్ చేయండి:",
+    useThisSample: "ఈ నమూనాను ఉపయోగించండి",
+    toastSampleLoaded: "నమూనా సంభాషణ లోడ్ చేయబడింది",
+    sampleCountText: "నమూనాలు",
     workspaceTitle: "క్యాచ్ అప్",
     workspaceSubtitle: "మీ సంభాషణల వర్క్‌స్పేస్",
     navWorkspace: "మీ వర్క్‌స్పేస్",
@@ -496,6 +528,14 @@ const TRANSLATIONS = {
     skipIntro: "స్కిప్ చేయండి"
   },
   ta: {
+    tryFictionalSampleTitle: "மாதிரி உரையாடலை முயற்சிக்கவும்",
+    sampleDialogSubtitle: "உரையாடல்களைக் காண மொழியைத் தேர்ந்தெடுக்கவும்.",
+    sampleLangPrompt: "எந்த மொழியில் உங்களுக்கு மாதிரி வேண்டும்?",
+    backToLanguages: "அனைத்து மொழிகள்",
+    selectSampleInstruction: "உள்ளீட்டில் ஏற்ற ஏதேனும் மாதிரியைக் கிளிக் செய்யவும்:",
+    useThisSample: "இந்த மாதிரியைப் பயன்படுத்துங்கள்",
+    toastSampleLoaded: "மாதிரி ஏற்றப்பட்டது",
+    sampleCountText: "மாதிரிகள்",
     workspaceTitle: "கேட்ச் அப்",
     workspaceSubtitle: "உங்கள் உரையாடல் பணியிடம்",
     navWorkspace: "உங்கள் பணியிடம்",
@@ -605,6 +645,14 @@ const TRANSLATIONS = {
     skipIntro: "தவிர்"
   },
   ml: {
+    tryFictionalSampleTitle: "സാമ്പിൾ പരീക്ഷിക്കുക",
+    sampleDialogSubtitle: "സംഭാഷണങ്ങൾ കാണാൻ ഭാഷ തിരഞ്ഞെടുക്കുക.",
+    sampleLangPrompt: "ഏത് ഭാഷയിലാണ് നിങ്ങൾക്ക് സാമ്പിൾ വേണ്ടത്?",
+    backToLanguages: "എല്ലാ ഭാഷകളും",
+    selectSampleInstruction: "ഇൻപുട്ടിലേക്ക് ചേർക്കാൻ ഏതെങ്കിലും സാമ്പിളിൽ ക്ലിക്ക് ചെയ്യുക:",
+    useThisSample: "ഈ സാമ്പിൾ ഉപയോഗിക്കുക",
+    toastSampleLoaded: "സാമ്പിൾ ലോഡ് ചെയ്തു",
+    sampleCountText: "സാമ്പിളുകൾ",
     workspaceTitle: "ക്യാച്ച് അപ്പ്",
     workspaceSubtitle: "നിങ്ങളുടെ സംഭാഷണ വർക്ക്‌സ്‌പേസ്",
     navWorkspace: "നിങ്ങളുടെ വർക്ക്‌സ്‌പേസ്",
@@ -714,6 +762,14 @@ const TRANSLATIONS = {
     skipIntro: "ഒഴിവാക്കുക"
   },
   es: {
+    tryFictionalSampleTitle: "Probar muestra ficticia",
+    sampleDialogSubtitle: "Elige un idioma para ver conversaciones de muestra realistas.",
+    sampleLangPrompt: "¿En qué idioma deseas la muestra?",
+    backToLanguages: "Todos los idiomas",
+    selectSampleInstruction: "Haz clic en cualquier muestra para cargarla en la entrada:",
+    useThisSample: "Usar esta muestra",
+    toastSampleLoaded: "Muestra ficticia cargada",
+    sampleCountText: "muestras",
     workspaceTitle: "Ponerse al día",
     workspaceSubtitle: "Tu espacio de conversaciones",
     navWorkspace: "TU ESPACIO",
@@ -823,6 +879,14 @@ const TRANSLATIONS = {
     skipIntro: "Saltar intro"
   },
   fr: {
+    tryFictionalSampleTitle: "Essayer un échantillon fictif",
+    sampleDialogSubtitle: "Choisissez une langue pour prévisualiser des conversations réalistes.",
+    sampleLangPrompt: "Dans quelle langue souhaitez-vous un échantillon ?",
+    backToLanguages: "Toutes les langues",
+    selectSampleInstruction: "Cliquez sur un échantillon pour le charger dans la saisie :",
+    useThisSample: "Utiliser cet échantillon",
+    toastSampleLoaded: "Échantillon fictif chargé",
+    sampleCountText: "échantillons",
     workspaceTitle: "Rattraper",
     workspaceSubtitle: "Votre espace de discussion",
     navWorkspace: "VOTRE ESPACE",
@@ -932,6 +996,14 @@ const TRANSLATIONS = {
     skipIntro: "Passer l'intro"
   },
   de: {
+    tryFictionalSampleTitle: "Fiktives Beispiel ausprobieren",
+    sampleDialogSubtitle: "Wählen Sie eine Sprache, um realistische Chat-Konversationen anzuzeigen.",
+    sampleLangPrompt: "In welcher Sprache möchten Sie ein Beispiel?",
+    backToLanguages: "Alle Sprachen",
+    selectSampleInstruction: "Klicken Sie auf ein Beispiel, um es in die Eingabe zu laden:",
+    useThisSample: "Dieses Beispiel verwenden",
+    toastSampleLoaded: "Fiktives Beispiel geladen",
+    sampleCountText: "Beispiele",
     workspaceTitle: "Aufholen",
     workspaceSubtitle: "Ihr Konversationsbereich",
     navWorkspace: "IHR ARBEITSBEREICH",
@@ -1862,12 +1934,140 @@ document.querySelector("#source-platform").addEventListener("change", () => {
   updatePlatformInstructions();
   if (queuedFiles.length) handleFileSelectionForExistingFiles();
 });
-document.querySelector("#sample-button").addEventListener("click", () => {
-  document.querySelector("#conversation-title").value = "Sample launch conversation";
-  document.querySelector("#conversation-input").value = sampleConversation;
-  document.querySelector("#form-error").textContent = "";
-  document.querySelector("#conversation-input").focus();
-});
+
+function initSamplePickerDialog() {
+  const sampleDialog = document.querySelector("#sample-picker-dialog");
+  const sampleBtn = document.querySelector("#sample-button");
+  const closeBtn = document.querySelector("#close-sample-dialog-btn");
+  const backBtn = document.querySelector("#sample-dialog-back-btn");
+  const langStep = document.querySelector("#sample-language-step");
+  const cardsStep = document.querySelector("#sample-cards-step");
+  const langGrid = document.querySelector("#sample-lang-grid");
+  const cardsGrid = document.querySelector("#sample-cards-grid");
+  const activeBadge = document.querySelector("#sample-active-lang-badge");
+  const dialogSubtitle = document.querySelector("#sample-dialog-subtitle");
+
+  if (!sampleDialog || !sampleBtn) return;
+
+  function showLanguageSelection() {
+    langStep.removeAttribute("hidden");
+    cardsStep.setAttribute("hidden", "");
+    backBtn.setAttribute("hidden", "");
+    if (dialogSubtitle) dialogSubtitle.textContent = t("sampleDialogSubtitle");
+    renderLanguageGrid();
+  }
+
+  function renderLanguageGrid() {
+    const samplesData = window.SampleConversations || {};
+    langGrid.innerHTML = SUPPORTED_LANGUAGES.map((lang) => {
+      const list = samplesData[lang.code] || [];
+      return `
+        <button class="sample-lang-card" type="button" data-sample-lang="${escapeHtml(lang.code)}" aria-label="${escapeHtml(lang.nativeName)} ${list.length} ${escapeHtml(t("sampleCountText"))}">
+          <div class="sample-lang-card-main">
+            <span class="sample-lang-card-native">${escapeHtml(lang.nativeName)}</span>
+            <span class="sample-lang-card-eng">${escapeHtml(lang.name)}</span>
+          </div>
+          <span class="sample-lang-card-count">${list.length} ${escapeHtml(t("sampleCountText"))}</span>
+        </button>
+      `;
+    }).join("");
+
+    langGrid.querySelectorAll(".sample-lang-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        const langCode = card.dataset.sampleLang;
+        showSamplesForLanguage(langCode);
+      });
+    });
+  }
+
+  function showSamplesForLanguage(langCode) {
+    const samplesData = window.SampleConversations || {};
+    const langObj = SUPPORTED_LANGUAGES.find((l) => l.code === langCode);
+    const list = samplesData[langCode] || samplesData.en || [];
+
+    langStep.setAttribute("hidden", "");
+    cardsStep.removeAttribute("hidden");
+    backBtn.removeAttribute("hidden");
+
+    if (activeBadge) {
+      activeBadge.textContent = `${langObj?.nativeName || langCode} (${langObj?.name || ""}) · ${list.length} ${t("sampleCountText")}`;
+    }
+    if (dialogSubtitle) {
+      dialogSubtitle.textContent = `${t("selectSampleInstruction")} (${langObj?.nativeName || langCode})`;
+    }
+
+    cardsGrid.innerHTML = list.map((sample) => {
+      const firstLines = sample.text.split("\n").slice(0, 2).join("\n");
+      const tags = (sample.tags || []).map((tag) => `<span class="sample-scenario-tag">${escapeHtml(tag)}</span>`).join("");
+      return `
+        <div class="sample-scenario-card" data-sample-id="${escapeHtml(sample.id)}" role="button" tabindex="0">
+          <div class="sample-scenario-top">
+            <div class="sample-scenario-title-group">
+              <span class="sample-scenario-icon" aria-hidden="true">${escapeHtml(sample.icon || "💬")}</span>
+              <h3 class="sample-scenario-title">${escapeHtml(sample.title)}</h3>
+            </div>
+            <div class="sample-scenario-tags">${tags}</div>
+          </div>
+          <p class="sample-scenario-desc">${escapeHtml(sample.desc)}</p>
+          <pre class="sample-scenario-preview"><code>${escapeHtml(firstLines)}</code></pre>
+          <span class="sample-scenario-action">${escapeHtml(t("useThisSample"))} →</span>
+        </div>
+      `;
+    }).join("");
+
+    cardsGrid.querySelectorAll(".sample-scenario-card").forEach((card) => {
+      const onPick = () => {
+        const sampleId = card.dataset.sampleId;
+        const picked = list.find((s) => s.id === sampleId);
+        if (picked) {
+          document.querySelector("#conversation-title").value = picked.title;
+          const inputEl = document.querySelector("#conversation-input");
+          inputEl.value = picked.text;
+          document.querySelector("#form-error").textContent = "";
+          sampleDialog.close();
+          inputEl.focus();
+          inputEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          showToast(`${t("toastSampleLoaded")}: ${picked.title}`);
+        }
+      };
+
+      card.addEventListener("click", onPick);
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onPick();
+        }
+      });
+    });
+  }
+
+  sampleBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    showLanguageSelection();
+    if (typeof sampleDialog.showModal === "function") {
+      sampleDialog.showModal();
+    } else {
+      sampleDialog.setAttribute("open", "");
+    }
+  });
+
+  closeBtn?.addEventListener("click", () => {
+    sampleDialog.close();
+  });
+
+  backBtn?.addEventListener("click", () => {
+    showLanguageSelection();
+  });
+
+  sampleDialog.addEventListener("click", (e) => {
+    if (e.target === sampleDialog) {
+      sampleDialog.close();
+    }
+  });
+}
+
+initSamplePickerDialog();
+
 const helpButton = document.querySelector("#help-button");
 if (helpButton && helpButton.tagName !== "A") {
   helpButton.addEventListener("click", () => showToast("Files and messages are analyzed in this browser. They are not uploaded."));
